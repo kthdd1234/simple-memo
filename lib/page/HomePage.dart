@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:simple_memo_app/body/MemoBody.dart';
 import 'package:simple_memo_app/body/ImageBody.dart';
-import 'package:simple_memo_app/body/HistoryBody.dart';
+import 'package:simple_memo_app/body/SearchBody.dart';
 import 'package:simple_memo_app/body/MoreBody.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
-import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/provider/bottomTabIndexProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/constants.dart';
@@ -39,7 +38,7 @@ class _HomePageState extends State<HomePage> {
 
     List<Widget> bodyList = [
       const MemoBody(),
-      const HistoryBody(),
+      const SearchBody(),
       const ImageBody(),
       const MoreBody()
     ];

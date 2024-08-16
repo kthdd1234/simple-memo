@@ -14,7 +14,6 @@ class CommonText extends StatelessWidget {
     this.isBold,
     this.highlightColor,
     this.nameArgs,
-    this.onTap,
     this.textAlign,
     this.overflow,
     this.softWrap,
@@ -33,7 +32,6 @@ class CommonText extends StatelessWidget {
   bool? softWrap;
   TextDecoration? decoration;
   Color? decorationColor;
-  Function()? onTap;
 
   @override
   Widget build(BuildContext context) {

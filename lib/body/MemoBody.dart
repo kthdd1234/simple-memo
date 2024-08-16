@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonDivider.dart';
 import 'package:simple_memo_app/page/MemoCategoryPage.dart';
+import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/appBar/MemoAppBar.dart';
@@ -18,6 +20,15 @@ class MemoBody extends StatefulWidget {
 
 class _MemoBodyState extends State<MemoBody> {
   bool isShowCalendar = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<SelectedMemoCategoryIdProvider>().setId('📒기본 메모');
+    });
+
+    super.initState();
+  }
 
   onShowCalendar() {
     setState(() => isShowCalendar = !isShowCalendar);
@@ -51,7 +62,7 @@ class _MemoBodyState extends State<MemoBody> {
               CommonDivider(horizontal: 10, color: grey.s400),
               const MemoView(),
               CommonDivider(horizontal: 10, color: grey.s400),
-              const MemoCategoryList()
+              MemoCategoryList(categoryList: categoryList)
             ],
           );
         });

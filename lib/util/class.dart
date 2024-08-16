@@ -141,8 +141,8 @@ class PraiseTitleClass {
   String id, title, colorName;
 }
 
-class MemoGroupItemClass {
-  MemoGroupItemClass({required this.id, required this.name});
+class MemoCategoryClass {
+  MemoCategoryClass({required this.id, required this.name});
 
   String id, name;
 }

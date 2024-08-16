@@ -6,6 +6,7 @@ import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
+import 'package:simple_memo_app/common/CommonTag.dart';
 import 'package:simple_memo_app/provider/TextAlignProvider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
@@ -73,6 +74,23 @@ class _MemoPageState extends State<MemoPage> {
     setState(() => textController.text = '${textController.text}$time');
   }
 
+  onRemove(DateTime selectedDateTime) {
+    String locale = context.locale.toString();
+    String ymde =
+        ymdeShortFormatter(locale: locale, dateTime: selectedDateTime);
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertPopup(
+        desc: '$ymde\n일기를 삭제할까요?',
+        buttonText: '삭제하기',
+        height: 180,
+        isCancel: true,
+        onTap: () {},
+      ),
+    );
+  }
+
   onCompleted() {
     //
   }
@@ -82,6 +100,7 @@ class _MemoPageState extends State<MemoPage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<TextAlignProvider>().initTextAlign(widget.initTextAlign);
     });
+
     super.initState();
   }
 
@@ -96,18 +115,6 @@ class _MemoPageState extends State<MemoPage> {
       context.read<TextAlignProvider>().changeTextAlign();
     }
 
-    action({
-      required String name,
-      required double right,
-      required Color color,
-      required double width,
-    }) {
-      return Padding(
-        padding: EdgeInsets.only(right: right),
-        child: svgAsset(name: name, width: width, color: color),
-      );
-    }
-
     return CommonBackground(
       child: CommonScaffold(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -118,8 +125,17 @@ class _MemoPageState extends State<MemoPage> {
               dateTime: selectedDateTime,
             ),
             actions: [
-              action(name: 'star', right: 15, width: 20, color: Colors.black),
-              action(name: 'trash', right: 20, width: 21, color: red.s400)
+              Padding(
+                padding: const EdgeInsets.only(right: 15),
+                child: CommonTag(
+                  text: '📔기본 메모',
+                  textColor: textColor,
+                  bgColor: Colors.white,
+                  isNotTr: true,
+                  fontSize: 13,
+                  onTap: () {},
+                ),
+              ),
             ]),
         body: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -139,6 +155,7 @@ class _MemoPageState extends State<MemoPage> {
                           onGallery: onGallery,
                           onTextAlign: onTextAlign,
                           onClock: onClock,
+                          onRemove: () => onRemove(selectedDateTime),
                           onCompleted: onCompleted,
                         )
                   ],
@@ -155,8 +172,6 @@ class _MemoPageState extends State<MemoPage> {
                     textAlign: textAlign,
                     focusNode: focusNode,
                     fontSize: 14,
-                    onChanged: (_) => setState(() {}),
-                    cursorColor: textColor,
                   )
                 ],
               ),

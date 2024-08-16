@@ -32,49 +32,54 @@ class CommonOutlineInputField extends StatelessWidget {
 
     return Padding(
       padding: outerPadding ?? const EdgeInsets.all(0.0),
-      child: TextFormField(
-        style: TextStyle(
-          color: isLight ? textColor : darkTextColor,
-          fontWeight: isLight ? FontWeight.normal : FontWeight.bold,
-        ),
-        controller: controller,
-        autofocus: autofocus ?? true,
-        cursorColor: selectedColor,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(left: 25),
-          hintText: hintText.tr(),
-          hintStyle: TextStyle(color: grey.s400),
-          filled: true,
-          fillColor: isLight ? whiteBgBtnColor : const Color(0xff3D3E4B),
-          suffixIcon: GestureDetector(
-            onTap: onSuffixIcon,
-            child: UnconstrainedBox(
-              child: Container(
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: controller.text == ''
-                      ? isLight
-                          ? grey.s300
-                          : grey.original
-                      : selectedColor,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: const Icon(
-                  Icons.arrow_upward_rounded,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
+      child: SizedBox(
+        height: 40,
+        child: TextFormField(
+          style: TextStyle(
+            color: isLight ? textColor : darkTextColor,
+            fontWeight: isLight ? FontWeight.normal : FontWeight.bold,
+            fontSize: 14,
+          ),
+          controller: controller,
+          autofocus: autofocus ?? false,
+          cursorColor: selectedColor,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.only(left: 25),
+            hintText: hintText.tr(),
+            hintStyle: TextStyle(color: grey.s400),
+            filled: true,
+            fillColor: isLight ? Color(0xffEAEAEA) : const Color(0xff3D3E4B),
+            prefixIcon: Icon(Icons.search_rounded, color: grey.s400),
+            // suffixIcon: GestureDetector(
+            //   onTap: onSuffixIcon,
+            //   child: UnconstrainedBox(
+            //     child: Container(
+            //       width: 30,
+            //       height: 30,
+            //       decoration: BoxDecoration(
+            //         color: controller.text == ''
+            //             ? isLight
+            //                 ? grey.s300
+            //                 : grey.original
+            //             : selectedColor,
+            //         borderRadius: BorderRadius.circular(100),
+            //       ),
+            //       child: const Icon(
+            //         Icons.arrow_upward_rounded,
+            //         color: Colors.white,
+            //         size: 20,
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            border: OutlineInputBorder(
+              borderSide: const BorderSide(width: 0, style: BorderStyle.none),
+              borderRadius: BorderRadius.circular(10),
             ),
           ),
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(width: 0, style: BorderStyle.none),
-            borderRadius: BorderRadius.circular(100),
-          ),
+          onEditingComplete: onEditingComplete,
+          onChanged: onChanged,
         ),
-        onEditingComplete: onEditingComplete,
-        onChanged: onChanged,
       ),
     );
   }

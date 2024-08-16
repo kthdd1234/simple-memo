@@ -122,6 +122,12 @@ flutter:
     - assets/svgs/camera.svg
     - assets/svgs/gallery.svg
     - assets/svgs/trash.svg
+    - assets/svgs/dir-right.svg
+    - assets/svgs/search.svg
+    - assets/svgs/up-down.svg
+    - assets/svgs/down-up.svg
+    - assets/svgs/slide-show.svg
+    - assets/svgs/image-remove.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

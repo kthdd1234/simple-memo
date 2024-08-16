@@ -58,16 +58,19 @@ class CommonScaffold extends StatelessWidget {
         ),
       ),
       floatingActionButton: isFab == true
-          ? FloatingActionButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100),
+          ? Padding(
+              padding: const EdgeInsets.only(right: 10, bottom: 50),
+              child: FloatingActionButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                elevation: 0,
+                backgroundColor: Colors.white,
+                child: const Icon(Icons.add_rounded, size: 25),
+                onPressed: () {
+                  //
+                },
               ),
-              elevation: 0,
-              backgroundColor: Colors.white,
-              child: svgAsset(name: 'pencil', width: 18, color: Colors.black),
-              onPressed: () {
-                //
-              },
             )
           : const CommonNull(),
       bottomNavigationBar: bottomNavigationBar,

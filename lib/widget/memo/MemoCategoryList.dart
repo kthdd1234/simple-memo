@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonTag.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
+import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/constants.dart';
-import 'package:simple_memo_app/util/final.dart';
 
 class MemoCategoryList extends StatefulWidget {
-  const MemoCategoryList({super.key});
+  MemoCategoryList({super.key, required this.categoryList});
+
+  List<MemoCategoryClass> categoryList;
 
   @override
   State<MemoCategoryList> createState() => _MemoCategoryListState();
@@ -27,22 +29,22 @@ class _MemoCategoryListState extends State<MemoCategoryList> {
       child: SizedBox(
         height: 30,
         child: ListView.builder(
-          itemCount: groupList.length,
+          itemCount: widget.categoryList.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.only(right: 7),
             child: CommonTag(
-              text: groupList[index].name,
-              textColor: selectedMemoCategoryId == groupList[index].id
+              text: widget.categoryList[index].name,
+              textColor: selectedMemoCategoryId == widget.categoryList[index].id
                   ? Colors.white
                   : Colors.black,
-              bgColor: selectedMemoCategoryId == groupList[index].id
+              bgColor: selectedMemoCategoryId == widget.categoryList[index].id
                   ? textColor
                   : Colors.white,
-              isBold: selectedMemoCategoryId == groupList[index].id,
+              isBold: selectedMemoCategoryId == widget.categoryList[index].id,
               isNotTr: true,
               fontSize: 13,
-              onTap: () => onTag(groupList[index].id),
+              onTap: () => onTag(widget.categoryList[index].id),
             ),
           ),
         ),

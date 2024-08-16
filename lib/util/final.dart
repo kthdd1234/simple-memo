@@ -11,8 +11,8 @@ final bottomNavigationBarItemList = [
     label: '메모',
   ),
   const BottomNavigationBarItem(
-    icon: Icon(Icons.view_timeline_outlined),
-    label: '히스토리',
+    icon: Icon(Icons.search_rounded),
+    label: '검색',
   ),
   const BottomNavigationBarItem(
     icon: Icon(Icons.image_outlined),
@@ -321,11 +321,11 @@ Map<TextAlign, String> textAlignName = {
   TextAlign.right: 'right'
 };
 
-final groupList = [
-  MemoGroupItemClass(id: '📒기본 메모', name: '📒기본 메모'),
-  MemoGroupItemClass(id: '🥗다이어트', name: '🥗다이어트'),
-  MemoGroupItemClass(id: '👨‍💻코딩', name: '👨‍💻코딩'),
-  MemoGroupItemClass(id: '📚독서', name: '📚독서'),
-  MemoGroupItemClass(id: '📝일기', name: '📝일기'),
-  MemoGroupItemClass(id: '⚽️풋살', name: '⚽️풋살'),
+final categoryList = [
+  MemoCategoryClass(id: '📒기본 메모', name: '📒기본 메모'),
+  MemoCategoryClass(id: '🥗다이어트', name: '🥗다이어트'),
+  MemoCategoryClass(id: '👨‍💻코딩', name: '👨‍💻코딩'),
+  MemoCategoryClass(id: '📚독서', name: '📚독서'),
+  MemoCategoryClass(id: '📝일기', name: '📝일기'),
+  MemoCategoryClass(id: '⚽️풋살', name: '⚽️풋살'),
 ];

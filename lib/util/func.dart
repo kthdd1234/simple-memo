@@ -53,6 +53,13 @@ String ymdeShortFormatter(
   return DateFormat.yMEd(locale).format(dateTime);
 }
 
+String ymdeFullFormatter({
+  required String locale,
+  required DateTime dateTime,
+}) {
+  return DateFormat.yMMMMEEEEd(locale).format(dateTime);
+}
+
 String yMFormatter({required String locale, required DateTime dateTime}) {
   return DateFormat.yMMM(locale).format(dateTime);
 }
@@ -280,4 +287,8 @@ calendarDetailStyle(bool isLight) {
     ),
     outsideDaysVisible: false,
   );
+}
+
+svgWidget({required String name, required Function() onTap}) {
+  return InkWell(onTap: onTap, child: svgAsset(name: name, width: 20));
 }

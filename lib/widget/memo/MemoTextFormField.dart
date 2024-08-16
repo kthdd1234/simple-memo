@@ -9,16 +9,15 @@ class MemoTextFormField extends StatelessWidget {
   MemoTextFormField({
     super.key,
     required this.controller,
-    required this.onChanged,
-    required this.cursorColor,
-    this.focusNode,
     required this.textAlign,
+    this.focusNode,
     this.fontSize,
     this.autofocus,
     this.onEditingComplete,
     this.textInputAction,
     this.hintText,
     this.contentPadding,
+    this.isUnderline,
   });
 
   TextEditingController controller;
@@ -29,8 +28,7 @@ class MemoTextFormField extends StatelessWidget {
   FocusNode? focusNode;
   TextInputAction? textInputAction;
   EdgeInsets? contentPadding;
-  Color? cursorColor;
-  Function(String) onChanged;
+  bool? isUnderline;
   Function()? onEditingComplete;
 
   @override
@@ -43,7 +41,7 @@ class MemoTextFormField extends StatelessWidget {
       autofocus: autofocus ?? true,
       maxLines: null,
       minLines: null,
-      cursorColor: cursorColor,
+      cursorColor: textColor,
       textInputAction: textInputAction ?? TextInputAction.newline,
       style: TextStyle(
         fontSize: fontSize,
@@ -55,11 +53,16 @@ class MemoTextFormField extends StatelessWidget {
         contentPadding: contentPadding ??
             const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         isDense: true,
-        border: InputBorder.none,
         hintText: hintText ?? '메모를 입력해주세요 :D'.tr(),
         hintStyle: TextStyle(color: grey.s400),
+        border: isUnderline != true ? InputBorder.none : null,
+        enabledBorder: isUnderline == true
+            ? UnderlineInputBorder(borderSide: BorderSide(color: grey.s400))
+            : null,
+        focusedBorder: isUnderline == true
+            ? UnderlineInputBorder(borderSide: BorderSide(color: textColor))
+            : null,
       ),
-      onChanged: onChanged,
       onEditingComplete: onEditingComplete,
     );
   }
