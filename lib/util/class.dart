@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:simple_memo_app/util/final.dart';
 
 class AppBarInfoClass {
   AppBarInfoClass({
@@ -164,7 +165,7 @@ class MemoInfoClass {
       : categoryId = json['categoryId'] as String,
         imageList = json['imageList'] as List<Uint8List>?,
         memo = json['memo'] as String?,
-        textAlign = json['textAlign'] as TextAlign;
+        textAlign = textAlignInfo[json['textAlign']] as TextAlign;
 
   Map<String, dynamic> toJson() => {
         'categoryId': categoryId,

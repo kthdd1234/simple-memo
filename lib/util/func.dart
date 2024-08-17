@@ -315,5 +315,5 @@ MemoInfoClass? getMemoInfo(DateTime dateTime, String categoryId) {
   int index =
       memoInfoList.indexWhere((info) => info['categoryId'] == categoryId);
 
-  return index > 0 ? MemoInfoClass.fromJson(memoInfoList[index]) : null;
+  return index != -1 ? MemoInfoClass.fromJson(memoInfoList[index]) : null;
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +31,7 @@ class _MemoViewState extends State<MemoView> {
     String categoryId =
         context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
     String? memo = getMemoInfo(selectedDateTime, categoryId)?.memo;
+    log(memo ?? '');
     // todo
 
     return Expanded(
