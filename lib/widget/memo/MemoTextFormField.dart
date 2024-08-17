@@ -58,7 +58,7 @@ class MemoTextFormField extends StatelessWidget {
         contentPadding: contentPadding ??
             const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         isDense: true,
-        hintText: hintText ?? '메모를 입력해주세요 :D'.tr(),
+        hintText: hintText ?? '메모를 입력해주세요.'.tr(),
         hintStyle: TextStyle(color: grey.s400),
         border: isUnderline != true ? InputBorder.none : null,
         enabledBorder: isUnderline == true

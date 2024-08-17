@@ -1,12 +1,13 @@
 import 'dart:typed_data';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:simple_memo_app/common/CommonTag.dart';
+import 'package:simple_memo_app/model/record_box/record_box.dart';
+import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/TextAlignProvider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
@@ -19,9 +20,9 @@ import 'package:simple_memo_app/widget/memo/MemoTextFormField.dart';
 import 'package:simple_memo_app/widget/popup/AlertPopup.dart';
 
 class MemoPage extends StatefulWidget {
-  MemoPage({super.key, required this.initTextAlign});
+  MemoPage({super.key, this.initMemoInfo});
 
-  TextAlign initTextAlign;
+  MemoInfoClass? initMemoInfo;
 
   @override
   State<MemoPage> createState() => _MemoPageState();
@@ -31,6 +32,21 @@ class _MemoPageState extends State<MemoPage> {
   TextEditingController textController = TextEditingController();
   FocusNode focusNode = FocusNode();
   List<Uint8List> uint8ListList = [];
+
+  @override
+  void initState() {
+    if (widget.initMemoInfo != null) {
+      textController.text = widget.initMemoInfo!.memo ?? '';
+      uint8ListList = widget.initMemoInfo!.imageList ?? [];
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      TextAlign textAlign = widget.initMemoInfo?.textAlign ?? TextAlign.left;
+      context.read<TextAlignProvider>().initTextAlign(textAlign);
+    });
+
+    super.initState();
+  }
 
   onLimitedImagePopup() {
     return showDialog(
@@ -91,17 +107,50 @@ class _MemoPageState extends State<MemoPage> {
     );
   }
 
-  onCompleted() {
-    //
+  onTextAlign() {
+    context.read<TextAlignProvider>().changeTextAlign();
   }
 
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<TextAlignProvider>().initTextAlign(widget.initTextAlign);
-    });
+  onCompleted({
+    required TextAlign textAlign,
+    required String categoryId,
+    required DateTime dateTime,
+  }) async {
+    String memo = textController.text;
+    int recordKey = dateTimeKey(dateTime);
+    RecordBox? record = recordRepository.recordBox.get(recordKey);
+    List<Map<String, dynamic>>? memoInfoList = record?.memoInfoList ?? [];
+    List<Uint8List>? imageList =
+        uint8ListList.isNotEmpty ? uint8ListList : null;
+    Map<String, dynamic> newMemoInfo = MemoInfoClass(
+      categoryId: categoryId,
+      imageList: imageList,
+      memo: memo,
+      textAlign: textAlign,
+    ).toJson();
 
-    super.initState();
+    if (widget.initMemoInfo == null) {
+      recordRepository.updateRecord(
+        key: recordKey,
+        record: RecordBox(
+          createDateTime: dateTime,
+          memoInfoList: [...memoInfoList, newMemoInfo],
+        ),
+      );
+    } else {
+      for (var i = 0; i < memoInfoList.length; i++) {
+        if (memoInfoList[i]['categoryId'] == categoryId) {
+          memoInfoList[i]['imageList'] = imageList;
+          memoInfoList[i]['memo'] = memo;
+          memoInfoList[i]['textAlign'] = textAlign.toString();
+
+          break;
+        }
+      }
+    }
+
+    await record?.save();
+    pop(context);
   }
 
   @override
@@ -109,26 +158,25 @@ class _MemoPageState extends State<MemoPage> {
     String locale = context.locale.toString();
     DateTime selectedDateTime =
         context.watch<SelectedDateTimeProvider>().seletedDateTime;
+    String selectedCategoryId =
+        context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
     TextAlign textAlign = context.watch<TextAlignProvider>().textAlign;
-
-    onTextAlign() {
-      context.read<TextAlignProvider>().changeTextAlign();
-    }
 
     return CommonBackground(
       child: CommonScaffold(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         appBarInfo: AppBarInfoClass(
-            isCenter: false,
             title: ymdeShortFormatter(
               locale: locale,
               dateTime: selectedDateTime,
             ),
+            isNotTr: true,
+            isCenter: false,
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 15),
                 child: CommonTag(
-                  text: '📔기본 메모',
+                  text: getMemoCategoryName(selectedCategoryId),
                   textColor: textColor,
                   bgColor: Colors.white,
                   isNotTr: true,
@@ -156,7 +204,11 @@ class _MemoPageState extends State<MemoPage> {
                           onTextAlign: onTextAlign,
                           onClock: onClock,
                           onRemove: () => onRemove(selectedDateTime),
-                          onCompleted: onCompleted,
+                          onCompleted: () => onCompleted(
+                            textAlign: textAlign,
+                            categoryId: selectedCategoryId,
+                            dateTime: selectedDateTime,
+                          ),
                         )
                   ],
                 )

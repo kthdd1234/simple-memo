@@ -303,3 +303,17 @@ List<MemoCategoryClass> getMemoCategoryList(List<CategoryBox> categoryList) {
           ))
       .toList();
 }
+
+String getMemoCategoryName(String categoryId) {
+  return categoryRepository.categoryBox.get(categoryId)?.name ?? '';
+}
+
+MemoInfoClass? getMemoInfo(DateTime dateTime, String categoryId) {
+  int recordKey = dateTimeKey(dateTime);
+  RecordBox? record = recordRepository.recordBox.get(recordKey);
+  List<Map<String, dynamic>>? memoInfoList = record?.memoInfoList ?? [];
+  int index =
+      memoInfoList.indexWhere((info) => info['categoryId'] == categoryId);
+
+  return index > 0 ? MemoInfoClass.fromJson(memoInfoList[index]) : null;
+}

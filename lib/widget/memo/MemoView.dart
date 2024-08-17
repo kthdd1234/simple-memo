@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_memo_app/common/CommonContainer.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/page/MemoPage.dart';
+import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
+import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 
@@ -14,29 +19,27 @@ class MemoView extends StatefulWidget {
 
 class _MemoViewState extends State<MemoView> {
   onMemo() {
-    navigator(context: context, page: MemoPage(initTextAlign: TextAlign.left));
+    navigator(context: context, page: MemoPage());
   }
 
   @override
   Widget build(BuildContext context) {
+    DateTime selectedDateTime =
+        context.watch<SelectedDateTimeProvider>().seletedDateTime;
+    String categoryId =
+        context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
+    String? memo = getMemoInfo(selectedDateTime, categoryId)?.memo;
+    // todo
+
     return Expanded(
-      child: GestureDetector(
+      child: InkWell(
         onTap: onMemo,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CommonText(
-                    text: '메모를 입력해주세요.',
-                    textAlign: TextAlign.start,
-                    color: grey.original,
-                  ),
-                ],
-              ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Center(
+              child: CommonText(text: '+ 메모 추가하기', color: grey.original),
             ),
           ),
         ),

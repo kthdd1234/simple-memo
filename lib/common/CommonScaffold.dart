@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
@@ -6,21 +8,21 @@ import 'package:simple_memo_app/util/constants.dart';
 import 'package:provider/provider.dart';
 
 class CommonScaffold extends StatelessWidget {
-  CommonScaffold(
-      {super.key,
-      required this.body,
-      this.appBarInfo,
-      this.bottomNavigationBar,
-      this.isFab,
-      this.resizeToAvoidBottomInset,
-      this.backgroundColor,
-      this.padding,
-      this.floatingActionButton});
+  CommonScaffold({
+    super.key,
+    required this.body,
+    this.appBarInfo,
+    this.bottomNavigationBar,
+    this.resizeToAvoidBottomInset,
+    this.backgroundColor,
+    this.padding,
+    this.floatingActionButton,
+  });
 
   Widget? bottomNavigationBar;
   Widget body;
   AppBarInfoClass? appBarInfo;
-  bool? resizeToAvoidBottomInset, isFab;
+  bool? resizeToAvoidBottomInset;
   Color? backgroundColor;
   EdgeInsets? padding;
   Widget? floatingActionButton;
@@ -39,6 +41,7 @@ class CommonScaffold extends StatelessWidget {
                 text: appBarInfo!.title,
                 fontSize: 16,
                 isBold: !isLight,
+                isNotTr: appBarInfo?.isNotTr,
               ),
               centerTitle: appBarInfo!.isCenter,
               actions: appBarInfo!.actions,

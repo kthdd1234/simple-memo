@@ -367,3 +367,9 @@ final languageList = [
 ];
 
 final initCategoryName = {'ko': '📔기본 메모', 'en': '📔memo', 'ja': '📔メモ'};
+
+final textAlignInfo = {
+  TextAlign.left.toString(): TextAlign.left,
+  TextAlign.right.toString(): TextAlign.right,
+  TextAlign.center.toString(): TextAlign.center,
+};

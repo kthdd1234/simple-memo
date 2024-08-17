@@ -7,11 +7,11 @@ class AppBarInfoClass {
     required this.title,
     this.isCenter,
     this.actions,
-    this.isUnderLine,
+    this.isNotTr,
   });
 
   String title;
-  bool? isCenter, isUnderLine;
+  bool? isCenter, isNotTr;
   List<Widget>? actions;
 }
 
@@ -145,4 +145,31 @@ class MemoCategoryClass {
   MemoCategoryClass({required this.id, required this.name});
 
   String id, name;
+}
+
+class MemoInfoClass {
+  MemoInfoClass({
+    required this.categoryId,
+    required this.textAlign,
+    this.imageList,
+    this.memo,
+  });
+
+  String categoryId;
+  TextAlign textAlign;
+  List<Uint8List>? imageList;
+  String? memo;
+
+  MemoInfoClass.fromJson(Map<String, dynamic> json)
+      : categoryId = json['categoryId'] as String,
+        imageList = json['imageList'] as List<Uint8List>?,
+        memo = json['memo'] as String?,
+        textAlign = json['textAlign'] as TextAlign;
+
+  Map<String, dynamic> toJson() => {
+        'categoryId': categoryId,
+        'imageList': imageList,
+        'memo': memo,
+        'textAlign': textAlign.toString(),
+      };
 }

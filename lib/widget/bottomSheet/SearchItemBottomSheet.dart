@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonModalSheet.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/page/MemoPage.dart';
-import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/button/ModalButton.dart';
 
@@ -14,15 +12,10 @@ class SearchItemBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLight = context.watch<ThemeProvider>().isLight;
-
     onEdit() {
       pop(context);
 
-      navigator(
-        context: context,
-        page: MemoPage(initTextAlign: TextAlign.left),
-      );
+      navigator(context: context, page: MemoPage());
     }
 
     onRemove() {
