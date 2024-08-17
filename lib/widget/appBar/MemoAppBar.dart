@@ -31,9 +31,8 @@ class _MemoAppBarState extends State<MemoAppBar> {
 
     return CommonAppBar(
       title: ymdeShortFormatter(locale: locale, dateTime: selectedDateTime),
+      isNotTr: true,
       actions: [
-        // svgWidget(name: 'star', onTap: widget.onCheckImportant),
-        // CommonSpace(width: 15),
         svgWidget(name: 'calendar', onTap: widget.onShowCalendar),
         CommonSpace(width: 15),
         svgWidget(name: 'category', onTap: widget.onMemoCategory),

@@ -1,21 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonContainer.dart';
 import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/provider/themeProvider.dart';
+import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/func.dart';
 
 class ModalButton extends StatelessWidget {
   ModalButton({
     super.key,
     required this.actionText,
-    required this.color,
     required this.onTap,
     this.icon,
     this.svgName,
-    this.bgColor,
-    this.isBold,
     this.innerPadding,
     this.isNotSvgColor,
     this.isNotTr,
@@ -24,14 +24,16 @@ class ModalButton extends StatelessWidget {
   String? svgName;
   IconData? icon;
   String actionText;
-  Color color;
-  Color? bgColor;
-  bool? isBold, isNotTr, isNotSvgColor;
+  bool? isNotTr, isNotSvgColor;
   EdgeInsets? innerPadding;
   Function() onTap;
 
   @override
   Widget build(BuildContext context) {
+    bool isLight = context.watch<ThemeProvider>().isLight;
+    Color bgColor = isLight ? Colors.white : darkContainerColor;
+    Color color = isLight ? textColor : darkTextColor;
+
     return Expanded(
       child: Padding(
         padding: innerPadding ?? const EdgeInsets.all(0),
@@ -56,7 +58,7 @@ class ModalButton extends StatelessWidget {
               CommonText(
                 text: actionText,
                 color: color,
-                isBold: isBold,
+                isBold: !isLight,
                 isNotTr: isNotTr,
               )
             ],

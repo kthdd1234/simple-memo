@@ -1,10 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonDivider.dart';
+import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
+import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/appBar/SearchAppBar.dart';
 import 'package:simple_memo_app/widget/memo/MemoCategoryList.dart';
 import 'package:simple_memo_app/widget/search/SearchView.dart';
@@ -20,14 +23,14 @@ class _SearchBodyState extends State<SearchBody> {
   TextEditingController keywordController = TextEditingController();
   bool isRecent = true;
 
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<SelectedMemoCategoryIdProvider>().setId('all');
-    });
+  // @override
+  // void initState() {
+  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+  //     context.read<SelectedMemoCategoryIdProvider>().setId('searchAll');
+  //   });
 
-    super.initState();
-  }
+  //   super.initState();
+  // }
 
   onEditingComplete() {
     FocusScope.of(context).unfocus();
@@ -39,8 +42,10 @@ class _SearchBodyState extends State<SearchBody> {
 
   @override
   Widget build(BuildContext context) {
+    List<MemoCategoryClass> categoryList =
+        getMemoCategoryList(categoryRepository.categoryList);
     List<MemoCategoryClass> searchCategoryList = [
-      MemoCategoryClass(id: 'all', name: '전체 메모'),
+      MemoCategoryClass(id: 'searchAll', name: '전체'.tr()),
       ...categoryList
     ];
 
@@ -65,8 +70,3 @@ class _SearchBodyState extends State<SearchBody> {
     );
   }
 }
-
-     // SearchMemoBar(
-            //   controller: keywordController,
-            //   onEditingComplete: onEditingComplete,
-            // ),

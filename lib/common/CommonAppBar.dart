@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 
 class CommonAppBar extends StatelessWidget {
-  CommonAppBar({super.key, required this.title, required this.actions});
+  CommonAppBar({
+    super.key,
+    required this.title,
+    required this.actions,
+    this.isNotTr,
+  });
 
   String title;
+  bool? isNotTr;
   List<Widget> actions;
 
   @override
@@ -14,7 +20,7 @@ class CommonAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CommonText(text: title, fontSize: 17, isNotTr: true),
+          CommonText(text: title, fontSize: 17, isNotTr: isNotTr),
           Row(children: actions),
         ],
       ),

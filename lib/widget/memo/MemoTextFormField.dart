@@ -18,6 +18,8 @@ class MemoTextFormField extends StatelessWidget {
     this.hintText,
     this.contentPadding,
     this.isUnderline,
+    this.maxLength,
+    this.focusedBorderColor,
   });
 
   TextEditingController controller;
@@ -29,6 +31,8 @@ class MemoTextFormField extends StatelessWidget {
   TextInputAction? textInputAction;
   EdgeInsets? contentPadding;
   bool? isUnderline;
+  int? maxLength;
+  Color? focusedBorderColor;
   Function()? onEditingComplete;
 
   @override
@@ -40,6 +44,7 @@ class MemoTextFormField extends StatelessWidget {
       controller: controller,
       autofocus: autofocus ?? true,
       maxLines: null,
+      maxLength: maxLength,
       minLines: null,
       cursorColor: textColor,
       textInputAction: textInputAction ?? TextInputAction.newline,
@@ -60,7 +65,9 @@ class MemoTextFormField extends StatelessWidget {
             ? UnderlineInputBorder(borderSide: BorderSide(color: grey.s400))
             : null,
         focusedBorder: isUnderline == true
-            ? UnderlineInputBorder(borderSide: BorderSide(color: textColor))
+            ? UnderlineInputBorder(
+                borderSide: BorderSide(color: focusedBorderColor ?? textColor),
+              )
             : null,
       ),
       onEditingComplete: onEditingComplete,

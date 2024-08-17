@@ -1,10 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_memo_app/common/CommonPraise.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
-import 'package:simple_memo_app/page/HomePage.dart';
+import 'package:simple_memo_app/repositories/category_repository.dart';
 import 'package:simple_memo_app/repositories/user_repository.dart';
 import 'package:simple_memo_app/util/enum.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -19,7 +21,26 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  onStart() async {
+  String onCategoryBox() {
+    String locale = context.locale.toString();
+
+    String id = uuid();
+    String name = initCategoryName[locale] ?? '📔memo';
+    DateTime createDateTime = DateTime.now();
+
+    categoryRepository.updateCategory(
+      key: id,
+      category: CategoryBox(
+        id: id,
+        name: name,
+        createDateTime: createDateTime,
+      ),
+    );
+
+    return id;
+  }
+
+  onUserBox(String categoryId) async {
     DateTime createDateTime = DateTime.now();
     String id = uuid();
     String fontFamily = 'IM_Hyemin';
@@ -34,11 +55,18 @@ class _StartPageState extends State<StartPage> {
         fontFamily: fontFamily,
         calendarFormat: calendarFormat,
         calendarMaker: calendarMaker,
+        categoryOrderList: [categoryId],
         theme: theme,
       ),
     );
 
-    await UserRepository().user.save();
+    // await UserRepository().user.save();
+  }
+
+  onStart() async {
+    String categoryId = onCategoryBox();
+    onUserBox(categoryId);
+
     await Navigator.pushNamedAndRemoveUntil(
       context,
       'home-page',

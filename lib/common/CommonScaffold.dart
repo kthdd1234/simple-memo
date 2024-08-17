@@ -1,27 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
-import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
-import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/constants.dart';
-import 'package:simple_memo_app/util/final.dart';
-import 'package:simple_memo_app/util/func.dart';
 import 'package:provider/provider.dart';
 
 class CommonScaffold extends StatelessWidget {
-  CommonScaffold({
-    super.key,
-    required this.body,
-    this.appBarInfo,
-    this.bottomNavigationBar,
-    this.isFab,
-    this.resizeToAvoidBottomInset,
-    this.backgroundColor,
-    this.padding,
-  });
+  CommonScaffold(
+      {super.key,
+      required this.body,
+      this.appBarInfo,
+      this.bottomNavigationBar,
+      this.isFab,
+      this.resizeToAvoidBottomInset,
+      this.backgroundColor,
+      this.padding,
+      this.floatingActionButton});
 
   Widget? bottomNavigationBar;
   Widget body;
@@ -29,6 +23,7 @@ class CommonScaffold extends StatelessWidget {
   bool? resizeToAvoidBottomInset, isFab;
   Color? backgroundColor;
   EdgeInsets? padding;
+  Widget? floatingActionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -57,22 +52,7 @@ class CommonScaffold extends StatelessWidget {
           child: body,
         ),
       ),
-      floatingActionButton: isFab == true
-          ? Padding(
-              padding: const EdgeInsets.only(right: 10, bottom: 50),
-              child: FloatingActionButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                elevation: 0,
-                backgroundColor: Colors.white,
-                child: const Icon(Icons.add_rounded, size: 25),
-                onPressed: () {
-                  //
-                },
-              ),
-            )
-          : const CommonNull(),
+      floatingActionButton: floatingActionButton,
       bottomNavigationBar: bottomNavigationBar,
     );
   }

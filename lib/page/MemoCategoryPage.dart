@@ -10,9 +10,23 @@ import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/enum.dart';
 import 'package:simple_memo_app/util/final.dart';
+import 'package:simple_memo_app/widget/bottomSheet/MemoCategoryBottomSheet.dart';
 
-class MemoCategoryPage extends StatelessWidget {
+class MemoCategoryPage extends StatefulWidget {
   const MemoCategoryPage({super.key});
+
+  @override
+  State<MemoCategoryPage> createState() => _MemoCategoryPageState();
+}
+
+class _MemoCategoryPageState extends State<MemoCategoryPage> {
+  onPressed() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => MemoCategoryBottomSheet(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +42,18 @@ class MemoCategoryPage extends StatelessWidget {
                   ))
               .toList(),
         ),
-        isFab: true,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(20),
+          child: FloatingActionButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100),
+            ),
+            elevation: 0,
+            backgroundColor: Colors.white,
+            onPressed: onPressed,
+            child: const Icon(Icons.add_rounded, size: 25),
+          ),
+        ),
       ),
     );
   }
@@ -57,7 +82,7 @@ class MemoCategoryItem extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CommonText(text: name),
+                  CommonText(text: name, isNotTr: true),
                   CommonSvgText(
                     text: '$count',
                     fontSize: 14,

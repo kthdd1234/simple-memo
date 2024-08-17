@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:simple_memo_app/repositories/category_repository.dart';
 import 'package:simple_memo_app/repositories/record_repository.dart';
 import 'package:simple_memo_app/repositories/user_repository.dart';
 import 'package:simple_memo_app/util/class.dart';
@@ -204,10 +205,12 @@ const nextCalendarFormats = {
 
 UserRepository userRepository = UserRepository();
 RecordRepository recordRepository = RecordRepository();
+CategoryRepository categoryRepository = CategoryRepository();
 
 final valueListenables = [
   userRepository.userBox.listenable(),
   recordRepository.recordBox.listenable(),
+  categoryRepository.categoryBox.listenable()
 ];
 
 final premiumBenefitList = [
@@ -329,3 +332,38 @@ final categoryList = [
   MemoCategoryClass(id: '📝일기', name: '📝일기'),
   MemoCategoryClass(id: '⚽️풋살', name: '⚽️풋살'),
 ];
+
+List<Map<String, String>> fontFamilyList = [
+  {
+    "fontFamily": "IM_Hyemin",
+    "name": "IM 혜민",
+  },
+  {
+    "fontFamily": "KyoboHandwriting2019",
+    "name": "교보 손글씨",
+  },
+  {
+    "fontFamily": "SingleDay",
+    "name": "싱글데이",
+  },
+  {
+    "fontFamily": "Cafe24Dongdong",
+    "name": "카페24 동동",
+  },
+  {
+    "fontFamily": "Cafe24Syongsyong",
+    "name": "카페24 숑숑",
+  },
+  {
+    "fontFamily": "Cafe24Ssukssuk",
+    "name": "카페24 쑥쑥",
+  },
+];
+
+final languageList = [
+  {'svgName': 'korea', 'lang': 'ko', 'name': '한국어'},
+  {'svgName': 'usa', 'lang': 'en', 'name': 'English'},
+  {'svgName': 'japan', 'lang': 'ja', 'name': '日本語'},
+];
+
+final initCategoryName = {'ko': '📔기본 메모', 'en': '📔memo', 'ja': '📔メモ'};

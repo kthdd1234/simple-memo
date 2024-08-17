@@ -1,14 +1,9 @@
 import 'dart:typed_data';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonModalSheet.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
-import 'package:simple_memo_app/provider/themeProvider.dart';
-import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/widget/button/ModalButton.dart';
 import 'package:simple_memo_app/widget/popup/AlertPopup.dart';
 
@@ -66,28 +61,14 @@ class _ImageActionBottomSheetState extends State<ImageActionBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    bool isLight = context.watch<ThemeProvider>().isLight;
-
     return CommonModalSheet(
       title: '사진 추가',
       height: 185,
       child: Row(
         children: [
-          ModalButton(
-            svgName: 'camera',
-            actionText: '카메라',
-            isBold: !isLight,
-            color: isLight ? textColor : darkTextColor,
-            onTap: onCamera,
-          ),
+          ModalButton(svgName: 'camera', actionText: '카메라', onTap: onCamera),
           CommonSpace(width: 5),
-          ModalButton(
-            svgName: 'gallery',
-            actionText: '갤러리',
-            isBold: !isLight,
-            color: isLight ? textColor : darkTextColor,
-            onTap: onGallery,
-          )
+          ModalButton(svgName: 'gallery', actionText: '갤러리', onTap: onGallery)
         ],
       ),
     );

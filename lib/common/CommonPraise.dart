@@ -31,9 +31,10 @@ class CommonPraise extends StatelessWidget {
             const Spacer(),
             CommonButton(
               text: buttonText,
-              textColor: Colors.white,
-              buttonColor: indigo.s300,
+              textColor: Colors.black,
+              buttonColor: Colors.white,
               verticalPadding: 15,
+              isBold: false,
               borderRadius: 7,
               onTap: onTap,
             )

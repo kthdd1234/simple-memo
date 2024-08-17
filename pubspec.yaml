@@ -128,6 +128,17 @@ flutter:
     - assets/svgs/down-up.svg
     - assets/svgs/slide-show.svg
     - assets/svgs/image-remove.svg
+    - assets/svgs/dark.svg
+    - assets/svgs/font.svg
+    - assets/svgs/language.svg
+    - assets/svgs/light.svg
+    - assets/svgs/privacy.svg
+    - assets/svgs/screen.svg
+    - assets/svgs/system.svg
+    - assets/svgs/version.svg
+    - assets/svgs/usa.svg
+    - assets/svgs/japan.svg
+    - assets/svgs/korea.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

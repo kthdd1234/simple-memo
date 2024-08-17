@@ -23,16 +23,17 @@ class UserBoxAdapter extends TypeAdapter<UserBox> {
       calendarMaker: fields[3] as String,
       calendarFormat: fields[2] as String,
       theme: fields[4] as String,
-      alarmInfo: (fields[7] as Map?)?.cast<String, dynamic>(),
-      passwords: fields[8] as String?,
-      googleDriveInfo: (fields[6] as Map?)?.cast<String, dynamic>(),
+      categoryOrderList: (fields[6] as List).cast<String>(),
+      alarmInfo: (fields[8] as Map?)?.cast<String, dynamic>(),
+      passwords: fields[9] as String?,
+      googleDriveInfo: (fields[7] as Map?)?.cast<String, dynamic>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, UserBox obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -46,10 +47,12 @@ class UserBoxAdapter extends TypeAdapter<UserBox> {
       ..writeByte(5)
       ..write(obj.fontFamily)
       ..writeByte(6)
-      ..write(obj.googleDriveInfo)
+      ..write(obj.categoryOrderList)
       ..writeByte(7)
-      ..write(obj.alarmInfo)
+      ..write(obj.googleDriveInfo)
       ..writeByte(8)
+      ..write(obj.alarmInfo)
+      ..writeByte(9)
       ..write(obj.passwords);
   }
 

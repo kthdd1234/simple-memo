@@ -8,11 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:simple_memo_app/widget/button/ModalButton.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 SvgPicture svgAsset({
@@ -291,4 +293,13 @@ calendarDetailStyle(bool isLight) {
 
 svgWidget({required String name, required Function() onTap}) {
   return InkWell(onTap: onTap, child: svgAsset(name: name, width: 20));
+}
+
+List<MemoCategoryClass> getMemoCategoryList(List<CategoryBox> categoryList) {
+  return categoryRepository.categoryList
+      .map((category) => MemoCategoryClass(
+            id: category.id,
+            name: category.name,
+          ))
+      .toList();
 }

@@ -11,6 +11,7 @@ class UserBox extends HiveObject {
     required this.calendarMaker,
     required this.calendarFormat,
     required this.theme,
+    required this.categoryOrderList,
     this.alarmInfo,
     this.passwords,
     this.googleDriveInfo,
@@ -35,11 +36,14 @@ class UserBox extends HiveObject {
   String fontFamily;
 
   @HiveField(6)
-  Map<String, dynamic>? googleDriveInfo;
+  List<String> categoryOrderList;
 
   @HiveField(7)
-  Map<String, dynamic>? alarmInfo;
+  Map<String, dynamic>? googleDriveInfo;
 
   @HiveField(8)
+  Map<String, dynamic>? alarmInfo;
+
+  @HiveField(9)
   String? passwords;
 }

@@ -5,7 +5,9 @@ import 'package:simple_memo_app/body/SearchBody.dart';
 import 'package:simple_memo_app/body/MoreBody.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
+import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/bottomTabIndexProvider.dart';
+import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -19,10 +21,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      String categoryId = categoryRepository.categoryList[0].id;
+      context.read<SelectedMemoCategoryIdProvider>().setId(categoryId);
+    });
+
+    super.initState();
+  }
+
   onBottomNavigation(int? index) {
     context
         .read<BottomTabIndexProvider>()
         .changeSeletedIdx(newIndex: index ?? 0);
+
+    String categoryId = index == 0
+        ? categoryRepository.categoryList[0].id
+        : index == 1
+            ? 'searchAll'
+            : index == 2
+                ? 'imageAll'
+                : '';
+    context.read<SelectedMemoCategoryIdProvider>().setId(categoryId);
+
+    if (index == 0) {
+      context
+          .read<SelectedDateTimeProvider>()
+          .changeSelectedDateTime(dateTime: DateTime.now());
+    }
   }
 
   @override
