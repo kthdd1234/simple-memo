@@ -160,17 +160,4 @@ class MemoInfoClass {
   TextAlign textAlign;
   List<Uint8List>? imageList;
   String? memo;
-
-  MemoInfoClass.fromJson(Map<String, dynamic> json)
-      : categoryId = json['categoryId'] as String,
-        imageList = json['imageList'] as List<Uint8List>?,
-        memo = json['memo'] as String?,
-        textAlign = textAlignInfo[json['textAlign']] as TextAlign;
-
-  Map<String, dynamic> toJson() => {
-        'categoryId': categoryId,
-        'imageList': imageList,
-        'memo': memo,
-        'textAlign': textAlign.toString(),
-      };
 }

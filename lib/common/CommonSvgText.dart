@@ -18,6 +18,7 @@ class CommonSvgText extends StatelessWidget {
     this.svgLeft,
     this.svgColor,
     this.textColor,
+    this.outerPadding,
     this.onTap,
   });
 
@@ -28,6 +29,7 @@ class CommonSvgText extends StatelessWidget {
   double? svgLeft, svgRight;
   bool? isBold, isNotTr;
   SvgDirection svgDirection;
+  EdgeInsets? outerPadding;
   Function()? onTap;
 
   @override
@@ -68,11 +70,14 @@ class CommonSvgText extends StatelessWidget {
               ))
             : const CommonNull();
 
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: children,
+      child: Container(
+        padding: outerPadding,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: children,
+        ),
       ),
     );
   }

@@ -127,10 +127,7 @@ class _CommonCalendarState extends State<CommonCalendar> {
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: tableCalendar(),
-    );
+    return tableCalendar();
   }
 }
 

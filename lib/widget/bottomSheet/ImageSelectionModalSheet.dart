@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:simple_memo_app/common/CommonImage.dart';
 import 'package:simple_memo_app/common/CommonModalSheet.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
+import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/widget/button/ModalButton.dart';
 
 class ImageSelectionModalSheet extends StatelessWidget {
@@ -31,10 +32,17 @@ class ImageSelectionModalSheet extends StatelessWidget {
           Row(
             children: [
               ModalButton(
-                  svgName: 'image', actionText: '사진 보기', onTap: onSlide),
+                svgName: 'image',
+                actionText: '사진 보기',
+                onTap: onSlide,
+              ),
               CommonSpace(width: 10),
               ModalButton(
-                  svgName: 'trash', actionText: '삭제하기', onTap: onRemove),
+                svgName: 'trash',
+                color: red.s400,
+                actionText: '삭제하기',
+                onTap: onRemove,
+              ),
             ],
           ),
         ],

@@ -108,6 +108,7 @@ flutter:
     - assets/images/texture-0.png
     - assets/images/texture-1.png
     - assets/svgs/dir-down.svg
+    - assets/svgs/dir-down-bold.svg
     - assets/svgs/pencil.svg
     - assets/svgs/star.svg
     - assets/svgs/calendar.svg
@@ -139,6 +140,8 @@ flutter:
     - assets/svgs/usa.svg
     - assets/svgs/japan.svg
     - assets/svgs/korea.svg
+    - assets/svgs/images.svg
+    - assets/svgs/setting.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

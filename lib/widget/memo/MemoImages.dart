@@ -9,49 +9,20 @@ import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/bottomSheet/ImageSelectionModalSheet.dart';
 
 class MemoImages extends StatefulWidget {
-  MemoImages({super.key, required this.uint8ListList});
+  MemoImages({
+    super.key,
+    required this.uint8ListList,
+    required this.onImage,
+  });
 
   List<Uint8List> uint8ListList;
+  Function(Uint8List) onImage;
 
   @override
   State<MemoImages> createState() => _MemoImagesState();
 }
 
 class _MemoImagesState extends State<MemoImages> {
-  onImage(Uint8List uint8List) {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (context) => ImageSelectionModalSheet(
-        uint8List: uint8List,
-        onSlide: () {
-          pop(context);
-          Navigator.push(
-            context,
-            MaterialPageRoute<void>(
-              builder: (BuildContext context) => ImageSlidePage(
-                curIndex: widget.uint8ListList.indexOf(uint8List),
-                uint8ListList: widget.uint8ListList,
-              ),
-            ),
-          );
-        },
-        onRemove: () async {
-          widget.uint8ListList.removeWhere(
-            (uint8List_) => uint8List_ == uint8List,
-          );
-
-          if (widget.uint8ListList.isEmpty) {
-            // widget.recordBox?.imageList = null;
-          }
-
-          // await widget.recordBox?.save();
-          pop(context);
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return widget.uint8ListList.isNotEmpty
@@ -68,7 +39,7 @@ class _MemoImagesState extends State<MemoImages> {
                   uint8List: widget.uint8ListList[index],
                   width: 100,
                   height: 100,
-                  onTap: onImage,
+                  onTap: widget.onImage,
                 ),
               ),
             ),

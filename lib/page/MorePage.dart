@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
+import 'package:simple_memo_app/common/CommonBackground.dart';
+import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/appBar/MoreAppBar.dart';
@@ -10,14 +14,14 @@ import 'package:simple_memo_app/widget/bottomSheet/FontBottomSheet.dart';
 import 'package:simple_memo_app/widget/bottomSheet/LanguageBottomSheet.dart';
 import 'package:simple_memo_app/widget/bottomSheet/ScreenModeBottomSheet.dart';
 
-class MoreBody extends StatefulWidget {
-  const MoreBody({super.key});
+class MorePage extends StatefulWidget {
+  const MorePage({super.key});
 
   @override
-  State<MoreBody> createState() => _MoreBodyState();
+  State<MorePage> createState() => _MorePageState();
 }
 
-class _MoreBodyState extends State<MoreBody> {
+class _MorePageState extends State<MorePage> {
   onScreen() {
     showModalBottomSheet(
       context: context,
@@ -81,13 +85,13 @@ class _MoreBodyState extends State<MoreBody> {
       ),
     ];
 
-    return MultiValueListenableBuilder(
-      valueListenables: valueListenables,
-      builder: (context, values, child) {
-        return Column(
-          children: [
-            const MoreAppBar(),
-            SingleChildScrollView(
+    return CommonBackground(
+      child: CommonScaffold(
+        appBarInfo: AppBarInfoClass(title: '설정'),
+        body: MultiValueListenableBuilder(
+          valueListenables: valueListenables,
+          builder: (context, values, child) {
+            return SingleChildScrollView(
               child: Column(
                 children: moreItemList
                     .map((more) => MoreItem(
@@ -98,10 +102,10 @@ class _MoreBodyState extends State<MoreBody> {
                         ))
                     .toList(),
               ),
-            )
-          ],
-        );
-      },
+            );
+          },
+        ),
+      ),
     );
   }
 }
@@ -124,7 +128,7 @@ class MoreItem extends StatelessWidget {
     return InkWell(
       onTap: onMore,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 11),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12.5),
         child: Row(
           children: [
             svgAsset(name: svgName, width: 18),
@@ -158,9 +162,3 @@ class MoreItem extends StatelessWidget {
     );
   }
 }
-
-// 화면 모드
-// 언어 변경
-// 글꼴 변경
-// 개인정보처리방침
-// 앱 버전

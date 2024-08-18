@@ -14,6 +14,7 @@ class ModalButton extends StatelessWidget {
     super.key,
     required this.actionText,
     required this.onTap,
+    this.color,
     this.icon,
     this.svgName,
     this.innerPadding,
@@ -26,13 +27,14 @@ class ModalButton extends StatelessWidget {
   String actionText;
   bool? isNotTr, isNotSvgColor;
   EdgeInsets? innerPadding;
+  Color? color;
   Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
     Color bgColor = isLight ? Colors.white : darkContainerColor;
-    Color color = isLight ? textColor : darkTextColor;
+    Color settingColor = color ?? (isLight ? textColor : darkTextColor);
 
     return Expanded(
       child: Padding(
@@ -48,16 +50,16 @@ class ModalButton extends StatelessWidget {
                   ? svgAsset(
                       name: svgName!,
                       width: 25,
-                      color: isNotSvgColor == true ? null : color,
+                      color: isNotSvgColor == true ? null : settingColor,
                     )
                   : const CommonNull(),
               icon != null
-                  ? Icon(icon!, size: 25, color: color)
+                  ? Icon(icon!, size: 25, color: settingColor)
                   : const CommonNull(),
               CommonSpace(height: 10),
               CommonText(
                 text: actionText,
-                color: color,
+                color: settingColor,
                 isBold: !isLight,
                 isNotTr: isNotTr,
               )

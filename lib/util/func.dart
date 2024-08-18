@@ -291,8 +291,18 @@ calendarDetailStyle(bool isLight) {
   );
 }
 
-svgWidget({required String name, required Function() onTap}) {
-  return InkWell(onTap: onTap, child: svgAsset(name: name, width: 20));
+svgWidget({
+  required String name,
+  required Function() onTap,
+  required EdgeInsets padding,
+}) {
+  return InkWell(
+    onTap: onTap,
+    child: Padding(
+      padding: padding,
+      child: svgAsset(name: name, width: 20),
+    ),
+  );
 }
 
 List<MemoCategoryClass> getMemoCategoryList(List<CategoryBox> categoryList) {
@@ -315,5 +325,35 @@ MemoInfoClass? getMemoInfo(DateTime dateTime, String categoryId) {
   int index =
       memoInfoList.indexWhere((info) => info['categoryId'] == categoryId);
 
-  return index != -1 ? MemoInfoClass.fromJson(memoInfoList[index]) : null;
+  return index != -1 ? memoInfoToClass(memoInfoList[index]) : null;
 }
+
+Map<String, dynamic> memoInfoToMap(MemoInfoClass memoInfo) {
+  return {
+    'categoryId': memoInfo.categoryId,
+    'imageList': memoInfo.imageList,
+    'memo': memoInfo.memo,
+    'textAlign': memoInfo.textAlign.toString(),
+  };
+}
+
+MemoInfoClass memoInfoToClass(Map<String, dynamic> memoInfo) {
+  return MemoInfoClass(
+    categoryId: memoInfo['categoryId'],
+    imageList: getImageList(memoInfo['imageList']),
+    textAlign: textAlignInfo[memoInfo['textAlign']]!,
+    memo: memoInfo['memo'],
+  );
+}
+
+List<Uint8List>? getImageList(List<dynamic>? uint8ListList) {
+  if (uint8ListList == null) return null;
+  return uint8ListList.map((data) => data as Uint8List).toList();
+}
+  // {
+  //   'categoryId': memoInfo.categoryId,
+  //   'imageList': memoInfo.imageList,
+  //   'memo': memoInfo.memo,
+  //   'textAlign': memoInfo.textAlign.toString(),
+  // };
+

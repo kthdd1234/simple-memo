@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonDivider.dart';
-import 'package:simple_memo_app/model/category_box/category_box.dart';
-import 'package:simple_memo_app/page/MemoCategoryPage.dart';
+import 'package:simple_memo_app/page/ImagePage.dart';
+import 'package:simple_memo_app/page/CategoryPage.dart';
+import 'package:simple_memo_app/page/MorePage.dart';
+import 'package:simple_memo_app/page/SearchPage.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -21,18 +23,30 @@ class MemoBody extends StatefulWidget {
 }
 
 class _MemoBodyState extends State<MemoBody> {
-  bool isShowCalendar = false;
+  bool isCalendar = false;
 
-  onShowCalendar() {
-    setState(() => isShowCalendar = !isShowCalendar);
+  setCategoryId(String categoryId) {
+    context.read<SelectedMemoCategoryIdProvider>().setId(categoryId);
   }
 
-  onCheckImportant() {
-    //
+  onCalendar() {
+    setState(() => isCalendar = !isCalendar);
   }
 
-  onMemoCategory() {
-    navigator(context: context, page: const MemoCategoryPage());
+  onSearch() {
+    navigator(context: context, page: const SearchPage());
+  }
+
+  onImages() {
+    navigator(context: context, page: const ImagePage());
+  }
+
+  onCategory() {
+    navigator(context: context, page: const CategoryPage());
+  }
+
+  onMore() {
+    navigator(context: context, page: const MorePage());
   }
 
   @override
@@ -46,19 +60,17 @@ class _MemoBodyState extends State<MemoBody> {
           return Column(
             children: [
               MemoAppBar(
-                isShowCalendar: isShowCalendar,
-                onShowCalendar: onShowCalendar,
-                onCheckImportant: onCheckImportant,
-                onMemoCategory: onMemoCategory,
+                isCalendar: isCalendar,
+                onCalendar: onCalendar,
+                onImages: onImages,
+                onCategory: onCategory,
+                onSearch: onSearch,
+                onMore: onMore,
               ),
-              MemoCalendar(
-                isShowCalendar: isShowCalendar,
-                onShowCalendar: onShowCalendar,
-              ),
-              CommonDivider(horizontal: 10, color: grey.s400),
+              MemoCalendar(isCalendar: isCalendar, onCalendar: onCalendar),
               const MemoView(),
               CommonDivider(horizontal: 10, color: grey.s400),
-              MemoCategoryList(categoryList: categoryList)
+              MemoCategoryList(categoryList: categoryList),
             ],
           );
         });

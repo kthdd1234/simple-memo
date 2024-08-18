@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonTag.dart';
@@ -25,7 +27,7 @@ class _MemoCategoryListState extends State<MemoCategoryList> {
         context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 7, left: 10),
+      padding: const EdgeInsets.only(top: 10, left: 10, bottom: 5),
       child: SizedBox(
         height: 30,
         child: ListView.builder(

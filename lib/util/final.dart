@@ -373,3 +373,15 @@ final textAlignInfo = {
   TextAlign.right.toString(): TextAlign.right,
   TextAlign.center.toString(): TextAlign.center,
 };
+
+final alignmentInfo = {
+  TextAlign.left: Alignment.topLeft,
+  TextAlign.center: Alignment.topCenter,
+  TextAlign.right: Alignment.topRight,
+};
+
+final crossAxisAlignmentInfo = {
+  TextAlign.left: CrossAxisAlignment.start,
+  TextAlign.center: CrossAxisAlignment.center,
+  TextAlign.right: CrossAxisAlignment.end,
+};

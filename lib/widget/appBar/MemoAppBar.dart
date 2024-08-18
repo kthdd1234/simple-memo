@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonAppBar.dart';
-import 'package:simple_memo_app/common/CommonSpace.dart';
+import 'package:simple_memo_app/common/CommonDivider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
+import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class MemoAppBar extends StatefulWidget {
   MemoAppBar({
     super.key,
-    required this.isShowCalendar,
-    required this.onShowCalendar,
-    required this.onCheckImportant,
-    required this.onMemoCategory,
+    required this.isCalendar,
+    required this.onCalendar,
+    required this.onImages,
+    required this.onCategory,
+    required this.onSearch,
+    required this.onMore,
   });
 
-  bool isShowCalendar;
-  Function() onShowCalendar, onCheckImportant, onMemoCategory;
+  bool isCalendar;
+  Function() onCalendar, onImages, onCategory, onSearch, onMore;
 
   @override
   State<MemoAppBar> createState() => _MemoAppBarState();
@@ -28,14 +31,40 @@ class _MemoAppBarState extends State<MemoAppBar> {
     String locale = context.locale.toString();
     DateTime selectedDateTime =
         context.watch<SelectedDateTimeProvider>().seletedDateTime;
+    EdgeInsets padding = const EdgeInsets.fromLTRB(5, 7, 10, 10);
 
-    return CommonAppBar(
-      title: ymdeShortFormatter(locale: locale, dateTime: selectedDateTime),
-      isNotTr: true,
-      actions: [
-        svgWidget(name: 'calendar', onTap: widget.onShowCalendar),
-        CommonSpace(width: 15),
-        svgWidget(name: 'category', onTap: widget.onMemoCategory),
+    return Column(
+      children: [
+        CommonAppBar(
+          title: ymdeShortFormatter(locale: locale, dateTime: selectedDateTime),
+          isNotTr: true,
+          svgName: 'dir-down-bold',
+          svgLeft: 7,
+          onTap: widget.onCalendar,
+          actions: [
+            svgWidget(
+              name: 'search',
+              onTap: widget.onSearch,
+              padding: padding,
+            ),
+            svgWidget(
+              name: 'images',
+              onTap: widget.onImages,
+              padding: padding,
+            ),
+            svgWidget(
+              name: 'category',
+              onTap: widget.onCategory,
+              padding: padding,
+            ),
+            svgWidget(
+              name: 'setting',
+              onTap: widget.onMore,
+              padding: padding,
+            ),
+          ],
+        ),
+        CommonDivider(horizontal: 10, color: grey.s400),
       ],
     );
   }

@@ -9,9 +9,9 @@ class ImageAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonAppBar(title: '사진', actions: [
-      svgWidget(name: 'slide-show', onTap: () {}),
+      svgWidget(name: 'slide-show', onTap: () {}, padding: EdgeInsets.all(0)),
       CommonSpace(width: 15),
-      svgWidget(name: 'image-remove', onTap: () {}),
+      svgWidget(name: 'image-remove', onTap: () {}, padding: EdgeInsets.all(0)),
     ]);
   }
 }

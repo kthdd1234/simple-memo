@@ -69,12 +69,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     bool isUser = UserRepository().isUser;
     String initialRoute = isUser ? 'home-page' : 'start-page';
@@ -84,6 +78,8 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         useMaterial3: true,
         fontFamily: initFontFamily,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         cupertinoOverrideTheme: const CupertinoThemeData(applyThemeToAll: true),
       ),
       localizationsDelegates: context.localizationDelegates,

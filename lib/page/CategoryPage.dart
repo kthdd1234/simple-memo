@@ -12,14 +12,14 @@ import 'package:simple_memo_app/util/enum.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/widget/bottomSheet/MemoCategoryBottomSheet.dart';
 
-class MemoCategoryPage extends StatefulWidget {
-  const MemoCategoryPage({super.key});
+class CategoryPage extends StatefulWidget {
+  const CategoryPage({super.key});
 
   @override
-  State<MemoCategoryPage> createState() => _MemoCategoryPageState();
+  State<CategoryPage> createState() => _CategoryPageState();
 }
 
-class _MemoCategoryPageState extends State<MemoCategoryPage> {
+class _CategoryPageState extends State<CategoryPage> {
   onPressed() {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -33,7 +33,7 @@ class _MemoCategoryPageState extends State<MemoCategoryPage> {
     return CommonBackground(
       child: CommonScaffold(
         padding: const EdgeInsets.only(left: 20, right: 15),
-        appBarInfo: AppBarInfoClass(title: '카테고리 편집', isCenter: false),
+        appBarInfo: AppBarInfoClass(title: '카테고리 편집'),
         body: Column(
           children: categoryList
               .map((category) => MemoCategoryItem(

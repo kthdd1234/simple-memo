@@ -1,19 +1,19 @@
 import 'dart:typed_data';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:simple_memo_app/common/CommonTag.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
+import 'package:simple_memo_app/page/ImageSlidePage.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
-import 'package:simple_memo_app/provider/TextAlignProvider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
+import 'package:simple_memo_app/widget/bottomSheet/ImageSelectionModalSheet.dart';
 import 'package:simple_memo_app/widget/memo/MemoActionBar.dart';
 import 'package:simple_memo_app/widget/memo/MemoImages.dart';
 import 'package:simple_memo_app/widget/memo/MemoTextFormField.dart';
@@ -32,18 +32,15 @@ class _MemoPageState extends State<MemoPage> {
   TextEditingController textController = TextEditingController();
   FocusNode focusNode = FocusNode();
   List<Uint8List> uint8ListList = [];
+  TextAlign textAlign = TextAlign.left;
 
   @override
   void initState() {
     if (widget.initMemoInfo != null) {
       textController.text = widget.initMemoInfo!.memo ?? '';
       uint8ListList = widget.initMemoInfo!.imageList ?? [];
+      textAlign = widget.initMemoInfo!.textAlign;
     }
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      TextAlign textAlign = widget.initMemoInfo?.textAlign ?? TextAlign.left;
-      context.read<TextAlignProvider>().initTextAlign(textAlign);
-    });
 
     super.initState();
   }
@@ -90,67 +87,33 @@ class _MemoPageState extends State<MemoPage> {
     setState(() => textController.text = '${textController.text}$time');
   }
 
-  onRemove(DateTime selectedDateTime) {
-    String locale = context.locale.toString();
-    String ymde =
-        ymdeShortFormatter(locale: locale, dateTime: selectedDateTime);
+  onTextAlign() {
+    setState(() => textAlign = nextTextAlign[textAlign]!);
+  }
 
-    showDialog(
+  onImage(Uint8List uint8List) {
+    showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
-      builder: (context) => AlertPopup(
-        desc: '$ymde\n일기를 삭제할까요?',
-        buttonText: '삭제하기',
-        height: 180,
-        isCancel: true,
-        onTap: () {},
+      builder: (context) => ImageSelectionModalSheet(
+        uint8List: uint8List,
+        onSlide: () {
+          pop(context);
+          navigator(
+            context: context,
+            page: ImageSlidePage(
+              curIndex: uint8ListList.indexOf(uint8List),
+              uint8ListList: uint8ListList,
+            ),
+          );
+        },
+        onRemove: () {
+          uint8ListList.removeWhere((uint8List_) => uint8List_ == uint8List);
+          setState(() {});
+          pop(context);
+        },
       ),
     );
-  }
-
-  onTextAlign() {
-    context.read<TextAlignProvider>().changeTextAlign();
-  }
-
-  onCompleted({
-    required TextAlign textAlign,
-    required String categoryId,
-    required DateTime dateTime,
-  }) async {
-    String memo = textController.text;
-    int recordKey = dateTimeKey(dateTime);
-    RecordBox? record = recordRepository.recordBox.get(recordKey);
-    List<Map<String, dynamic>>? memoInfoList = record?.memoInfoList ?? [];
-    List<Uint8List>? imageList =
-        uint8ListList.isNotEmpty ? uint8ListList : null;
-    Map<String, dynamic> newMemoInfo = MemoInfoClass(
-      categoryId: categoryId,
-      imageList: imageList,
-      memo: memo,
-      textAlign: textAlign,
-    ).toJson();
-
-    if (widget.initMemoInfo == null) {
-      recordRepository.updateRecord(
-        key: recordKey,
-        record: RecordBox(
-          createDateTime: dateTime,
-          memoInfoList: [...memoInfoList, newMemoInfo],
-        ),
-      );
-    } else {
-      for (var i = 0; i < memoInfoList.length; i++) {
-        if (memoInfoList[i]['categoryId'] == categoryId) {
-          memoInfoList[i]['imageList'] = imageList;
-          memoInfoList[i]['memo'] = memo;
-          memoInfoList[i]['textAlign'] = textAlign.toString();
-
-          break;
-        }
-      }
-    }
-
-    await record?.save();
-    pop(context);
   }
 
   @override
@@ -160,11 +123,65 @@ class _MemoPageState extends State<MemoPage> {
         context.watch<SelectedDateTimeProvider>().seletedDateTime;
     String selectedCategoryId =
         context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
-    TextAlign textAlign = context.watch<TextAlignProvider>().textAlign;
+
+    onCompleted() async {
+      String memo = textController.text;
+      int recordKey = dateTimeKey(selectedDateTime);
+      RecordBox? record = recordRepository.recordBox.get(recordKey);
+      List<Map<String, dynamic>>? memoInfoList = record?.memoInfoList ?? [];
+      List<Uint8List>? imageList =
+          uint8ListList.isNotEmpty ? uint8ListList : null;
+      Map<String, dynamic> newMemoInfo = memoInfoToMap(MemoInfoClass(
+        categoryId: selectedCategoryId,
+        imageList: imageList,
+        memo: memo,
+        textAlign: textAlign,
+      ));
+
+      if (widget.initMemoInfo == null) {
+        recordRepository.updateRecord(
+          key: recordKey,
+          record: RecordBox(
+            createDateTime: selectedDateTime,
+            memoInfoList: [...memoInfoList, newMemoInfo],
+          ),
+        );
+      } else {
+        for (var i = 0; i < memoInfoList.length; i++) {
+          if (memoInfoList[i]['categoryId'] == selectedCategoryId) {
+            memoInfoList[i]['imageList'] = imageList;
+            memoInfoList[i]['memo'] = memo;
+            memoInfoList[i]['textAlign'] = textAlign.toString();
+
+            break;
+          }
+        }
+      }
+
+      await record?.save();
+      pop(context);
+    }
+
+    onRemove() {
+      String locale = context.locale.toString();
+      String ymde =
+          ymdeShortFormatter(locale: locale, dateTime: selectedDateTime);
+
+      showDialog(
+        context: context,
+        builder: (context) => AlertPopup(
+          desc: '$ymde\n일기를 삭제할까요?',
+          buttonText: '삭제하기',
+          height: 180,
+          isCancel: true,
+          onTap: () {},
+        ),
+      );
+    }
 
     return CommonBackground(
       child: CommonScaffold(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         appBarInfo: AppBarInfoClass(
             title: ymdeShortFormatter(
               locale: locale,
@@ -185,50 +202,41 @@ class _MemoPageState extends State<MemoPage> {
                 ),
               ),
             ]),
-        body: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: KeyboardActions(
-            config: KeyboardActionsConfig(
-              keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
-              keyboardBarColor: const Color(0xffF8F4EA),
-              actions: [
-                KeyboardActionsItem(
-                  focusNode: focusNode,
-                  enabled: false,
-                  displayArrows: false,
-                  displayDoneButton: false,
-                  toolbarButtons: [
-                    (node) => MemoActionBar(
-                          onCamera: onCamera,
-                          onGallery: onGallery,
-                          onTextAlign: onTextAlign,
-                          onClock: onClock,
-                          onRemove: () => onRemove(selectedDateTime),
-                          onCompleted: () => onCompleted(
-                            textAlign: textAlign,
-                            categoryId: selectedCategoryId,
-                            dateTime: selectedDateTime,
-                          ),
-                        )
-                  ],
-                )
-              ],
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MemoImages(uint8ListList: uint8ListList),
-                  MemoTextFormField(
-                    controller: textController,
-                    textAlign: textAlign,
-                    focusNode: focusNode,
-                    fontSize: 14,
-                  )
-                ],
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: crossAxisAlignmentInfo[textAlign]!,
+                    children: [
+                      MemoImages(
+                        uint8ListList: uint8ListList,
+                        onImage: onImage,
+                      ),
+                      MemoTextFormField(
+                        controller: textController,
+                        textAlign: textAlign,
+                        focusNode: focusNode,
+                        fontSize: 14,
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+            MemoActionBar(
+              isRemove: widget.initMemoInfo != null,
+              textAlign: textAlign,
+              onCamera: onCamera,
+              onGallery: onGallery,
+              onTextAlign: onTextAlign,
+              onClock: onClock,
+              onRemove: onRemove,
+              onCompleted: onCompleted,
+            )
+          ],
         ),
       ),
     );
