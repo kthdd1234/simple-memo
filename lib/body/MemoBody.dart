@@ -6,7 +6,9 @@ import 'package:simple_memo_app/page/ImagePage.dart';
 import 'package:simple_memo_app/page/CategoryPage.dart';
 import 'package:simple_memo_app/page/MorePage.dart';
 import 'package:simple_memo_app/page/SearchPage.dart';
+import 'package:simple_memo_app/provider/CopyMemoInfoProvider.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
+import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
@@ -53,6 +55,12 @@ class _MemoBodyState extends State<MemoBody> {
   Widget build(BuildContext context) {
     List<MemoCategoryClass> categoryList =
         getMemoCategoryList(categoryRepository.categoryList);
+    DateTime selectedDateTime =
+        context.watch<SelectedDateTimeProvider>().seletedDateTime;
+    String categoryId =
+        context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
+    Map<String, dynamic>? copyMemoInfo =
+        context.watch<CopyMemoInfoProvider>().copyMemoInfo;
 
     return MultiValueListenableBuilder(
         valueListenables: valueListenables,
@@ -68,7 +76,11 @@ class _MemoBodyState extends State<MemoBody> {
                 onMore: onMore,
               ),
               MemoCalendar(isCalendar: isCalendar, onCalendar: onCalendar),
-              const MemoView(),
+              MemoView(
+                selectedDateTime: selectedDateTime,
+                categoryId: categoryId,
+                copyMemoInfo: copyMemoInfo,
+              ),
               CommonDivider(horizontal: 10, color: grey.s400),
               MemoCategoryList(categoryList: categoryList),
             ],

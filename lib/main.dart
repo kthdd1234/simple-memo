@@ -6,13 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:simple_memo_app/page/HomePage.dart';
 import 'package:simple_memo_app/page/StartPage.dart';
-import 'package:simple_memo_app/provider/HistoryOrderProvider.dart';
-import 'package:simple_memo_app/provider/KeywordProvider.dart';
+import 'package:simple_memo_app/provider/CopyMemoInfoProvider.dart';
 import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
-import 'package:simple_memo_app/provider/TextAlignProvider.dart';
-import 'package:simple_memo_app/provider/TitleDateTimeProvider.dart';
-import 'package:simple_memo_app/provider/YearDateTimeProvider.dart';
 import 'package:simple_memo_app/provider/bottomTabIndexProvider.dart';
 import 'package:simple_memo_app/provider/reload_provider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
@@ -39,14 +35,10 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => BottomTabIndexProvider()),
         ChangeNotifierProvider(create: (context) => SelectedDateTimeProvider()),
-        ChangeNotifierProvider(create: (context) => TitleDateTimeProvider()),
         ChangeNotifierProvider(create: (context) => PremiumProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
-        ChangeNotifierProvider(create: (context) => YearDateTimeProvider()),
-        ChangeNotifierProvider(create: (context) => HistoryOrderProvider()),
-        ChangeNotifierProvider(create: (context) => KeywordProvider()),
         ChangeNotifierProvider(create: (context) => ReloadProvider()),
-        ChangeNotifierProvider(create: (context) => TextAlignProvider()),
+        ChangeNotifierProvider(create: (context) => CopyMemoInfoProvider()),
         ChangeNotifierProvider(
             create: (context) => SelectedMemoCategoryIdProvider()),
       ],

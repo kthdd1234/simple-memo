@@ -128,7 +128,7 @@ class _MemoPageState extends State<MemoPage> {
       String memo = textController.text;
       int recordKey = dateTimeKey(selectedDateTime);
       RecordBox? record = recordRepository.recordBox.get(recordKey);
-      List<Map<String, dynamic>>? memoInfoList = record?.memoInfoList ?? [];
+      List<Map<String, dynamic>> memoInfoList = record?.memoInfoList ?? [];
       List<Uint8List>? imageList =
           uint8ListList.isNotEmpty ? uint8ListList : null;
       Map<String, dynamic> newMemoInfo = memoInfoToMap(MemoInfoClass(
@@ -156,28 +156,31 @@ class _MemoPageState extends State<MemoPage> {
             break;
           }
         }
+
+        await record?.save();
       }
 
-      await record?.save();
       pop(context);
     }
 
-    onRemove() {
-      String locale = context.locale.toString();
-      String ymde =
-          ymdeShortFormatter(locale: locale, dateTime: selectedDateTime);
+    // onRemove() {
+    //   String locale = context.locale.toString();
+    //   String ymde =
+    //       ymdeShortFormatter(locale: locale, dateTime: selectedDateTime);
 
-      showDialog(
-        context: context,
-        builder: (context) => AlertPopup(
-          desc: '$ymde\n일기를 삭제할까요?',
-          buttonText: '삭제하기',
-          height: 180,
-          isCancel: true,
-          onTap: () {},
-        ),
-      );
-    }
+    //   showDialog(
+    //     context: context,
+    //     builder: (context) => AlertPopup(
+    //       desc: '$ymde\n메모를 삭제할까요?',
+    //       buttonText: '삭제하기',
+    //       height: 180,
+    //       isCancel: true,
+    //       onTap: () async {
+    //         pop(context);
+    //       },
+    //     ),
+    //   );
+    // }
 
     return CommonBackground(
       child: CommonScaffold(
@@ -233,7 +236,6 @@ class _MemoPageState extends State<MemoPage> {
               onGallery: onGallery,
               onTextAlign: onTextAlign,
               onClock: onClock,
-              onRemove: onRemove,
               onCompleted: onCompleted,
             )
           ],

@@ -15,6 +15,7 @@ import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:simple_memo_app/widget/button/ModalButton.dart';
+import 'package:simple_memo_app/widget/popup/AlertPopup.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 SvgPicture svgAsset({
@@ -321,7 +322,7 @@ String getMemoCategoryName(String categoryId) {
 MemoInfoClass? getMemoInfo(DateTime dateTime, String categoryId) {
   int recordKey = dateTimeKey(dateTime);
   RecordBox? record = recordRepository.recordBox.get(recordKey);
-  List<Map<String, dynamic>>? memoInfoList = record?.memoInfoList ?? [];
+  List<Map<String, dynamic>> memoInfoList = record?.memoInfoList ?? [];
   int index =
       memoInfoList.indexWhere((info) => info['categoryId'] == categoryId);
 
@@ -350,10 +351,47 @@ List<Uint8List>? getImageList(List<dynamic>? uint8ListList) {
   if (uint8ListList == null) return null;
   return uint8ListList.map((data) => data as Uint8List).toList();
 }
-  // {
-  //   'categoryId': memoInfo.categoryId,
-  //   'imageList': memoInfo.imageList,
-  //   'memo': memoInfo.memo,
-  //   'textAlign': memoInfo.textAlign.toString(),
-  // };
 
+onPaste({
+  required BuildContext context,
+  required DateTime selectedDateTime,
+  required String selectedCategoryId,
+  Map<String, dynamic>? copyMemoInfo,
+}) async {
+  int recordKey = dateTimeKey(selectedDateTime);
+  RecordBox? record = recordRepository.recordBox.get(recordKey);
+  List<Map<String, dynamic>> memoInfoList = record?.memoInfoList ?? [];
+
+  if (copyMemoInfo == null) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertPopup(
+        desc: '복사한 메모가 없어요.',
+        buttonText: '확인',
+        height: 150,
+        onTap: () => pop(context),
+      ),
+    );
+  } else {
+    int index = memoInfoList
+        .indexWhere((info) => info['categoryId'] == selectedCategoryId);
+
+    if (index == -1) {
+      recordRepository.updateRecord(
+        key: recordKey,
+        record: RecordBox(
+          createDateTime: selectedDateTime,
+          memoInfoList: [...memoInfoList, copyMemoInfo],
+        ),
+      );
+    } else {
+      memoInfoList[index]['categoryId'] = copyMemoInfo['categoryId'];
+      memoInfoList[index]['imageList'] = copyMemoInfo['imageList'];
+      memoInfoList[index]['memo'] = copyMemoInfo['memo'];
+      memoInfoList[index]['textAlign'] = copyMemoInfo['textAlign'];
+    }
+  }
+
+  await record?.save();
+  pop(context);
+}

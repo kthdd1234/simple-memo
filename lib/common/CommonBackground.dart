@@ -32,7 +32,7 @@ class CommonBackground extends StatelessWidget {
             BorderRadius.circular(isRadius == true ? 10.0 : 0.0),
         image: isLight
             ? const DecorationImage(
-                image: AssetImage('assets/images/texture-0.png'),
+                image: AssetImage('assets/images/texture-1.png'),
                 fit: BoxFit.cover,
               )
             : null,

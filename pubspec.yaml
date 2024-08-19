@@ -142,6 +142,8 @@ flutter:
     - assets/svgs/korea.svg
     - assets/svgs/images.svg
     - assets/svgs/setting.svg
+    - assets/svgs/copy.svg
+    - assets/svgs/paste.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
