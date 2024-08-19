@@ -125,7 +125,7 @@ class _MemoPageState extends State<MemoPage> {
         context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
 
     onCompleted() async {
-      String memo = textController.text;
+      String? memo = textController.text != '' ? textController.text : null;
       int recordKey = dateTimeKey(selectedDateTime);
       RecordBox? record = recordRepository.recordBox.get(recordKey);
       List<Map<String, dynamic>> memoInfoList = record?.memoInfoList ?? [];
@@ -162,25 +162,6 @@ class _MemoPageState extends State<MemoPage> {
 
       pop(context);
     }
-
-    // onRemove() {
-    //   String locale = context.locale.toString();
-    //   String ymde =
-    //       ymdeShortFormatter(locale: locale, dateTime: selectedDateTime);
-
-    //   showDialog(
-    //     context: context,
-    //     builder: (context) => AlertPopup(
-    //       desc: '$ymde\n메모를 삭제할까요?',
-    //       buttonText: '삭제하기',
-    //       height: 180,
-    //       isCancel: true,
-    //       onTap: () async {
-    //         pop(context);
-    //       },
-    //     ),
-    //   );
-    // }
 
     return CommonBackground(
       child: CommonScaffold(

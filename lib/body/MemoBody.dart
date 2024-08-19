@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +18,7 @@ import 'package:simple_memo_app/widget/appBar/MemoAppBar.dart';
 import 'package:simple_memo_app/widget/memo/MemoCalendar.dart';
 import 'package:simple_memo_app/widget/memo/MemoCategoryList.dart';
 import 'package:simple_memo_app/widget/memo/MemoView.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class MemoBody extends StatefulWidget {
   const MemoBody({super.key});
@@ -26,6 +29,10 @@ class MemoBody extends StatefulWidget {
 
 class _MemoBodyState extends State<MemoBody> {
   bool isCalendar = false;
+
+  onFormatChanged(CalendarFormat calendarFormat) {
+    setState(() => isCalendar = calendarFormat != CalendarFormat.month);
+  }
 
   setCategoryId(String categoryId) {
     context.read<SelectedMemoCategoryIdProvider>().setId(categoryId);
@@ -75,7 +82,12 @@ class _MemoBodyState extends State<MemoBody> {
                 onSearch: onSearch,
                 onMore: onMore,
               ),
-              MemoCalendar(isCalendar: isCalendar, onCalendar: onCalendar),
+              MemoCalendar(
+                  selectedDateTime: selectedDateTime,
+                  categoryId: categoryId,
+                  isCalendar: isCalendar,
+                  onCalendar: onCalendar,
+                  onFormatChanged: onFormatChanged),
               MemoView(
                 selectedDateTime: selectedDateTime,
                 categoryId: categoryId,

@@ -104,22 +104,24 @@ class _MemoViewState extends State<MemoView> {
             child: memoInfo != null
                 ? Container(
                     alignment: alignmentInfo[textAlign],
-                    child: Column(
-                      crossAxisAlignment: crossAxisAlignmentInfo[textAlign]!,
-                      children: [
-                        imageList.isNotEmpty
-                            ? MemoImages(
-                                uint8ListList: imageList,
-                                onImage: (Uint8List uint8List) =>
-                                    onSlide(uint8List, imageList),
-                              )
-                            : const CommonNull(),
-                        CommonText(
-                          text: memo!,
-                          isNotTr: true,
-                          textAlign: textAlign,
-                        ),
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: crossAxisAlignmentInfo[textAlign]!,
+                        children: [
+                          imageList.isNotEmpty
+                              ? MemoImages(
+                                  uint8ListList: imageList,
+                                  onImage: (Uint8List uint8List) =>
+                                      onSlide(uint8List, imageList),
+                                )
+                              : const CommonNull(),
+                          CommonText(
+                            text: memo ?? '',
+                            isNotTr: true,
+                            textAlign: textAlign,
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 : SizedBox(
