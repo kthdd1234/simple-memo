@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
@@ -50,7 +49,7 @@ class _SearchPageState extends State<SearchPage> {
                   onEditingComplete: onEditingComplete,
                   onUpDown: onUpDown,
                 ),
-                SearchView(),
+                SearchView(isRecent: isRecent),
                 CommonDivider(horizontal: 10, color: grey.s400),
                 MemoCategoryList(categoryList: categoryList)
               ],

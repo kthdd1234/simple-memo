@@ -51,39 +51,41 @@ class _MemoCalendarState extends State<MemoCalendar> {
     Uint8List? unit8List = memoInfoClass?.imageList?[0];
     bool isToday = dateTimeKey(widget.selectedDateTime) == recordKey;
 
-    if (unit8List != null) {
-      return Stack(
-        alignment: AlignmentDirectional.bottomCenter,
-        children: [
-          Center(
-            child: CommonImage(
-              uint8List: unit8List,
-              width: 30,
-              height: 30,
-              onTap: (_) {},
-            ),
-          ),
-          Center(child: CommonMask(width: 30, height: 30, opacity: 0.2)),
-          Center(
-            child: Container(
-              padding: const EdgeInsets.all(3),
-              decoration: BoxDecoration(
-                color: isToday ? textColor : null,
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: memo != null
-                  ? svgAsset(name: 'check', width: 20, color: Colors.white)
-                  : CommonText(
-                      text: '${dateTime.day}',
-                      isNotTr: true,
-                      color: Colors.white,
-                      isBold: true,
-                    ),
-            ),
-          ),
-        ],
-      );
-    } else if (memo != null) {
+    // if (unit8List != null) {
+    //   return Stack(
+    //     alignment: AlignmentDirectional.bottomCenter,
+    //     children: [
+    //       Center(
+    //         child: CommonImage(
+    //           uint8List: unit8List,
+    //           width: 30,
+    //           height: 30,
+    //           onTap: (_) {},
+    //         ),
+    //       ),
+    //       Center(child: CommonMask(width: 30, height: 30, opacity: 0.2)),
+    //       Center(
+    //         child: Container(
+    //           padding: const EdgeInsets.all(3),
+    //           decoration: BoxDecoration(
+    //             color: isToday ? textColor : null,
+    //             borderRadius: BorderRadius.circular(100),
+    //           ),
+    //           child: memo != null
+    //               ? svgAsset(name: 'check', width: 20, color: Colors.white)
+    //               : CommonText(
+    //                   text: '${dateTime.day}',
+    //                   isNotTr: true,
+    //                   color: Colors.white,
+    //                   isBold: true,
+    //                 ),
+    //         ),
+    //       ),
+    //     ],
+    //   );
+    // } else
+
+    if (memo != null) {
       return svgAsset(name: 'check', width: 18, color: textColor);
     }
 

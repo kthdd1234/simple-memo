@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
+import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonTag.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/page/ImageSlidePage.dart';
@@ -195,9 +196,12 @@ class _MemoPageState extends State<MemoPage> {
                   child: Column(
                     crossAxisAlignment: crossAxisAlignmentInfo[textAlign]!,
                     children: [
-                      MemoImages(
-                        uint8ListList: uint8ListList,
-                        onImage: onImage,
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: MemoImages(
+                          uint8ListList: uint8ListList,
+                          onImage: onImage,
+                        ),
                       ),
                       MemoTextFormField(
                         controller: textController,
@@ -205,6 +209,7 @@ class _MemoPageState extends State<MemoPage> {
                         focusNode: focusNode,
                         fontSize: 14,
                       ),
+                      CommonSpace(height: 70)
                     ],
                   ),
                 ),

@@ -109,10 +109,13 @@ class _MemoViewState extends State<MemoView> {
                         crossAxisAlignment: crossAxisAlignmentInfo[textAlign]!,
                         children: [
                           imageList.isNotEmpty
-                              ? MemoImages(
-                                  uint8ListList: imageList,
-                                  onImage: (Uint8List uint8List) =>
-                                      onSlide(uint8List, imageList),
+                              ? Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: MemoImages(
+                                    uint8ListList: imageList,
+                                    onImage: (Uint8List uint8List) =>
+                                        onSlide(uint8List, imageList),
+                                  ),
                                 )
                               : const CommonNull(),
                           CommonText(

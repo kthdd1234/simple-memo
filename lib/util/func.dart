@@ -319,6 +319,10 @@ String getMemoCategoryName(String categoryId) {
   return categoryRepository.categoryBox.get(categoryId)?.name ?? '';
 }
 
+// List<MemoInfoClass> getMemoInfoList(List<Map<String, dynamic>> memoInfoList) {
+//   return recordRepository.recordList.where((record) => ).toList();
+// }
+
 MemoInfoClass? getMemoInfo(DateTime dateTime, String categoryId) {
   int recordKey = dateTimeKey(dateTime);
   RecordBox? record = recordRepository.recordBox.get(recordKey);

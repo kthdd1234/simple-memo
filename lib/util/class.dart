@@ -152,6 +152,7 @@ class MemoInfoClass {
   MemoInfoClass({
     required this.categoryId,
     required this.textAlign,
+    this.dateTime,
     this.imageList,
     this.memo,
   });
@@ -160,4 +161,5 @@ class MemoInfoClass {
   TextAlign textAlign;
   List<Uint8List>? imageList;
   String? memo;
+  DateTime? dateTime;
 }
