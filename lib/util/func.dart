@@ -370,7 +370,7 @@ onPaste({
     showDialog(
       context: context,
       builder: (context) => AlertPopup(
-        desc: '복사한 메모가 없어요.',
+        desc: '복사한 글이 없어요.',
         buttonText: '확인',
         height: 150,
         onTap: () => pop(context),
@@ -395,6 +395,23 @@ onPaste({
       memoInfoList[index]['textAlign'] = copyMemoInfo['textAlign'];
     }
   }
+
+  await record?.save();
+  pop(context);
+}
+
+removeMemoInfo({
+  required BuildContext context,
+  required DateTime selectedDateTime,
+  required String selectedCategoryId,
+}) async {
+  int recordKey = dateTimeKey(selectedDateTime);
+  RecordBox? record = recordRepository.recordBox.get(recordKey);
+  List<Map<String, dynamic>> memoInfoList = record?.memoInfoList ?? [];
+  int index = memoInfoList
+      .indexWhere((info) => info['categoryId'] == selectedCategoryId);
+
+  memoInfoList.removeAt(index);
 
   await record?.save();
   pop(context);

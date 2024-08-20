@@ -52,7 +52,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
               autofocus: false,
               controller: widget.controller,
               textAlign: TextAlign.left,
-              hintText: '메모 검색',
+              hintText: '키워드 검색',
               fontSize: 18,
               isUnderline: true,
               contentPadding: const EdgeInsets.only(bottom: 5),

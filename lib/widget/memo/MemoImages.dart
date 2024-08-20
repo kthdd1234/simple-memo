@@ -75,7 +75,7 @@ class _MemoImagesState extends State<MemoImages> {
             CommonSpace(height: 5),
             CommonImage(
               uint8List: uint8ListList[3],
-              height: 100,
+              height: 250,
               onTap: widget.onImage,
             )
           ],
@@ -95,9 +95,9 @@ class _MemoImagesState extends State<MemoImages> {
             ),
             CommonSpace(height: 5),
             Row(children: [
-              image(uint8ListList[0], 100),
+              image(uint8ListList[0], 150),
               CommonSpace(width: 5),
-              image(uint8ListList[1], 100)
+              image(uint8ListList[1], 150)
             ])
           ],
         );

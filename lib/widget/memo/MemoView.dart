@@ -133,7 +133,7 @@ class _MemoViewState extends State<MemoView> {
                     width: MediaQuery.of(context).size.width,
                     child: Center(
                       child: CommonText(
-                        text: '+ 메모 추가하기',
+                        text: '+ 글쓰기',
                         color: grey.original,
                         fontSize: defaultFontSize + 1,
                       ),

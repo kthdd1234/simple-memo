@@ -163,3 +163,9 @@ class MemoInfoClass {
   String? memo;
   DateTime? dateTime;
 }
+
+class ImageClass {
+  ImageClass({required this.dateTime, required this.uint8List});
+  DateTime dateTime;
+  Uint8List uint8List;
+}

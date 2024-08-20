@@ -9,7 +9,7 @@ import 'package:table_calendar/table_calendar.dart';
 final bottomNavigationBarItemList = [
   const BottomNavigationBarItem(
     icon: Icon(Icons.edit),
-    label: '메모',
+    label: '글',
   ),
   const BottomNavigationBarItem(
     icon: Icon(Icons.search_rounded),
@@ -367,14 +367,14 @@ final languageList = [
 ];
 
 Map<String, String> initCategoryName1 = {
-  'ko': '📔메모 1',
-  'en': '📔memo 1',
-  'ja': '📔メモ1'
+  'ko': '📔일기 1',
+  'en': '📔title 1',
+  'ja': '📔タイトル1'
 };
 Map<String, String> initCategoryName2 = {
-  'ko': '📝메모 1',
-  'en': '📝memo 2',
-  'ja': '📝メモ2'
+  'ko': '📕일기 2',
+  'en': '📕title 2',
+  'ja': '📕タイトル2'
 };
 
 final textAlignInfo = {

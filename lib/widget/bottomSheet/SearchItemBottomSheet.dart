@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonModalSheet.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/page/MemoPage.dart';
+import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
+import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
@@ -19,13 +22,12 @@ class SearchItemBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String selectedCategoryId =
+        context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
+
     onEdit() {
       pop(context);
       navigator(context: context, page: MemoPage(initMemoInfo: memoInfo));
-    }
-
-    onRemove() {
-      pop(context);
     }
 
     return CommonModalSheet(
@@ -43,7 +45,11 @@ class SearchItemBottomSheet extends StatelessWidget {
             svgName: 'trash',
             actionText: '삭제하기',
             color: red.s400,
-            onTap: onRemove,
+            onTap: () => removeMemoInfo(
+              context: context,
+              selectedDateTime: memoInfo.dateTime!,
+              selectedCategoryId: selectedCategoryId,
+            ),
           ),
         ],
       ),

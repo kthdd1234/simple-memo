@@ -49,7 +49,7 @@ class _SearchPageState extends State<SearchPage> {
                   onEditingComplete: onEditingComplete,
                   onUpDown: onUpDown,
                 ),
-                SearchView(isRecent: isRecent),
+                SearchView(isRecent: isRecent, keyword: keywordController.text),
                 CommonDivider(horizontal: 10, color: grey.s400),
                 MemoCategoryList(categoryList: categoryList)
               ],

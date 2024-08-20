@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
@@ -8,8 +9,13 @@ import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/search/SearchItem.dart';
 
 class SearchView extends StatelessWidget {
-  SearchView({super.key, required this.isRecent});
+  SearchView({
+    super.key,
+    required this.keyword,
+    required this.isRecent,
+  });
 
+  String keyword;
   bool isRecent;
 
   @override
@@ -26,13 +32,26 @@ class SearchView extends StatelessWidget {
           MemoInfoClass memoInfo = memoInfoToClass(record.memoInfoList![j]);
 
           if (memoInfo.categoryId == selectedMemoCategoryId) {
-            memoInfoList.add(MemoInfoClass(
-              dateTime: record.createDateTime,
-              categoryId: memoInfo.categoryId,
-              textAlign: memoInfo.textAlign,
-              imageList: memoInfo.imageList,
-              memo: memoInfo.memo,
-            ));
+            if (keyword != '') {
+              bool isSearchKeyword = memoInfo.memo?.contains(keyword) == true;
+              if (isSearchKeyword) {
+                memoInfoList.add(MemoInfoClass(
+                  dateTime: record.createDateTime,
+                  categoryId: memoInfo.categoryId,
+                  textAlign: memoInfo.textAlign,
+                  imageList: memoInfo.imageList,
+                  memo: memoInfo.memo,
+                ));
+              }
+            } else {
+              memoInfoList.add(MemoInfoClass(
+                dateTime: record.createDateTime,
+                categoryId: memoInfo.categoryId,
+                textAlign: memoInfo.textAlign,
+                imageList: memoInfo.imageList,
+                memo: memoInfo.memo,
+              ));
+            }
           }
         }
       }
@@ -41,13 +60,14 @@ class SearchView extends StatelessWidget {
     memoInfoList = isRecent ? memoInfoList.reversed.toList() : memoInfoList;
 
     return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          children: memoInfoList
-              .map((memoInfo) => SearchItem(memoInfo: memoInfo))
-              .toList(),
-        ),
-      ),
+      child: memoInfoList.isNotEmpty
+          ? SingleChildScrollView(
+              child: Column(
+              children: memoInfoList
+                  .map((memoInfo) => SearchItem(memoInfo: memoInfo))
+                  .toList(),
+            ))
+          : Center(child: CommonText(text: '글이 없어요', color: grey.original)),
     );
   }
 }

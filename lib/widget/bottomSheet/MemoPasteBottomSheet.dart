@@ -35,7 +35,7 @@ class MemoPasteBottomSheet extends StatelessWidget {
             children: [
               svgAsset(name: 'paste', width: 19),
               CommonSpace(width: 15),
-              CommonText(text: '메모 붙어넣기')
+              CommonText(text: '글 붙어넣기')
             ],
           ),
         ),
