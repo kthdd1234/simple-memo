@@ -63,7 +63,7 @@ class _ImageActionBottomSheetState extends State<ImageActionBottomSheet> {
   Widget build(BuildContext context) {
     return CommonModalSheet(
       title: '사진 추가',
-      height: 185,
+      height: 195,
       child: Row(
         children: [
           ModalButton(svgName: 'camera', actionText: '카메라', onTap: onCamera),

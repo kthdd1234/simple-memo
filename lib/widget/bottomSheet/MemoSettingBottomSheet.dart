@@ -50,14 +50,14 @@ class _MemoSettingBottomSheetState extends State<MemoSettingBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return CommonModalSheet(
-      height: 150,
+      height: 155,
       child: Row(
         children: [
-          ModalButton(svgName: 'copy', actionText: '메모 복사', onTap: onCopy),
+          ModalButton(svgName: 'copy', actionText: '복사하기', onTap: onCopy),
           CommonSpace(width: 5),
           ModalButton(
             svgName: 'paste',
-            actionText: '메모 붙여넣기',
+            actionText: '붙여넣기',
             onTap: () => onPaste(
               context: context,
               selectedDateTime: widget.selectedDateTime,
@@ -68,7 +68,7 @@ class _MemoSettingBottomSheetState extends State<MemoSettingBottomSheet> {
           CommonSpace(width: 5),
           ModalButton(
               svgName: 'trash',
-              actionText: '메모 삭제',
+              actionText: '삭제하기',
               color: red.s400,
               onTap: onRemove),
         ],

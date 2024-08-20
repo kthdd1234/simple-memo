@@ -366,7 +366,16 @@ final languageList = [
   {'svgName': 'japan', 'lang': 'ja', 'name': '日本語'},
 ];
 
-final initCategoryName = {'ko': '📔기본 메모', 'en': '📔memo', 'ja': '📔メモ'};
+Map<String, String> initCategoryName1 = {
+  'ko': '📔메모 1',
+  'en': '📔memo 1',
+  'ja': '📔メモ1'
+};
+Map<String, String> initCategoryName2 = {
+  'ko': '📝메모 1',
+  'en': '📝memo 2',
+  'ja': '📝メモ2'
+};
 
 final textAlignInfo = {
   TextAlign.left.toString(): TextAlign.left,

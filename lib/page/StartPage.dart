@@ -6,12 +6,12 @@ import 'package:simple_memo_app/common/CommonPraise.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
-import 'package:simple_memo_app/repositories/category_repository.dart';
-import 'package:simple_memo_app/repositories/user_repository.dart';
 import 'package:simple_memo_app/util/enum.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../util/constants.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
@@ -21,11 +21,11 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  String onCategoryBox() {
+  String onCategoryBox(Map<String, String> categoryName) {
     String locale = context.locale.toString();
 
     String id = uuid();
-    String name = initCategoryName[locale] ?? '📔memo';
+    String name = categoryName[locale] ?? '📔memo';
     DateTime createDateTime = DateTime.now();
 
     categoryRepository.updateCategory(
@@ -40,10 +40,13 @@ class _StartPageState extends State<StartPage> {
     return id;
   }
 
-  onUserBox(String categoryId) async {
+  onStart() async {
+    String categoryId1 = onCategoryBox(initCategoryName1);
+    String categoryId2 = onCategoryBox(initCategoryName2);
+
     DateTime createDateTime = DateTime.now();
     String id = uuid();
-    String fontFamily = 'IM_Hyemin';
+    String fontFamily = initFontFamily;
     String calendarFormat = CalendarFormat.week.toString();
     String calendarMaker = CalendarMaker.time.toString();
     String theme = Themes.system.toString();
@@ -55,17 +58,10 @@ class _StartPageState extends State<StartPage> {
         fontFamily: fontFamily,
         calendarFormat: calendarFormat,
         calendarMaker: calendarMaker,
-        categoryOrderList: [categoryId],
+        categoryOrderList: [categoryId1, categoryId2],
         theme: theme,
       ),
     );
-
-    // await UserRepository().user.save();
-  }
-
-  onStart() async {
-    String categoryId = onCategoryBox();
-    onUserBox(categoryId);
 
     await Navigator.pushNamedAndRemoveUntil(
       context,
@@ -85,7 +81,7 @@ class _StartPageState extends State<StartPage> {
           children: [
             const Spacer(),
             CommonText(text: '반가워요! 심플 메모 앱과 함께'),
-            CommonText(text: '꾸준히 메모하는 습관을 만들어봐요:D'),
+            CommonText(text: '꾸준히 메모하는 습관을 만들어봐요 :D'),
           ],
         ),
       ),

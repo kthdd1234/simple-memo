@@ -49,7 +49,7 @@ class _CommonCalendarState extends State<CommonCalendar> {
     return CommonText(
       text: eFormatter(locale: locale, dateTime: dateTime),
       color: color,
-      fontSize: 13,
+      fontSize: 15,
       isBold: !isLight,
       isNotTr: true,
     );
@@ -98,7 +98,7 @@ class _CommonCalendarState extends State<CommonCalendar> {
           todayTextStyle: TextStyle(
             color: isLight ? Colors.white : calendarSelectedDateTimeTextColor,
             fontWeight: FontWeight.bold,
-            fontSize: 13,
+            fontSize: 15,
           ),
         ),
         availableGestures: widget.shouldFillViewport

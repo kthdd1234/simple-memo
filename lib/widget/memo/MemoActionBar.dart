@@ -61,16 +61,16 @@ class _MemoActionBarState extends State<MemoActionBar> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        action(name: 'image', width: 18, onTap: onImage),
+        action(name: 'image', width: 20, onTap: onImage),
         CommonSpace(width: 3),
         action(
           name: 'align-${textAlignName[widget.textAlign]}',
-          width: 22,
+          width: 24,
           onTap: widget.onTextAlign,
         ),
-        action(name: 'clock', width: 19, onTap: widget.onClock),
+        action(name: 'clock', width: 21, onTap: widget.onClock),
         const Spacer(),
-        action(name: 'check', width: 22, onTap: widget.onCompleted),
+        action(name: 'check', width: 24, onTap: widget.onCompleted),
       ],
     );
   }

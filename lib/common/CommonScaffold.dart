@@ -39,7 +39,7 @@ class CommonScaffold extends StatelessWidget {
               foregroundColor: isLight ? Colors.black : darkTextColor,
               title: CommonText(
                 text: appBarInfo!.title,
-                fontSize: 16,
+                fontSize: 18,
                 isBold: !isLight,
                 isNotTr: appBarInfo?.isNotTr,
               ),

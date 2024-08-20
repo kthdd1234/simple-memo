@@ -133,14 +133,14 @@ class MoreItem extends StatelessWidget {
           children: [
             svgAsset(name: svgName, width: 18),
             CommonSpace(width: 15),
-            CommonText(text: title, fontSize: 15),
+            CommonText(text: title, fontSize: 17),
             const Spacer(),
             value != null
                 ? Row(
                     children: [
                       CommonText(
                         text: value!,
-                        fontSize: 14,
+                        fontSize: 16,
                         color: grey.original,
                       ),
                       svgName != 'version'

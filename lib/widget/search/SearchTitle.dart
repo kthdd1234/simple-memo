@@ -4,14 +4,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/bottomSheet/SearchItemBottomSheet.dart';
 
 class SearchTitle extends StatefulWidget {
-  SearchTitle({super.key, required this.dateTime});
+  SearchTitle({super.key, required this.memoInfo});
 
-  DateTime dateTime;
+  MemoInfoClass memoInfo;
 
   @override
   State<SearchTitle> createState() => _SearchTitleState();
@@ -24,9 +25,10 @@ class _SearchTitleState extends State<SearchTitle> {
     showModalBottomSheet(
       context: context,
       builder: (context) => SearchItemBottomSheet(
+        memoInfo: widget.memoInfo,
         title: ymdeFullFormatter(
           locale: locale,
-          dateTime: widget.dateTime,
+          dateTime: widget.memoInfo.dateTime!,
         ),
       ),
     );
@@ -44,14 +46,15 @@ class _SearchTitleState extends State<SearchTitle> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CommonText(
-              text: ymdFullFormatter(locale: locale, dateTime: widget.dateTime),
-              fontSize: 13,
+              text: ymdFullFormatter(
+                  locale: locale, dateTime: widget.memoInfo.dateTime!),
+              fontSize: 16,
               isNotTr: true,
             ),
-            CommonSpace(height: 2),
             CommonText(
-              text: eeeeFormatter(locale: locale, dateTime: widget.dateTime),
-              fontSize: 12,
+              text: eeeeFormatter(
+                  locale: locale, dateTime: widget.memoInfo.dateTime!),
+              fontSize: 14,
               color: grey.original,
               isNotTr: true,
             ),
@@ -63,7 +66,7 @@ class _SearchTitleState extends State<SearchTitle> {
             padding: const EdgeInsets.only(left: 10, bottom: 10),
             child: Icon(
               Icons.more_vert_rounded,
-              size: 17,
+              size: 20,
               color: grey.original,
             ),
           ),

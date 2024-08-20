@@ -33,7 +33,7 @@ class _MemoCategoryBottomSheetState extends State<MemoCategoryBottomSheet> {
       ),
       child: CommonModalSheet(
         title: '카테고리 추가',
-        height: 140,
+        height: 145,
         child: CommonContainer(
           child: MemoTextFormField(
             autofocus: true,
@@ -41,7 +41,6 @@ class _MemoCategoryBottomSheetState extends State<MemoCategoryBottomSheet> {
             textAlign: TextAlign.left,
             hintText: '카테고리를 입력해주세요.',
             maxLength: 30,
-            fontSize: 15,
             isUnderline: true,
             focusedBorderColor: grey.s400,
             contentPadding: const EdgeInsets.only(bottom: 5),

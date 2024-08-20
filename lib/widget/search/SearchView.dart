@@ -44,12 +44,7 @@ class SearchView extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: memoInfoList
-              .map((memoInfo) => SearchItem(
-                    dateTime: memoInfo.dateTime!,
-                    uint8ListList: memoInfo.imageList,
-                    memo: memoInfo.memo,
-                    textAlign: memoInfo.textAlign,
-                  ))
+              .map((memoInfo) => SearchItem(memoInfo: memoInfo))
               .toList(),
         ),
       ),

@@ -23,7 +23,7 @@ class ImageSelectionModalSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonModalSheet(
       title: '사진',
-      height: 530,
+      height: 540,
       child: Column(
         children: [
           CommonImage(

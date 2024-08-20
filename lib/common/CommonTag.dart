@@ -31,7 +31,8 @@ class CommonTag extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: vertical ?? 5, horizontal: 7),
+          padding:
+              EdgeInsets.symmetric(vertical: vertical ?? 5, horizontal: 10),
           decoration: BoxDecoration(
             color: bgColor,
             borderRadius: BorderRadius.circular(5),

@@ -50,7 +50,7 @@ class CommonText extends StatelessWidget {
         softWrap: softWrap ?? true,
         style: TextStyle(
           color: color ?? defaultColor,
-          fontSize: fontSize,
+          fontSize: fontSize ?? defaultFontSize,
           fontWeight: isBold == true ? FontWeight.bold : FontWeight.w400,
           overflow: overflow,
           decoration: decoration,

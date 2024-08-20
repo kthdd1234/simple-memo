@@ -8,6 +8,7 @@ import 'package:simple_memo_app/page/ImageSlidePage.dart';
 import 'package:simple_memo_app/page/MemoPage.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
+import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/bottomSheet/MemoPasteBottomSheet.dart';
@@ -122,6 +123,7 @@ class _MemoViewState extends State<MemoView> {
                             text: memo ?? '',
                             isNotTr: true,
                             textAlign: textAlign,
+                            fontSize: defaultFontSize + 1,
                           ),
                         ],
                       ),
@@ -133,6 +135,7 @@ class _MemoViewState extends State<MemoView> {
                       child: CommonText(
                         text: '+ 메모 추가하기',
                         color: grey.original,
+                        fontSize: defaultFontSize + 1,
                       ),
                     ),
                   ),

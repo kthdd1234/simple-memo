@@ -61,7 +61,6 @@ class CommonModalSheet extends StatelessWidget {
                             padding: const EdgeInsets.only(bottom: 15),
                             child: CommonText(
                               text: title!,
-                              fontSize: 15,
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
                               isBold: !isLight,

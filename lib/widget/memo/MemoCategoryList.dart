@@ -29,24 +29,27 @@ class _MemoCategoryListState extends State<MemoCategoryList> {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 10, bottom: 5),
       child: SizedBox(
-        height: 30,
+        height: 35,
         child: ListView.builder(
           itemCount: widget.categoryList.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.only(right: 7),
-            child: CommonTag(
-              text: widget.categoryList[index].name,
-              textColor: selectedMemoCategoryId == widget.categoryList[index].id
-                  ? Colors.white
-                  : Colors.black,
-              bgColor: selectedMemoCategoryId == widget.categoryList[index].id
-                  ? textColor
-                  : Colors.white,
-              isBold: selectedMemoCategoryId == widget.categoryList[index].id,
-              isNotTr: true,
-              fontSize: 13,
-              onTap: () => onTag(widget.categoryList[index].id),
+            child: Center(
+              child: CommonTag(
+                text: widget.categoryList[index].name,
+                textColor:
+                    selectedMemoCategoryId == widget.categoryList[index].id
+                        ? Colors.white
+                        : Colors.black,
+                bgColor: selectedMemoCategoryId == widget.categoryList[index].id
+                    ? textColor
+                    : Colors.white,
+                isBold: selectedMemoCategoryId == widget.categoryList[index].id,
+                isNotTr: true,
+                fontSize: 16,
+                onTap: () => onTag(widget.categoryList[index].id),
+              ),
             ),
           ),
         ),

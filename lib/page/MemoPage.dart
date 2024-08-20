@@ -3,9 +3,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
+import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonTag.dart';
+import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/page/ImageSlidePage.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
@@ -168,25 +170,14 @@ class _MemoPageState extends State<MemoPage> {
       child: CommonScaffold(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         appBarInfo: AppBarInfoClass(
-            title: ymdeShortFormatter(
-              locale: locale,
-              dateTime: selectedDateTime,
-            ),
-            isNotTr: true,
-            isCenter: false,
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: CommonTag(
-                  text: getMemoCategoryName(selectedCategoryId),
-                  textColor: textColor,
-                  bgColor: Colors.white,
-                  isNotTr: true,
-                  fontSize: 13,
-                  onTap: () {},
-                ),
-              ),
-            ]),
+          title: ymdeShortFormatter(
+            locale: locale,
+            dateTime: selectedDateTime,
+          ),
+          isNotTr: true,
+          isCenter: false,
+          actions: [],
+        ),
         body: Column(
           children: [
             Expanded(
@@ -196,18 +187,20 @@ class _MemoPageState extends State<MemoPage> {
                   child: Column(
                     crossAxisAlignment: crossAxisAlignmentInfo[textAlign]!,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: MemoImages(
-                          uint8ListList: uint8ListList,
-                          onImage: onImage,
-                        ),
-                      ),
+                      uint8ListList.isNotEmpty
+                          ? Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: MemoImages(
+                                uint8ListList: uint8ListList,
+                                onImage: onImage,
+                              ),
+                            )
+                          : const CommonNull(),
                       MemoTextFormField(
                         controller: textController,
                         textAlign: textAlign,
                         focusNode: focusNode,
-                        fontSize: 14,
+                        fontSize: defaultFontSize + 1,
                       ),
                       CommonSpace(height: 70)
                     ],

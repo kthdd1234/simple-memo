@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/util/constants.dart';
 
 class SearchMemo extends StatelessWidget {
   SearchMemo({super.key, this.text, required this.textAlign});
@@ -15,7 +16,7 @@ class SearchMemo extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10),
             child: CommonText(
               text: text!,
-              fontSize: 13,
+              fontSize: defaultFontSize + 1,
               isNotTr: true,
               textAlign: textAlign,
             ),

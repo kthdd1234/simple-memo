@@ -38,7 +38,7 @@ class CommonOutlineInputField extends StatelessWidget {
           style: TextStyle(
             color: isLight ? textColor : darkTextColor,
             fontWeight: isLight ? FontWeight.normal : FontWeight.bold,
-            fontSize: 14,
+            fontSize: 16,
           ),
           controller: controller,
           autofocus: autofocus ?? false,

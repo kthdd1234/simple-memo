@@ -85,7 +85,7 @@ class MemoCategoryItem extends StatelessWidget {
                   CommonText(text: name, isNotTr: true),
                   CommonSvgText(
                     text: '$count',
-                    fontSize: 14,
+                    fontSize: 16,
                     textColor: isLight ? grey.original : Colors.white,
                     svgColor: isLight ? grey.original : Colors.white,
                     svgWidth: 6,

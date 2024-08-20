@@ -31,13 +31,13 @@ class CommonAppBar extends StatelessWidget {
       children: [
         CommonSvgText(
           text: title,
-          fontSize: 17,
+          fontSize: 20,
           isNotTr: isNotTr,
           svgName: svgName,
           svgWidth: svgWidth ?? 10,
           svgLeft: svgLeft,
           svgDirection: svgDirection ?? SvgDirection.right,
-          outerPadding: const EdgeInsets.fromLTRB(10, 5, 0, 10),
+          outerPadding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
           onTap: onTap,
         ),
         Row(children: actions),

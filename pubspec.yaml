@@ -186,6 +186,16 @@ flutter:
       fonts:
         - asset: assets/fonts/SingleDay.ttf
           weight: 400
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+
+    - family: Pretendard
+      fonts:
+        - asset: assets/fonts/Pretendard.ttf
+          weight: 400
+
+    - family: Omyu
+      fonts:
+        - asset: assets/fonts/Omyu.ttf
+          weight: 400
+    #
+    # For details regarding fonts from package dependencies,
+    # see https://flutter.dev/custom-fonts/#from-packages

@@ -259,12 +259,12 @@ calendarHeaderStyle(bool isLight) {
 calendarDaysOfWeekStyle(bool isLight) {
   return DaysOfWeekStyle(
     weekdayStyle: TextStyle(
-      fontSize: 13,
+      fontSize: 15,
       color: isLight ? Colors.black : darkTextColor,
       fontWeight: isLight ? null : FontWeight.bold,
     ),
     weekendStyle: TextStyle(
-      fontSize: 13,
+      fontSize: 15,
       color: red.s300,
       fontWeight: isLight ? null : FontWeight.bold,
     ),

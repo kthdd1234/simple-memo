@@ -25,7 +25,7 @@ const memoBgColor = Color.fromARGB(255, 255, 251, 243);
 final buttonColor = indigo.s200;
 
 /// initFontFamily
-const initFontFamily = 'IM_Hyemin';
+const initFontFamily = 'Omyu';
 
 /// dayLabels
 const dayLabels = ['월', '화', '수', '목', '금', '토', '일'];
@@ -129,3 +129,6 @@ const darkNotSelectedTextColor = Color(0xff616261);
 
 /// darkSvgBgColor
 const darkSvgBgColor = Color(0xff2C2C35);
+
+/// defaultFontSize
+const defaultFontSize = 17.0;
