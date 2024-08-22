@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
+import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
@@ -20,6 +21,8 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLight = context.watch<ThemeProvider>().isLight;
+
     String selectedMemoCategoryId =
         context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
     List<MemoInfoClass> memoInfoList = [];
@@ -67,7 +70,11 @@ class SearchView extends StatelessWidget {
                   .map((memoInfo) => SearchItem(memoInfo: memoInfo))
                   .toList(),
             ))
-          : Center(child: CommonText(text: '글이 없어요', color: grey.original)),
+          : Center(
+              child: CommonText(
+              text: '글이 없어요',
+              color: isLight ? grey.original : grey.s400,
+            )),
     );
   }
 }

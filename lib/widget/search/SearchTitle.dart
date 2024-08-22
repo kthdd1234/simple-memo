@@ -2,8 +2,10 @@ import 'dart:typed_data';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
@@ -36,6 +38,7 @@ class _SearchTitleState extends State<SearchTitle> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLight = context.watch<ThemeProvider>().isLight;
     String locale = context.locale.toString();
 
     return Row(
@@ -47,7 +50,9 @@ class _SearchTitleState extends State<SearchTitle> {
           children: [
             CommonText(
               text: ymdFullFormatter(
-                  locale: locale, dateTime: widget.memoInfo.dateTime!),
+                locale: locale,
+                dateTime: widget.memoInfo.dateTime!,
+              ),
               fontSize: 16,
               isNotTr: true,
             ),
@@ -55,7 +60,7 @@ class _SearchTitleState extends State<SearchTitle> {
               text: eeeeFormatter(
                   locale: locale, dateTime: widget.memoInfo.dateTime!),
               fontSize: 14,
-              color: grey.original,
+              color: isLight ? grey.original : grey.s400,
               isNotTr: true,
             ),
           ],
@@ -67,7 +72,7 @@ class _SearchTitleState extends State<SearchTitle> {
             child: Icon(
               Icons.more_vert_rounded,
               size: 20,
-              color: grey.original,
+              color: isLight ? grey.original : grey.s400,
             ),
           ),
         )

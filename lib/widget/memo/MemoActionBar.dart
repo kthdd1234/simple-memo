@@ -9,6 +9,7 @@ import 'package:simple_memo_app/widget/bottomSheet/ImageActionBottomSheet.dart';
 class MemoActionBar extends StatefulWidget {
   MemoActionBar({
     super.key,
+    required this.isLight,
     required this.isRemove,
     required this.textAlign,
     required this.onCamera,
@@ -18,7 +19,7 @@ class MemoActionBar extends StatefulWidget {
     required this.onCompleted,
   });
 
-  bool isRemove;
+  bool isRemove, isLight;
   TextAlign textAlign;
   Function(Uint8List uint8List) onCamera;
   Function(List<Uint8List> uint8ListList) onGallery;
@@ -49,6 +50,7 @@ class _MemoActionBarState extends State<MemoActionBar> {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         child: svgAsset(
+          isLight: widget.isLight,
           name: name,
           width: width,
           color: name == 'trash' ? red.s400 : null,

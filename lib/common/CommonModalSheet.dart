@@ -12,13 +12,14 @@ class CommonModalSheet extends StatelessWidget {
     super.key,
     this.title,
     this.isBack,
+    this.isNotTr,
     required this.height,
     required this.child,
   });
 
   String? title;
   double height;
-  bool? isBack;
+  bool? isBack, isNotTr;
   Widget child;
 
   @override
@@ -50,7 +51,7 @@ class CommonModalSheet extends StatelessWidget {
                                       bottom: 15, right: 15),
                                   child: Icon(
                                     Icons.arrow_back_ios_new_rounded,
-                                    color: isLight ? textColor : Colors.white,
+                                    color: isLight ? themeColor : Colors.white,
                                     size: 16,
                                   ),
                                 ),
@@ -64,6 +65,7 @@ class CommonModalSheet extends StatelessWidget {
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
                               isBold: !isLight,
+                              isNotTr: isNotTr,
                             ),
                           ),
                         ),

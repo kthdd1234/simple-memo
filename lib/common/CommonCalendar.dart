@@ -43,14 +43,13 @@ class _CommonCalendarState extends State<CommonCalendar> {
         : dateTime.weekday == 7
             ? red.original
             : isLight
-                ? textColor
+                ? themeColor
                 : Colors.white;
 
     return CommonText(
       text: eFormatter(locale: locale, dateTime: dateTime),
       color: color,
       fontSize: 15,
-      isBold: !isLight,
       isNotTr: true,
     );
   }
@@ -61,18 +60,13 @@ class _CommonCalendarState extends State<CommonCalendar> {
         : dateTime.weekday == 7
             ? red.original
             : isLight
-                ? textColor
+                ? themeColor
                 : Colors.white;
 
     return Column(
       children: [
         CommonSpace(height: 13.5),
-        CommonText(
-          text: '${dateTime.day}',
-          color: color,
-          isBold: !isLight,
-          isNotTr: true,
-        ),
+        CommonText(text: '${dateTime.day}', color: color, isNotTr: true),
       ],
     );
   }
@@ -92,12 +86,11 @@ class _CommonCalendarState extends State<CommonCalendar> {
               ? Alignment.topCenter
               : Alignment.center,
           todayDecoration: BoxDecoration(
-            color: isLight ? textColor : calendarSelectedDateTimeBgColor,
+            color: isLight ? themeColor : calendarSelectedDateTimeBgColor,
             shape: BoxShape.circle,
           ),
           todayTextStyle: TextStyle(
             color: isLight ? Colors.white : calendarSelectedDateTimeTextColor,
-            fontWeight: FontWeight.bold,
             fontSize: 15,
           ),
         ),

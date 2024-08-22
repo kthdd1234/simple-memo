@@ -1,6 +1,9 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_memo_app/common/CommonSvg.dart';
+import 'package:simple_memo_app/main.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/memo/MemoTextFormField.dart';
@@ -52,7 +55,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
               autofocus: false,
               controller: widget.controller,
               textAlign: TextAlign.left,
-              hintText: '키워드 검색',
+              hintText: '키워드 검색'.tr(),
               fontSize: 18,
               isUnderline: true,
               contentPadding: const EdgeInsets.only(bottom: 5),
@@ -65,9 +68,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
             child: Padding(
               padding:
                   const EdgeInsets.only(left: 7, top: 5, bottom: 5, right: 3),
-              child: svgWidget(
+              child: CommonSvg(
                 name: widget.isRecent ? 'up-down' : 'down-up',
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 onTap: widget.onUpDown,
               ),
             ),

@@ -46,15 +46,15 @@ class MemoTextFormField extends StatelessWidget {
       maxLines: null,
       maxLength: maxLength,
       minLines: null,
-      cursorColor: textColor,
+      cursorColor: isLight ? themeColor : darkTextColor,
       textInputAction: textInputAction ?? TextInputAction.newline,
       style: TextStyle(
         fontSize: fontSize,
         color: isLight ? Colors.black : darkTextColor,
-        fontWeight: isLight ? FontWeight.normal : FontWeight.bold,
       ),
       textAlign: textAlign,
       decoration: InputDecoration(
+        counterText: "",
         contentPadding: contentPadding ??
             const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         isDense: true,
@@ -66,7 +66,7 @@ class MemoTextFormField extends StatelessWidget {
             : null,
         focusedBorder: isUnderline == true
             ? UnderlineInputBorder(
-                borderSide: BorderSide(color: focusedBorderColor ?? textColor),
+                borderSide: BorderSide(color: focusedBorderColor ?? themeColor),
               )
             : null,
       ),

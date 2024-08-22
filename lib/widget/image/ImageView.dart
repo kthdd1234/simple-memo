@@ -1,8 +1,10 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonImage.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/widget/image/ImageDateTime.dart';
@@ -19,6 +21,8 @@ class ImageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLight = context.watch<ThemeProvider>().isLight;
+
     return Expanded(
       child: imageClassList.isNotEmpty
           ? GridView.builder(
@@ -48,7 +52,11 @@ class ImageView extends StatelessWidget {
                 );
               },
             )
-          : Center(child: CommonText(text: '사진이 없어요.', color: grey.original)),
+          : Center(
+              child: CommonText(
+              text: '사진이 없어요.',
+              color: isLight ? grey.original : grey.s400,
+            )),
     );
   }
 }

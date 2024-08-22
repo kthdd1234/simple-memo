@@ -14,6 +14,7 @@ class ModalButton extends StatelessWidget {
     super.key,
     required this.actionText,
     required this.onTap,
+    this.isSelection,
     this.color,
     this.icon,
     this.svgName,
@@ -25,7 +26,7 @@ class ModalButton extends StatelessWidget {
   String? svgName;
   IconData? icon;
   String actionText;
-  bool? isNotTr, isNotSvgColor;
+  bool? isNotTr, isNotSvgColor, isSelection;
   EdgeInsets? innerPadding;
   Color? color;
   Function() onTap;
@@ -34,13 +35,13 @@ class ModalButton extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
     Color bgColor = isLight ? Colors.white : darkContainerColor;
-    Color settingColor = color ?? (isLight ? textColor : darkTextColor);
+    Color settingColor = color ?? (isLight ? themeColor : darkTextColor);
 
     return Expanded(
       child: Padding(
         padding: innerPadding ?? const EdgeInsets.all(0),
         child: CommonContainer(
-          color: bgColor,
+          color: isSelection == true ? themeColor : bgColor,
           onTap: onTap,
           radius: 7,
           child: Column(
@@ -48,19 +49,24 @@ class ModalButton extends StatelessWidget {
             children: [
               svgName != null
                   ? svgAsset(
+                      isNotColor: isNotSvgColor,
+                      isLight: isLight,
                       name: svgName!,
                       width: 25,
-                      color: isNotSvgColor == true ? null : settingColor,
+                      color: isSelection == true ? Colors.white : settingColor,
                     )
                   : const CommonNull(),
               icon != null
-                  ? Icon(icon!, size: 25, color: settingColor)
+                  ? Icon(
+                      icon!,
+                      size: 25,
+                      color: isSelection == true ? Colors.white : settingColor,
+                    )
                   : const CommonNull(),
               CommonSpace(height: 10),
               CommonText(
                 text: actionText,
-                color: settingColor,
-                isBold: !isLight,
+                color: isSelection == true ? Colors.white : settingColor,
                 isNotTr: isNotTr,
               )
             ],

@@ -7,6 +7,7 @@ import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/page/ImageSlidePage.dart';
 import 'package:simple_memo_app/page/MemoPage.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
+import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -66,6 +67,7 @@ class _MemoViewState extends State<MemoView> {
   onLongPress(MemoInfoClass? memoInfo) {
     if (memoInfo != null) {
       showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         builder: (context) => MemoSettingBottomSheet(
           memoInfo: memoInfo,
@@ -88,6 +90,8 @@ class _MemoViewState extends State<MemoView> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLight = context.watch<ThemeProvider>().isLight;
+
     MemoInfoClass? memoInfo =
         getMemoInfo(widget.selectedDateTime, widget.categoryId);
     String? memo = memoInfo?.memo;
@@ -134,7 +138,7 @@ class _MemoViewState extends State<MemoView> {
                     child: Center(
                       child: CommonText(
                         text: '+ 글쓰기',
-                        color: grey.original,
+                        color: isLight ? grey.original : grey.s400,
                         fontSize: defaultFontSize + 1,
                       ),
                     ),

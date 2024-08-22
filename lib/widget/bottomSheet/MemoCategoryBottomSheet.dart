@@ -1,15 +1,21 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonContainer.dart';
 import 'package:simple_memo_app/common/CommonModalSheet.dart';
 import 'package:simple_memo_app/common/CommonOutlineInputField.dart';
+import 'package:simple_memo_app/main.dart';
+import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
+import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/memo/MemoTextFormField.dart';
 
 class MemoCategoryBottomSheet extends StatefulWidget {
-  const MemoCategoryBottomSheet({super.key});
+  MemoCategoryBottomSheet({super.key, this.initCategoryBox});
+
+  CategoryBox? initCategoryBox;
 
   @override
   State<MemoCategoryBottomSheet> createState() =>
@@ -19,8 +25,39 @@ class MemoCategoryBottomSheet extends StatefulWidget {
 class _MemoCategoryBottomSheetState extends State<MemoCategoryBottomSheet> {
   TextEditingController controller = TextEditingController();
 
-  onEditingComplete() {
+  onEditingComplete() async {
+    if (widget.initCategoryBox == null) {
+      String id = uuid();
+
+      categoryRepository.categoryBox.put(
+        id,
+        CategoryBox(
+          id: id,
+          name: controller.text,
+          createDateTime: DateTime.now(),
+        ),
+      );
+
+      userRepository.user.categoryOrderList.add(id);
+      await userRepository.user.save();
+    } else {
+      CategoryBox? categoryBox =
+          categoryRepository.categoryBox.get(widget.initCategoryBox!.id);
+      categoryBox?.name = controller.text;
+
+      await categoryBox?.save();
+    }
+
     pop(context);
+  }
+
+  @override
+  void initState() {
+    if (widget.initCategoryBox != null) {
+      controller.text = widget.initCategoryBox!.name;
+    }
+
+    super.initState();
   }
 
   @override
@@ -32,18 +69,19 @@ class _MemoCategoryBottomSheetState extends State<MemoCategoryBottomSheet> {
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: CommonModalSheet(
-        title: '카테고리 추가',
-        height: 145,
+        title: '노트 ${widget.initCategoryBox != null ? '편집' : '추가'}',
+        height: 132.5,
         child: CommonContainer(
+          outerPadding: const EdgeInsets.only(bottom: 10),
           child: MemoTextFormField(
             autofocus: true,
             controller: controller,
+            fontSize: defaultFontSize,
             textAlign: TextAlign.left,
-            hintText: '카테고리를 입력해주세요.',
-            maxLength: 30,
+            hintText: '노트 이름을 입력해주세요.'.tr(),
             isUnderline: true,
-            focusedBorderColor: grey.s400,
-            contentPadding: const EdgeInsets.only(bottom: 5),
+            maxLength: 30,
+            focusedBorderColor: Colors.transparent,
             textInputAction: TextInputAction.done,
             onEditingComplete: onEditingComplete,
           ),

@@ -80,8 +80,8 @@ class _StartPageState extends State<StartPage> {
         child: Column(
           children: [
             const Spacer(),
-            CommonText(text: '반가워요! 하루 일기 앱과 함께'),
-            CommonText(text: '꾸준히 일기 쓰는 습관을 만들어봐요 :D'),
+            CommonText(text: '반가워요! 하루 노트와 함께'),
+            CommonText(text: '꾸준히 글쓰는 습관을 만들어봐요 :D'),
           ],
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:simple_memo_app/repositories/category_repository.dart';
 import 'package:simple_memo_app/repositories/record_repository.dart';
 import 'package:simple_memo_app/repositories/user_repository.dart';
 import 'package:simple_memo_app/util/class.dart';
+import 'package:simple_memo_app/util/enum.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 final bottomNavigationBarItemList = [
@@ -243,75 +244,6 @@ final daysInfo = {
   6: 6,
 };
 
-final initPraiseTitleList = [
-  PraiseTitleClass(
-    id: '0',
-    title: '칭찬 일기를 쓰기로 결심한 나',
-    colorName: 'indigo',
-  ),
-  PraiseTitleClass(
-    id: '1',
-    title: '사소한 행동',
-    colorName: 'indigo',
-  ),
-  PraiseTitleClass(
-    id: '2',
-    title: '나의 성격',
-    colorName: 'indigo',
-  ),
-  PraiseTitleClass(
-    id: '3',
-    title: '과거에 내가 노력한 과정',
-    colorName: 'indigo',
-  ),
-  PraiseTitleClass(
-    id: '4',
-    title: '내가 가지고 있는 습관',
-    colorName: 'indigo',
-  ),
-  PraiseTitleClass(
-    id: '5',
-    title: '나의 외모',
-    colorName: 'indigo',
-  ),
-  PraiseTitleClass(
-    id: '6',
-    title: '목표 달성',
-    colorName: 'red',
-  ),
-  PraiseTitleClass(
-    id: '6',
-    title: '실패를 통해 배운 점',
-    colorName: 'red',
-  ),
-  PraiseTitleClass(
-    id: '7',
-    title: '내면의 변화',
-    colorName: 'red',
-  ),
-  PraiseTitleClass(
-    id: '8',
-    title: '있는 그대로의 나',
-    colorName: 'red',
-  ),
-  PraiseTitleClass(
-    id: '9',
-    title: '작은 친절',
-    colorName: 'blue',
-  ),
-  PraiseTitleClass(
-    id: '10',
-    title: '새로운 도전',
-    colorName: 'blue',
-  ),
-]
-    .map((item) => {
-          'id': item.id,
-          'title': item.title,
-          'colorName': item.colorName,
-        })
-    .toList();
-
 Map<TextAlign, TextAlign> nextTextAlign = {
   TextAlign.left: TextAlign.center,
   TextAlign.center: TextAlign.right,
@@ -324,16 +256,20 @@ Map<TextAlign, String> textAlignName = {
   TextAlign.right: 'right'
 };
 
-final categoryList = [
-  MemoCategoryClass(id: '📒기본 메모', name: '📒기본 메모'),
-  MemoCategoryClass(id: '🥗다이어트', name: '🥗다이어트'),
-  MemoCategoryClass(id: '👨‍💻코딩', name: '👨‍💻코딩'),
-  MemoCategoryClass(id: '📚독서', name: '📚독서'),
-  MemoCategoryClass(id: '📝일기', name: '📝일기'),
-  MemoCategoryClass(id: '⚽️풋살', name: '⚽️풋살'),
-];
+// final categoryList = [
+//   MemoCategoryClass(id: '📒기본 메모', name: '📒기본 메모'),
+//   MemoCategoryClass(id: '🥗다이어트', name: '🥗다이어트'),
+//   MemoCategoryClass(id: '👨‍💻코딩', name: '👨‍💻코딩'),
+//   MemoCategoryClass(id: '📚독서', name: '📚독서'),
+//   MemoCategoryClass(id: '📝일기', name: '📝일기'),
+//   MemoCategoryClass(id: '⚽️풋살', name: '⚽️풋살'),
+// ];
 
 List<Map<String, String>> fontFamilyList = [
+  {
+    "fontFamily": "Omyu",
+    "name": "오뮤 다예쁨체",
+  },
   {
     "fontFamily": "IM_Hyemin",
     "name": "IM 혜민",
@@ -367,13 +303,13 @@ final languageList = [
 ];
 
 Map<String, String> initCategoryName1 = {
-  'ko': '📔일기 1',
-  'en': '📔title 1',
+  'ko': '📔노트 1',
+  'en': '📔note 1',
   'ja': '📔タイトル1'
 };
 Map<String, String> initCategoryName2 = {
-  'ko': '📕일기 2',
-  'en': '📕title 2',
+  'ko': '📕노트 2',
+  'en': '📕note 2',
   'ja': '📕タイトル2'
 };
 
@@ -394,3 +330,11 @@ final crossAxisAlignmentInfo = {
   TextAlign.center: CrossAxisAlignment.center,
   TextAlign.right: CrossAxisAlignment.end,
 };
+
+String tSystem = Themes.system.toString();
+String tLight = Themes.light.toString();
+String tDark = Themes.dark.toString();
+
+final themesInfo = {tSystem: '시스템 설정', tLight: '화이트 모드', tDark: '다크 모드'};
+
+final localeInfo = {'en': 'English', 'ko': '한국어', 'ja': '日本語'};

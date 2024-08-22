@@ -21,7 +21,7 @@ class SearchMemoBar extends StatelessWidget {
           CommonOutlineInputField(
             controller: controller,
             hintText: '키워드를 입력해주세요.',
-            selectedColor: textColor,
+            selectedColor: themeColor,
             onEditingComplete: onEditingComplete,
             onSuffixIcon: onEditingComplete,
           )

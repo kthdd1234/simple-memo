@@ -32,6 +32,7 @@ class SearchItemBottomSheet extends StatelessWidget {
 
     return CommonModalSheet(
       title: title,
+      isNotTr: true,
       height: 192,
       child: Row(
         children: [

@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +8,16 @@ import 'package:multi_value_listenable_builder/multi_value_listenable_builder.da
 import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
+import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
-import 'package:simple_memo_app/widget/appBar/MoreAppBar.dart';
+import 'package:simple_memo_app/etc/MoreAppBar.dart';
 import 'package:simple_memo_app/widget/bottomSheet/FontBottomSheet.dart';
 import 'package:simple_memo_app/widget/bottomSheet/LanguageBottomSheet.dart';
 import 'package:simple_memo_app/widget/bottomSheet/ScreenModeBottomSheet.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MorePage extends StatefulWidget {
   const MorePage({super.key});
@@ -22,6 +27,24 @@ class MorePage extends StatefulWidget {
 }
 
 class _MorePageState extends State<MorePage> {
+  String appVerstion = '';
+  String appBuildNumber = '';
+
+  @override
+  void initState() {
+    getInfo() async {
+      Map<String, dynamic> appInfo = await getAppInfo();
+
+      appVerstion = appInfo['appVerstion'];
+      appBuildNumber = appInfo['appBuildNumber'];
+
+      setState(() {});
+    }
+
+    getInfo();
+    super.initState();
+  }
+
   onScreen() {
     showModalBottomSheet(
       context: context,
@@ -43,8 +66,15 @@ class _MorePageState extends State<MorePage> {
     );
   }
 
-  onPrivacy() {
-    //
+  onPrivacy() async {
+    Uri url = Uri(
+      scheme: 'https',
+      host: 'nettle-dill-e85.notion.site',
+      path: 'eee748728b474207b2f640c910cd8a70',
+      queryParameters: {'pvs': '4'},
+    );
+
+    await canLaunchUrl(url) ? await launchUrl(url) : throw 'launchUrl error';
   }
 
   onVersion() {
@@ -53,44 +83,49 @@ class _MorePageState extends State<MorePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<MoreItem> moreItemList = [
-      MoreItem(
-        svgName: 'screen',
-        title: '화면',
-        value: '시스템 설정',
-        onMore: onScreen,
-      ),
-      MoreItem(
-        svgName: 'language',
-        title: '언어',
-        value: 'English',
-        onMore: onLanguage,
-      ),
-      MoreItem(
-        svgName: 'font',
-        title: '글꼴',
-        value: 'IM 혜민',
-        onMore: onFont,
-      ),
-      MoreItem(
-        svgName: 'privacy',
-        title: '개인정보처리방침',
-        onMore: onPrivacy,
-      ),
-      MoreItem(
-        svgName: 'version',
-        title: '앱 버전',
-        value: '1.0.1',
-        onMore: onVersion,
-      ),
-    ];
-
     return CommonBackground(
       child: CommonScaffold(
         appBarInfo: AppBarInfoClass(title: '설정'),
         body: MultiValueListenableBuilder(
           valueListenables: valueListenables,
           builder: (context, values, child) {
+            UserBox user = userRepository.user;
+            String locale = context.locale.toString();
+
+            List<MoreItem> moreItemList = [
+              MoreItem(
+                svgName: 'screen',
+                title: '화면',
+                value: themesInfo[user.theme],
+                onMore: onScreen,
+              ),
+              MoreItem(
+                svgName: 'language',
+                title: '언어',
+                value: localeInfo[locale],
+                isNotTr: true,
+                onMore: onLanguage,
+              ),
+              // MoreItem(
+              //   svgName: 'font',
+              //   title: '글꼴',
+              //   value: 'IM 혜민',
+              //   onMore: onFont,
+              // ),
+              MoreItem(
+                svgName: 'privacy',
+                title: '개인정보처리방침',
+                onMore: onPrivacy,
+              ),
+              MoreItem(
+                svgName: 'version',
+                title: '앱 버전',
+                value: '$appVerstion ($appBuildNumber)',
+                isNotTr: true,
+                onMore: onVersion,
+              ),
+            ];
+
             return SingleChildScrollView(
               child: Column(
                 children: moreItemList
@@ -98,6 +133,7 @@ class _MorePageState extends State<MorePage> {
                           svgName: more.svgName,
                           title: more.title,
                           value: more.value,
+                          isNotTr: more.isNotTr,
                           onMore: more.onMore,
                         ))
                     .toList(),
@@ -116,22 +152,26 @@ class MoreItem extends StatelessWidget {
     required this.svgName,
     required this.title,
     required this.onMore,
+    this.isNotTr,
     this.value,
   });
 
   String svgName, title;
   String? value;
+  bool? isNotTr;
   Function() onMore;
 
   @override
   Widget build(BuildContext context) {
+    bool isLight = context.watch<ThemeProvider>().isLight;
+
     return InkWell(
       onTap: onMore,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12.5),
         child: Row(
           children: [
-            svgAsset(name: svgName, width: 18),
+            svgAsset(name: svgName, width: 18, isLight: isLight),
             CommonSpace(width: 15),
             CommonText(text: title, fontSize: 17),
             const Spacer(),
@@ -141,7 +181,8 @@ class MoreItem extends StatelessWidget {
                       CommonText(
                         text: value!,
                         fontSize: 16,
-                        color: grey.original,
+                        color: isLight ? grey.original : grey.s400,
+                        isNotTr: isNotTr,
                       ),
                       svgName != 'version'
                           ? Padding(
@@ -150,6 +191,7 @@ class MoreItem extends StatelessWidget {
                                 name: 'dir-right',
                                 width: 6,
                                 color: grey.original,
+                                isLight: isLight,
                               ),
                             )
                           : const CommonNull()

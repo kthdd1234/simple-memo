@@ -8,6 +8,7 @@ import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonDivider.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
+import 'package:simple_memo_app/common/CommonSvg.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/page/ImageSlidePage.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
@@ -46,7 +47,7 @@ class _ImagePageState extends State<ImagePage> {
         builder: (context) => AlertPopup(
           desc: '추가한 사진이 없어요',
           buttonText: '확인',
-          height: 150,
+          height: 170,
           onTap: () => pop(context),
         ),
       );
@@ -60,8 +61,6 @@ class _ImagePageState extends State<ImagePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<MemoCategoryClass> categoryList =
-        getMemoCategoryList(categoryRepository.categoryList);
     EdgeInsets padding = const EdgeInsets.fromLTRB(5, 10, 10, 10);
 
     String selectedMemoCategoryId =
@@ -99,14 +98,14 @@ class _ImagePageState extends State<ImagePage> {
           title: '사진 모아보기',
           isCenter: false,
           actions: [
-            svgWidget(
+            CommonSvg(
               name: 'slide-show',
               onTap: () => onSlide(
                 imageClassList.map((image) => image.uint8List).toList(),
               ),
               padding: padding,
             ),
-            svgWidget(
+            CommonSvg(
               name: isRecent ? 'up-down' : 'down-up',
               onTap: onRecent,
               padding: padding,
@@ -120,8 +119,8 @@ class _ImagePageState extends State<ImagePage> {
             return Column(
               children: [
                 ImageView(imageClassList: imageClassList, onImage: onImage),
-                CommonDivider(horizontal: 10, color: grey.s400),
-                MemoCategoryList(categoryList: categoryList)
+                CommonDivider(horizontal: 10),
+                MemoCategoryList()
               ],
             );
           },

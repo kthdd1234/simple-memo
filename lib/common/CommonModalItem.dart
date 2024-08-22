@@ -37,7 +37,7 @@ class CommonModalItem extends StatelessWidget {
               ],
             ),
           ),
-          CommonDivider(color: isLight ? grey.s200 : Colors.white12),
+          CommonDivider(),
         ],
       ),
     );

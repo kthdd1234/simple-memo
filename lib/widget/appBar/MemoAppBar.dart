@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonAppBar.dart';
 import 'package:simple_memo_app/common/CommonDivider.dart';
+import 'package:simple_memo_app/common/CommonSvg.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
@@ -31,7 +32,7 @@ class _MemoAppBarState extends State<MemoAppBar> {
     String locale = context.locale.toString();
     DateTime selectedDateTime =
         context.watch<SelectedDateTimeProvider>().seletedDateTime;
-    EdgeInsets padding = const EdgeInsets.fromLTRB(5, 7, 10, 10);
+    EdgeInsets padding = const EdgeInsets.fromLTRB(7, 7, 10, 10);
 
     return Column(
       children: [
@@ -42,29 +43,29 @@ class _MemoAppBarState extends State<MemoAppBar> {
           svgLeft: 7,
           onTap: widget.onCalendar,
           actions: [
-            svgWidget(
+            CommonSvg(
               name: 'search',
               onTap: widget.onSearch,
               padding: padding,
             ),
-            svgWidget(
+            CommonSvg(
               name: 'images',
               onTap: widget.onImages,
               padding: padding,
             ),
-            svgWidget(
+            CommonSvg(
               name: 'category',
               onTap: widget.onCategory,
               padding: padding,
             ),
-            svgWidget(
+            CommonSvg(
               name: 'setting',
               onTap: widget.onMore,
               padding: padding,
             ),
           ],
         ),
-        CommonDivider(horizontal: 10, color: grey.s400),
+        CommonDivider(horizontal: 10),
       ],
     );
   }

@@ -6,8 +6,11 @@ import 'package:simple_memo_app/util/final.dart';
 /// pagePadding
 const pagePadding = EdgeInsets.all(15);
 
-/// textColor
-const textColor = Color(0xFF404763);
+/// themeColor
+const themeColor = Color(0xFF404763);
+
+/// themeColor2
+const themeColor2 = Color(0xffF0F0F2);
 
 /// unTextColor
 final unTextColor = Colors.grey.shade600;

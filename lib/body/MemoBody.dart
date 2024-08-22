@@ -11,7 +11,7 @@ import 'package:simple_memo_app/page/SearchPage.dart';
 import 'package:simple_memo_app/provider/CopyMemoInfoProvider.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
-import 'package:simple_memo_app/util/class.dart';
+import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/appBar/MemoAppBar.dart';
@@ -60,8 +60,7 @@ class _MemoBodyState extends State<MemoBody> {
 
   @override
   Widget build(BuildContext context) {
-    List<MemoCategoryClass> categoryList =
-        getMemoCategoryList(categoryRepository.categoryList);
+    bool isLight = context.watch<ThemeProvider>().isLight;
     DateTime selectedDateTime =
         context.watch<SelectedDateTimeProvider>().seletedDateTime;
     String categoryId =
@@ -83,6 +82,7 @@ class _MemoBodyState extends State<MemoBody> {
                 onMore: onMore,
               ),
               MemoCalendar(
+                  isLight: isLight,
                   selectedDateTime: selectedDateTime,
                   categoryId: categoryId,
                   isCalendar: isCalendar,
@@ -93,8 +93,8 @@ class _MemoBodyState extends State<MemoBody> {
                 categoryId: categoryId,
                 copyMemoInfo: copyMemoInfo,
               ),
-              CommonDivider(horizontal: 10, color: grey.s400),
-              MemoCategoryList(categoryList: categoryList),
+              CommonDivider(horizontal: 10),
+              MemoCategoryList(),
             ],
           );
         });

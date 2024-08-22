@@ -95,9 +95,9 @@ class _MemoImagesState extends State<MemoImages> {
             ),
             CommonSpace(height: 5),
             Row(children: [
-              image(uint8ListList[0], 150),
+              image(uint8ListList[3], 150),
               CommonSpace(width: 5),
-              image(uint8ListList[1], 150)
+              image(uint8ListList[4], 150)
             ])
           ],
         );

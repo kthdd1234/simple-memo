@@ -3,14 +3,15 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonTag.dart';
+import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/constants.dart';
+import 'package:simple_memo_app/util/final.dart';
+import 'package:simple_memo_app/util/func.dart';
 
 class MemoCategoryList extends StatefulWidget {
-  MemoCategoryList({super.key, required this.categoryList});
-
-  List<MemoCategoryClass> categoryList;
+  MemoCategoryList({super.key});
 
   @override
   State<MemoCategoryList> createState() => _MemoCategoryListState();
@@ -26,29 +27,24 @@ class _MemoCategoryListState extends State<MemoCategoryList> {
     String selectedMemoCategoryId =
         context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
 
+    List<CategoryBox> categoryList = getCategoryList();
+
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 10, bottom: 5),
       child: SizedBox(
         height: 35,
         child: ListView.builder(
-          itemCount: widget.categoryList.length,
+          itemCount: categoryList.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.only(right: 7),
             child: Center(
               child: CommonTag(
-                text: widget.categoryList[index].name,
-                textColor:
-                    selectedMemoCategoryId == widget.categoryList[index].id
-                        ? Colors.white
-                        : Colors.black,
-                bgColor: selectedMemoCategoryId == widget.categoryList[index].id
-                    ? textColor
-                    : Colors.white,
-                isBold: selectedMemoCategoryId == widget.categoryList[index].id,
+                text: categoryList[index].name,
+                isSelection: selectedMemoCategoryId == categoryList[index].id,
                 isNotTr: true,
                 fontSize: 16,
-                onTap: () => onTag(widget.categoryList[index].id),
+                onTap: () => onTag(categoryList[index].id),
               ),
             ),
           ),

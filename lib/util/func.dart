@@ -19,15 +19,21 @@ import 'package:simple_memo_app/widget/popup/AlertPopup.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 SvgPicture svgAsset({
+  required bool isLight,
   required String name,
   required double width,
   Color? color,
+  bool? isNotColor,
 }) {
+  if (isNotColor == true) {
+    return SvgPicture.asset('assets/svgs/$name.svg', width: width);
+  }
+
   return SvgPicture.asset(
     'assets/svgs/$name.svg',
     width: width,
-    colorFilter:
-        color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+    colorFilter: ColorFilter.mode(
+        color ?? (isLight ? Colors.black : Colors.white), BlendMode.srcIn),
   );
 }
 
@@ -292,29 +298,6 @@ calendarDetailStyle(bool isLight) {
   );
 }
 
-svgWidget({
-  required String name,
-  required Function() onTap,
-  required EdgeInsets padding,
-}) {
-  return InkWell(
-    onTap: onTap,
-    child: Padding(
-      padding: padding,
-      child: svgAsset(name: name, width: 20),
-    ),
-  );
-}
-
-List<MemoCategoryClass> getMemoCategoryList(List<CategoryBox> categoryList) {
-  return categoryRepository.categoryList
-      .map((category) => MemoCategoryClass(
-            id: category.id,
-            name: category.name,
-          ))
-      .toList();
-}
-
 String getMemoCategoryName(String categoryId) {
   return categoryRepository.categoryBox.get(categoryId)?.name ?? '';
 }
@@ -381,6 +364,8 @@ onPaste({
         .indexWhere((info) => info['categoryId'] == selectedCategoryId);
 
     if (index == -1) {
+      copyMemoInfo['categoryId'] = selectedCategoryId;
+
       recordRepository.updateRecord(
         key: recordKey,
         record: RecordBox(
@@ -389,14 +374,15 @@ onPaste({
         ),
       );
     } else {
-      memoInfoList[index]['categoryId'] = copyMemoInfo['categoryId'];
+      memoInfoList[index]['categoryId'] = selectedCategoryId;
       memoInfoList[index]['imageList'] = copyMemoInfo['imageList'];
       memoInfoList[index]['memo'] = copyMemoInfo['memo'];
       memoInfoList[index]['textAlign'] = copyMemoInfo['textAlign'];
+
+      await record?.save();
     }
   }
 
-  await record?.save();
   pop(context);
 }
 
@@ -415,4 +401,18 @@ removeMemoInfo({
 
   await record?.save();
   pop(context);
+}
+
+List<CategoryBox> getCategoryList() {
+  List<String> categoryOrderList = userRepository.user.categoryOrderList;
+  List<CategoryBox> categoryList = categoryRepository.categoryList;
+
+  categoryList.sort((a, b) {
+    int index1 = categoryOrderList.indexOf(a.id);
+    int index2 = categoryOrderList.indexOf(b.id);
+
+    return index1.compareTo(index2);
+  });
+
+  return categoryList;
 }

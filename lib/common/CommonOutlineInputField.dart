@@ -36,7 +36,7 @@ class CommonOutlineInputField extends StatelessWidget {
         height: 40,
         child: TextFormField(
           style: TextStyle(
-            color: isLight ? textColor : darkTextColor,
+            color: isLight ? themeColor : darkTextColor,
             fontWeight: isLight ? FontWeight.normal : FontWeight.bold,
             fontSize: 16,
           ),

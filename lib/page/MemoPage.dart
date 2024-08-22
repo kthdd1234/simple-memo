@@ -12,6 +12,7 @@ import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/page/ImageSlidePage.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
+import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -54,7 +55,7 @@ class _MemoPageState extends State<MemoPage> {
       builder: (context) => AlertPopup(
         desc: '사진은 최대 6장까지 추가할 수 있어요.',
         buttonText: '확인',
-        height: 160,
+        height: 170,
         onTap: () => pop(context),
       ),
     );
@@ -66,7 +67,7 @@ class _MemoPageState extends State<MemoPage> {
     if (uint8ListList.length + 1 > 6) {
       onLimitedImagePopup();
     } else {
-      setState(() => uint8ListList.add(uint8List));
+      setState(() => uint8ListList = [...uint8ListList, uint8List]);
     }
   }
 
@@ -78,7 +79,7 @@ class _MemoPageState extends State<MemoPage> {
     if (length > 6) {
       onLimitedImagePopup();
     } else {
-      setState(() => uint8ListList.addAll(uint8ListArray));
+      setState(() => uint8ListList = [...uint8ListList, ...uint8ListArray]);
     }
   }
 
@@ -122,6 +123,7 @@ class _MemoPageState extends State<MemoPage> {
   @override
   Widget build(BuildContext context) {
     String locale = context.locale.toString();
+    bool isLight = context.watch<ThemeProvider>().isLight;
     DateTime selectedDateTime =
         context.watch<SelectedDateTimeProvider>().seletedDateTime;
     String selectedCategoryId =
@@ -209,6 +211,7 @@ class _MemoPageState extends State<MemoPage> {
               ),
             ),
             MemoActionBar(
+              isLight: isLight,
               isRemove: widget.initMemoInfo != null,
               textAlign: textAlign,
               onCamera: onCamera,

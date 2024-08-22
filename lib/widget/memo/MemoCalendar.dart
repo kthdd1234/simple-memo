@@ -7,9 +7,7 @@ import 'package:simple_memo_app/common/CommonDivider.dart';
 import 'package:simple_memo_app/common/CommonImage.dart';
 import 'package:simple_memo_app/common/CommonMask.dart';
 import 'package:simple_memo_app/common/CommonNull.dart';
-import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
-import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/constants.dart';
@@ -20,6 +18,7 @@ import 'package:table_calendar/table_calendar.dart';
 class MemoCalendar extends StatefulWidget {
   MemoCalendar({
     super.key,
+    required this.isLight,
     required this.selectedDateTime,
     required this.categoryId,
     required this.isCalendar,
@@ -27,6 +26,7 @@ class MemoCalendar extends StatefulWidget {
     required this.onFormatChanged,
   });
 
+  bool isLight;
   DateTime selectedDateTime;
   String categoryId;
   bool isCalendar;
@@ -51,42 +51,45 @@ class _MemoCalendarState extends State<MemoCalendar> {
     Uint8List? unit8List = memoInfoClass?.imageList?[0];
     bool isToday = dateTimeKey(widget.selectedDateTime) == recordKey;
 
-    // if (unit8List != null) {
-    //   return Stack(
-    //     alignment: AlignmentDirectional.bottomCenter,
-    //     children: [
-    //       Center(
-    //         child: CommonImage(
-    //           uint8List: unit8List,
-    //           width: 30,
-    //           height: 30,
-    //           onTap: (_) {},
-    //         ),
-    //       ),
-    //       Center(child: CommonMask(width: 30, height: 30, opacity: 0.2)),
-    //       Center(
-    //         child: Container(
-    //           padding: const EdgeInsets.all(3),
-    //           decoration: BoxDecoration(
-    //             color: isToday ? textColor : null,
-    //             borderRadius: BorderRadius.circular(100),
-    //           ),
-    //           child: memo != null
-    //               ? svgAsset(name: 'check', width: 20, color: Colors.white)
-    //               : CommonText(
-    //                   text: '${dateTime.day}',
-    //                   isNotTr: true,
-    //                   color: Colors.white,
-    //                   isBold: true,
-    //                 ),
-    //         ),
-    //       ),
-    //     ],
-    //   );
-    // } else
-
-    if (memo != null) {
-      return svgAsset(name: 'check', width: 18, color: textColor);
+    if (unit8List != null) {
+      return Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          Center(
+            child: CommonImage(
+              uint8List: unit8List,
+              width: 35,
+              height: 35,
+              onTap: (_) {},
+            ),
+          ),
+          Center(child: CommonMask(width: 35, height: 35, opacity: 0.2)),
+          Center(
+            child: Container(
+              padding: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                color: isToday ? themeColor : null,
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: memo != null
+                  ? svgAsset(
+                      name: 'check',
+                      width: 20,
+                      color: Colors.white,
+                      isLight: isLight,
+                    )
+                  : CommonText(
+                      text: '${dateTime.day}',
+                      isNotTr: true,
+                      color: Colors.white,
+                      isBold: true,
+                    ),
+            ),
+          ),
+        ],
+      );
+    } else if (memo != null) {
+      return svgAsset(name: 'check', width: 18, isLight: isLight);
     }
 
     return const CommonNull();
@@ -111,7 +114,7 @@ class _MemoCalendarState extends State<MemoCalendar> {
                   onFormatChanged: widget.onFormatChanged,
                   onPageChanged: (_) {},
                 ),
-                CommonDivider(horizontal: 10, color: grey.s400),
+                CommonDivider(horizontal: 10),
               ],
             ),
           )

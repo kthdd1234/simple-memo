@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/enum.dart';
 import 'package:simple_memo_app/util/func.dart';
 
@@ -34,6 +36,7 @@ class CommonSvgText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLight = context.watch<ThemeProvider>().isLight;
     List<Widget> children = [
       CommonText(
         text: text,
@@ -44,7 +47,6 @@ class CommonSvgText extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
       )
     ];
-    // SvgPicture widget =
 
     svgDirection == SvgDirection.left
         ? svgName != null
@@ -56,6 +58,7 @@ class CommonSvgText extends StatelessWidget {
                     name: svgName!,
                     width: svgWidth,
                     color: svgColor,
+                    isLight: isLight,
                   ),
                 ))
             : const CommonNull()
@@ -66,6 +69,7 @@ class CommonSvgText extends StatelessWidget {
                   name: svgName!,
                   width: svgWidth,
                   color: svgColor,
+                  isLight: isLight,
                 ),
               ))
             : const CommonNull();

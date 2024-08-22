@@ -32,9 +32,6 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<MemoCategoryClass> categoryList =
-        getMemoCategoryList(categoryRepository.categoryList);
-
     return CommonBackground(
       child: CommonScaffold(
         body: MultiValueListenableBuilder(
@@ -50,8 +47,8 @@ class _SearchPageState extends State<SearchPage> {
                   onUpDown: onUpDown,
                 ),
                 SearchView(isRecent: isRecent, keyword: keywordController.text),
-                CommonDivider(horizontal: 10, color: grey.s400),
-                MemoCategoryList(categoryList: categoryList)
+                CommonDivider(horizontal: 10),
+                MemoCategoryList()
               ],
             );
           },

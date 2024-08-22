@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonContainer.dart';
 import 'package:simple_memo_app/common/CommonModalSheet.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
+import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 
@@ -21,6 +23,8 @@ class MemoPasteBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLight = context.watch<ThemeProvider>().isLight;
+
     return CommonModalSheet(
       height: 120,
       child: GestureDetector(
@@ -33,9 +37,9 @@ class MemoPasteBottomSheet extends StatelessWidget {
         child: CommonContainer(
           child: Row(
             children: [
-              svgAsset(name: 'paste', width: 19),
+              svgAsset(name: 'paste', width: 19, isLight: isLight),
               CommonSpace(width: 15),
-              CommonText(text: '글 붙어넣기')
+              CommonText(text: '붙여넣기')
             ],
           ),
         ),
