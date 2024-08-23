@@ -3,14 +3,10 @@ import 'package:multi_value_listenable_builder/multi_value_listenable_builder.da
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
-import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
-import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/appBar/SearchAppBar.dart';
 import 'package:simple_memo_app/widget/memo/MemoCategoryList.dart';
 import 'package:simple_memo_app/widget/search/SearchView.dart';
-
-import '../common/CommonDivider.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -22,6 +18,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   TextEditingController keywordController = TextEditingController();
   bool isRecent = true;
+  String categoryId = '';
 
   onEditingComplete() {
     FocusScope.of(context).unfocus();
@@ -29,6 +26,12 @@ class _SearchPageState extends State<SearchPage> {
 
   onUpDown() {
     setState(() => isRecent = !isRecent);
+  }
+
+  onTag(String selectedId) {
+    setState(() {
+      categoryId == selectedId ? categoryId = '' : categoryId = selectedId;
+    });
   }
 
   @override
@@ -47,9 +50,13 @@ class _SearchPageState extends State<SearchPage> {
                   onEditingComplete: onEditingComplete,
                   onUpDown: onUpDown,
                 ),
-                MemoCategoryList(),
+                MemoCategoryList(categoryId: categoryId, onTag: onTag),
                 CommonSpace(height: 10),
-                SearchView(isRecent: isRecent, keyword: keywordController.text),
+                SearchView(
+                  isRecent: isRecent,
+                  keyword: keywordController.text,
+                  categoryId: categoryId,
+                ),
               ],
             );
           },

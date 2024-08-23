@@ -1,8 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
-import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -12,19 +13,17 @@ import 'package:simple_memo_app/widget/search/SearchItem.dart';
 class SearchView extends StatelessWidget {
   SearchView({
     super.key,
+    required this.categoryId,
     required this.keyword,
     required this.isRecent,
   });
 
-  String keyword;
+  String keyword, categoryId;
   bool isRecent;
 
   @override
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
-
-    String selectedMemoCategoryId =
-        context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
     List<MemoInfoClass> memoInfoList = [];
 
     for (var i = 0; i < recordRepository.recordList.length; i++) {
@@ -33,10 +32,30 @@ class SearchView extends StatelessWidget {
       if (record.memoInfoList != null) {
         for (var j = 0; j < record.memoInfoList!.length; j++) {
           MemoInfoClass memoInfo = memoInfoToClass(record.memoInfoList![j]);
+          bool isSearchKeyword = memoInfo.memo?.contains(keyword) == true;
 
-          if (memoInfo.categoryId == selectedMemoCategoryId) {
+          if (categoryId == '') {
             if (keyword != '') {
-              bool isSearchKeyword = memoInfo.memo?.contains(keyword) == true;
+              if (isSearchKeyword) {
+                memoInfoList.add(MemoInfoClass(
+                  dateTime: record.createDateTime,
+                  categoryId: memoInfo.categoryId,
+                  textAlign: memoInfo.textAlign,
+                  imageList: memoInfo.imageList,
+                  memo: memoInfo.memo,
+                ));
+              }
+            } else {
+              memoInfoList.add(MemoInfoClass(
+                dateTime: record.createDateTime,
+                categoryId: memoInfo.categoryId,
+                textAlign: memoInfo.textAlign,
+                imageList: memoInfo.imageList,
+                memo: memoInfo.memo,
+              ));
+            }
+          } else if (memoInfo.categoryId == categoryId) {
+            if (keyword != '') {
               if (isSearchKeyword) {
                 memoInfoList.add(MemoInfoClass(
                   dateTime: record.createDateTime,

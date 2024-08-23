@@ -79,6 +79,7 @@ class _CommonCalendarState extends State<CommonCalendar> {
     tableCalendar() {
       return TableCalendar(
         locale: locale,
+        sixWeekMonthsEnforced: true,
         shouldFillViewport: widget.shouldFillViewport,
         calendarStyle: CalendarStyle(
           cellMargin: const EdgeInsets.all(14),

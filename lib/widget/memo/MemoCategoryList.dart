@@ -1,32 +1,18 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonTag.dart';
 import 'package:simple_memo_app/model/category_box/category_box.dart';
-import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
-import 'package:simple_memo_app/util/class.dart';
-import 'package:simple_memo_app/util/constants.dart';
-import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 
-class MemoCategoryList extends StatefulWidget {
-  MemoCategoryList({super.key});
+class MemoCategoryList extends StatelessWidget {
+  MemoCategoryList({super.key, required this.categoryId, required this.onTag});
 
-  @override
-  State<MemoCategoryList> createState() => _MemoCategoryListState();
-}
-
-class _MemoCategoryListState extends State<MemoCategoryList> {
-  onTag(String selectedId) {
-    context.read<SelectedMemoCategoryIdProvider>().setId(selectedId);
-  }
+  String categoryId;
+  Function(String) onTag;
 
   @override
   Widget build(BuildContext context) {
-    String selectedMemoCategoryId =
-        context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
-
     List<CategoryBox> categoryList = getCategoryList();
 
     return Padding(
@@ -41,7 +27,7 @@ class _MemoCategoryListState extends State<MemoCategoryList> {
             child: Center(
               child: CommonTag(
                 text: categoryList[index].name,
-                isSelection: selectedMemoCategoryId == categoryList[index].id,
+                isSelection: categoryId == categoryList[index].id,
                 isNotTr: true,
                 fontSize: 16,
                 onTap: () => onTag(categoryList[index].id),

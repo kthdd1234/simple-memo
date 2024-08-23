@@ -105,14 +105,17 @@ class _MemoCalendarState extends State<MemoCalendar> {
             padding: const EdgeInsets.only(top: 10),
             child: Column(
               children: [
-                CommonCalendar(
-                  selectedDateTime: selectedDateTime,
-                  calendarFormat: CalendarFormat.month,
-                  shouldFillViewport: false,
-                  markerBuilder: pictureBuildler,
-                  onDaySelected: onDaySelected,
-                  onFormatChanged: widget.onFormatChanged,
-                  onPageChanged: (_) {},
+                SizedBox(
+                  height: 276 + 52,
+                  child: CommonCalendar(
+                    selectedDateTime: selectedDateTime,
+                    calendarFormat: CalendarFormat.month,
+                    shouldFillViewport: false,
+                    markerBuilder: pictureBuildler,
+                    onDaySelected: onDaySelected,
+                    onFormatChanged: widget.onFormatChanged,
+                    onPageChanged: (_) {},
+                  ),
                 ),
                 CommonDivider(horizontal: 10),
               ],

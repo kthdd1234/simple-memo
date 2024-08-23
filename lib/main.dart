@@ -12,7 +12,9 @@ import 'package:simple_memo_app/page/HomePage.dart';
 import 'package:simple_memo_app/page/StartPage.dart';
 import 'package:simple_memo_app/provider/CopyMemoInfoProvider.dart';
 import 'package:simple_memo_app/provider/PremiumProvider.dart';
+import 'package:simple_memo_app/provider/SelectedImageCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
+import 'package:simple_memo_app/provider/SelectedSearchCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/bottomTabIndexProvider.dart';
 import 'package:simple_memo_app/provider/reload_provider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
@@ -45,7 +47,8 @@ void main() async {
         ChangeNotifierProvider(create: (context) => ReloadProvider()),
         ChangeNotifierProvider(create: (context) => CopyMemoInfoProvider()),
         ChangeNotifierProvider(
-            create: (context) => SelectedMemoCategoryIdProvider()),
+          create: (context) => SelectedMemoCategoryIdProvider(),
+        ),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('ko'), Locale('en'), Locale('ja')],
