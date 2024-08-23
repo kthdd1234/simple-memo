@@ -81,6 +81,7 @@ class _MemoBodyState extends State<MemoBody> {
                 onSearch: onSearch,
                 onMore: onMore,
               ),
+              MemoCategoryList(),
               MemoCalendar(
                   isLight: isLight,
                   selectedDateTime: selectedDateTime,
@@ -93,8 +94,6 @@ class _MemoBodyState extends State<MemoBody> {
                 categoryId: categoryId,
                 copyMemoInfo: copyMemoInfo,
               ),
-              CommonDivider(horizontal: 10),
-              MemoCategoryList(),
             ],
           );
         });

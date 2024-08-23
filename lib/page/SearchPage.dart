@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
+import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
@@ -46,9 +47,9 @@ class _SearchPageState extends State<SearchPage> {
                   onEditingComplete: onEditingComplete,
                   onUpDown: onUpDown,
                 ),
+                MemoCategoryList(),
+                CommonSpace(height: 10),
                 SearchView(isRecent: isRecent, keyword: keywordController.text),
-                CommonDivider(horizontal: 10),
-                MemoCategoryList()
               ],
             );
           },

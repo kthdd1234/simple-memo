@@ -30,7 +30,7 @@ class _MemoCategoryListState extends State<MemoCategoryList> {
     List<CategoryBox> categoryList = getCategoryList();
 
     return Padding(
-      padding: const EdgeInsets.only(top: 10, left: 10, bottom: 5),
+      padding: const EdgeInsets.only(top: 10, left: 10),
       child: SizedBox(
         height: 35,
         child: ListView.builder(

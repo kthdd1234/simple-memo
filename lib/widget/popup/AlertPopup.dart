@@ -40,7 +40,6 @@ class AlertPopup extends StatelessWidget {
             outerPadding: const EdgeInsets.all(20),
             child: CommonText(text: desc, isBold: !isLight),
           ),
-          CommonDivider(),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
             child: Row(

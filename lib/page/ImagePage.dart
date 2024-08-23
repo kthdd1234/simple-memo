@@ -15,6 +15,7 @@ import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
+import 'package:simple_memo_app/widget/appBar/ImageAppBar.dart';
 import 'package:simple_memo_app/widget/image/ImageView.dart';
 import 'package:simple_memo_app/widget/memo/MemoCategoryList.dart';
 import 'package:simple_memo_app/widget/popup/AlertPopup.dart';
@@ -61,8 +62,6 @@ class _ImagePageState extends State<ImagePage> {
 
   @override
   Widget build(BuildContext context) {
-    EdgeInsets padding = const EdgeInsets.fromLTRB(5, 10, 10, 10);
-
     String selectedMemoCategoryId =
         context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
     List<ImageClass> imageClassList = [];
@@ -94,33 +93,21 @@ class _ImagePageState extends State<ImagePage> {
 
     return CommonBackground(
       child: CommonScaffold(
-        appBarInfo: AppBarInfoClass(
-          title: '사진 모아보기',
-          isCenter: false,
-          actions: [
-            CommonSvg(
-              name: 'slide-show',
-              onTap: () => onSlide(
-                imageClassList.map((image) => image.uint8List).toList(),
-              ),
-              padding: padding,
-            ),
-            CommonSvg(
-              name: isRecent ? 'up-down' : 'down-up',
-              onTap: onRecent,
-              padding: padding,
-            ),
-            CommonSpace(width: 10)
-          ],
-        ),
         body: MultiValueListenableBuilder(
           valueListenables: valueListenables,
           builder: (context, values, child) {
             return Column(
               children: [
+                ImageAppBar(
+                  isRecent: isRecent,
+                  onSlide: () => onSlide(
+                    imageClassList.map((image) => image.uint8List).toList(),
+                  ),
+                  onRecent: onRecent,
+                ),
+                MemoCategoryList(),
+                CommonSpace(height: 10),
                 ImageView(imageClassList: imageClassList, onImage: onImage),
-                CommonDivider(horizontal: 10),
-                MemoCategoryList()
               ],
             );
           },

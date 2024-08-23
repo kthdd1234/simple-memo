@@ -8,16 +8,16 @@ import 'package:simple_memo_app/util/constants.dart';
 import 'package:provider/provider.dart';
 
 class CommonScaffold extends StatelessWidget {
-  CommonScaffold({
-    super.key,
-    required this.body,
-    this.appBarInfo,
-    this.bottomNavigationBar,
-    this.resizeToAvoidBottomInset,
-    this.backgroundColor,
-    this.padding,
-    this.floatingActionButton,
-  });
+  CommonScaffold(
+      {super.key,
+      required this.body,
+      this.appBarInfo,
+      this.bottomNavigationBar,
+      this.resizeToAvoidBottomInset,
+      this.backgroundColor,
+      this.padding,
+      this.floatingActionButton,
+      this.leading});
 
   Widget? bottomNavigationBar;
   Widget body;
@@ -26,6 +26,7 @@ class CommonScaffold extends StatelessWidget {
   Color? backgroundColor;
   EdgeInsets? padding;
   Widget? floatingActionButton;
+  Widget? leading;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +44,7 @@ class CommonScaffold extends StatelessWidget {
                 isBold: !isLight,
                 isNotTr: appBarInfo?.isNotTr,
               ),
+              leading: leading,
               centerTitle: appBarInfo!.isCenter,
               actions: appBarInfo!.actions,
               backgroundColor: backgroundColor ?? Colors.transparent,

@@ -168,16 +168,27 @@ class _MemoPageState extends State<MemoPage> {
       pop(context);
     }
 
+    //  leading: IconButton(
+    //           icon: const Icon(Icons.close_rounded, color: Colors.white),
+    //           onPressed: () => pop(context),
+    //         ),
+
     return CommonBackground(
       child: CommonScaffold(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+        leading: IconButton(
+          icon: Icon(
+            Icons.close_rounded,
+            color: isLight ? Colors.black : Colors.white,
+          ),
+          onPressed: () => pop(context),
+        ),
         appBarInfo: AppBarInfoClass(
           title: ymdeShortFormatter(
             locale: locale,
             dateTime: selectedDateTime,
           ),
           isNotTr: true,
-          isCenter: false,
           actions: [],
         ),
         body: Column(

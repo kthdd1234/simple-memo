@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/page/ImageSlidePage.dart';
 import 'package:simple_memo_app/page/MemoPage.dart';
+import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
@@ -34,7 +36,7 @@ class MemoView extends StatefulWidget {
 
 class _MemoViewState extends State<MemoView> {
   onMemo(MemoInfoClass? memoInfo) {
-    navigator(context: context, page: MemoPage(initMemoInfo: memoInfo));
+    fadeNavigator(context: context, page: MemoPage(initMemoInfo: memoInfo));
   }
 
   onSlide(Uint8List uint8List, List<Uint8List> imageList) {
@@ -48,20 +50,35 @@ class _MemoViewState extends State<MemoView> {
   }
 
   onHorizontalDrag(DragEndDetails dragEndDetails) {
+    List<CategoryBox> categoryList = getCategoryList();
     double? primaryVelocity = dragEndDetails.primaryVelocity;
-    DateTime dateTime = widget.selectedDateTime;
+    int index = categoryList.indexWhere(
+      (category) => category.id == widget.categoryId,
+    );
 
-    if (primaryVelocity == null) {
-      return;
-    } else if (primaryVelocity > 0) {
-      dateTime = dateTime.subtract(const Duration(days: 1));
-    } else if (primaryVelocity < 0) {
-      dateTime = dateTime.add(const Duration(days: 1));
+    if (index != -1) {
+      if (primaryVelocity == null) {
+        return;
+      } else if (primaryVelocity > 0) {
+        index -= 1;
+
+        if (index > -1) {
+          String beforeCategoryId = categoryList[index].id;
+
+          context
+              .read<SelectedMemoCategoryIdProvider>()
+              .setId(beforeCategoryId);
+        }
+      } else if (primaryVelocity < 0) {
+        index += 1;
+
+        if (index < categoryList.length) {
+          String afterCategoryId = categoryList[index].id;
+
+          context.read<SelectedMemoCategoryIdProvider>().setId(afterCategoryId);
+        }
+      }
     }
-
-    context
-        .read<SelectedDateTimeProvider>()
-        .changeSelectedDateTime(dateTime: dateTime);
   }
 
   onLongPress(MemoInfoClass? memoInfo) {

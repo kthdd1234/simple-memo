@@ -9,6 +9,7 @@ import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
+import 'package:simple_memo_app/page/PremiumPage.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -43,6 +44,10 @@ class _MorePageState extends State<MorePage> {
 
     getInfo();
     super.initState();
+  }
+
+  onPremium() {
+    navigator(context: context, page: const PremiumPage());
   }
 
   onScreen() {
@@ -94,6 +99,12 @@ class _MorePageState extends State<MorePage> {
 
             List<MoreItem> moreItemList = [
               MoreItem(
+                svgName: 'premium-free',
+                title: '프리미엄',
+                value: '미구매',
+                onMore: onPremium,
+              ),
+              MoreItem(
                 svgName: 'screen',
                 title: '화면',
                 value: themesInfo[user.theme],
@@ -106,12 +117,6 @@ class _MorePageState extends State<MorePage> {
                 isNotTr: true,
                 onMore: onLanguage,
               ),
-              // MoreItem(
-              //   svgName: 'font',
-              //   title: '글꼴',
-              //   value: 'IM 혜민',
-              //   onMore: onFont,
-              // ),
               MoreItem(
                 svgName: 'privacy',
                 title: '개인정보처리방침',
@@ -175,6 +180,24 @@ class MoreItem extends StatelessWidget {
             CommonSpace(width: 15),
             CommonText(text: title, fontSize: 17),
             const Spacer(),
+            // svgName == 'premium-free'
+            //     ? Container(
+            //         decoration: BoxDecoration(
+            //           image: const DecorationImage(
+            //               image: AssetImage("assets/images/b-0.png"),
+            //               fit: BoxFit.cover),
+            //           borderRadius: BorderRadius.circular(5),
+            //         ),
+            //         padding:
+            //             const EdgeInsets.symmetric(vertical: 5, horizontal: 7),
+            //         child: CommonText(
+            //           text: '업그레이드',
+            //           color: Colors.white,
+            //           fontSize: 13,
+            //           isBold: true,
+            //         ),
+            //       )
+            //     : const CommonNull(),
             value != null
                 ? Row(
                     children: [

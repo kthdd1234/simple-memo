@@ -7,25 +7,6 @@ import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/enum.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-final bottomNavigationBarItemList = [
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.edit),
-    label: '글',
-  ),
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.search_rounded),
-    label: '검색',
-  ),
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.image_outlined),
-    label: '사진',
-  ),
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.more_horiz_rounded),
-    label: '더보기',
-  )
-];
-
 final indigo = ColorClass(
   colorName: '남색',
   original: Colors.indigo, // 63, 81, 181
@@ -256,15 +237,6 @@ Map<TextAlign, String> textAlignName = {
   TextAlign.right: 'right'
 };
 
-// final categoryList = [
-//   MemoCategoryClass(id: '📒기본 메모', name: '📒기본 메모'),
-//   MemoCategoryClass(id: '🥗다이어트', name: '🥗다이어트'),
-//   MemoCategoryClass(id: '👨‍💻코딩', name: '👨‍💻코딩'),
-//   MemoCategoryClass(id: '📚독서', name: '📚독서'),
-//   MemoCategoryClass(id: '📝일기', name: '📝일기'),
-//   MemoCategoryClass(id: '⚽️풋살', name: '⚽️풋살'),
-// ];
-
 List<Map<String, String>> fontFamilyList = [
   {
     "fontFamily": "Omyu",
@@ -338,3 +310,31 @@ String tDark = Themes.dark.toString();
 final themesInfo = {tSystem: '시스템 설정', tLight: '화이트 모드', tDark: '다크 모드'};
 
 final localeInfo = {'en': 'English', 'ko': '한국어', 'ja': '日本語'};
+
+final premiumBenefitsClassList = [
+  PremiumBenefitsClass(
+    svgName: 'premium-free',
+    title: '한 번만 결제하면 평생 이용할 수 있어요',
+    subTitle: '깔끔하게 단 한번 결제!',
+  ),
+  PremiumBenefitsClass(
+    svgName: 'premium-ads',
+    title: '모든 화면에서 광고가 제거돼요',
+    subTitle: '광고없이 쾌적하게 앱을 사용해보세요',
+  ),
+  PremiumBenefitsClass(
+    svgName: 'category',
+    title: '노트를 제한없이 추가할 수 있어요',
+    subTitle: '다양한 노트를 제한없이 추가해보세요',
+  ),
+  // PremiumBenefitsClass(
+  //   svgName: 'premium-backdrop',
+  //   title: '다양한 배경 테마들을 제공해드려요',
+  //   subTitle: '총 여섯 종의 다채로운 배경 테마를 이용해보세요',
+  // ),
+  PremiumBenefitsClass(
+    svgName: 'gallery',
+    title: '사진을 최대 6장까지 추가 할 수 있어요',
+    subTitle: '보다 많은 노트 사진을 추가해보세요!',
+  ),
+];

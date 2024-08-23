@@ -169,3 +169,24 @@ class ImageClass {
   DateTime dateTime;
   Uint8List uint8List;
 }
+
+class FadePageRoute extends PageRouteBuilder {
+  final Widget page;
+
+  FadePageRoute({required this.page})
+      : super(
+          pageBuilder: (context, animation, secondaryAnimation) => page,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(opacity: animation, child: child),
+        );
+}
+
+class PremiumBenefitsClass {
+  PremiumBenefitsClass({
+    required this.svgName,
+    required this.title,
+    required this.subTitle,
+  });
+
+  String svgName, title, subTitle;
+}

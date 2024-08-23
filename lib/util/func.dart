@@ -90,7 +90,7 @@ String eeeeFormatter({required String locale, required DateTime dateTime}) {
 }
 
 String hmFormatter({required String locale, required DateTime dateTime}) {
-  return DateFormat.Hm(locale).format(dateTime);
+  return DateFormat.jm(locale).format(dateTime);
 }
 
 ColorClass getColorClass(String? name) {
@@ -145,6 +145,10 @@ navigator({required BuildContext context, required Widget page}) {
     context,
     MaterialPageRoute<void>(builder: (BuildContext context) => page),
   );
+}
+
+fadeNavigator({required BuildContext context, required Widget page}) {
+  Navigator.push(context, FadePageRoute(page: page));
 }
 
 // ad: banner, native, appOpening
