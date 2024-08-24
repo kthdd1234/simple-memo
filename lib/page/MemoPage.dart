@@ -10,6 +10,8 @@ import 'package:simple_memo_app/common/CommonTag.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/page/ImageSlidePage.dart';
+import 'package:simple_memo_app/page/PremiumPage.dart';
+import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
@@ -49,7 +51,19 @@ class _MemoPageState extends State<MemoPage> {
     super.initState();
   }
 
-  onLimitedImagePopup() {
+  onPremiumImagePopup() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertPopup(
+        desc: '프리미엄 구매 시\n사진을 6장까지 추가할 있어요\n(미구매 시, 한 장만 추가 가능해요)',
+        buttonText: '프리미엄 구매 페이지로 이동',
+        height: 216,
+        onTap: () => navigator(context: context, page: const PremiumPage()),
+      ),
+    );
+  }
+
+  onMaximumImagePopup() {
     return showDialog(
       context: context,
       builder: (context) => AlertPopup(
@@ -61,23 +75,29 @@ class _MemoPageState extends State<MemoPage> {
     );
   }
 
-  onCamera(Uint8List uint8List) {
+  onCamera(Uint8List uint8List, bool isPremium) {
     pop(context);
 
-    if (uint8ListList.length + 1 > 6) {
-      onLimitedImagePopup();
+    int listLength = uint8ListList.length + 1;
+
+    if (isPremium == false && listLength > 1) {
+      onPremiumImagePopup();
+    } else if (listLength > 6) {
+      onMaximumImagePopup();
     } else {
       setState(() => uint8ListList = [...uint8ListList, uint8List]);
     }
   }
 
-  onGallery(List<Uint8List> uint8ListArray) {
-    int length = uint8ListList.length + uint8ListArray.length;
-
+  onGallery(List<Uint8List> uint8ListArray, bool isPremium) {
     pop(context);
 
-    if (length > 6) {
-      onLimitedImagePopup();
+    int listLength = uint8ListList.length + uint8ListArray.length;
+
+    if (isPremium == false && listLength > 1) {
+      onPremiumImagePopup();
+    } else if (listLength > 6) {
+      onMaximumImagePopup();
     } else {
       setState(() => uint8ListList = [...uint8ListList, ...uint8ListArray]);
     }
@@ -123,6 +143,7 @@ class _MemoPageState extends State<MemoPage> {
   @override
   Widget build(BuildContext context) {
     String locale = context.locale.toString();
+    bool isPremium = context.watch<PremiumProvider>().isPremium;
     bool isLight = context.watch<ThemeProvider>().isLight;
     DateTime selectedDateTime =
         context.watch<SelectedDateTimeProvider>().seletedDateTime;
@@ -168,11 +189,6 @@ class _MemoPageState extends State<MemoPage> {
       pop(context);
     }
 
-    //  leading: IconButton(
-    //           icon: const Icon(Icons.close_rounded, color: Colors.white),
-    //           onPressed: () => pop(context),
-    //         ),
-
     return CommonBackground(
       child: CommonScaffold(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -189,7 +205,6 @@ class _MemoPageState extends State<MemoPage> {
             dateTime: selectedDateTime,
           ),
           isNotTr: true,
-          actions: [],
         ),
         body: Column(
           children: [
@@ -225,8 +240,9 @@ class _MemoPageState extends State<MemoPage> {
               isLight: isLight,
               isRemove: widget.initMemoInfo != null,
               textAlign: textAlign,
-              onCamera: onCamera,
-              onGallery: onGallery,
+              onCamera: (uint8List) => onCamera(uint8List, isPremium),
+              onGallery: (uint8ListArray) =>
+                  onGallery(uint8ListArray, isPremium),
               onTextAlign: onTextAlign,
               onClock: onClock,
               onCompleted: onCompleted,

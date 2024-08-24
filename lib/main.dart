@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,14 +8,13 @@ import 'package:hive/hive.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/page/HomePage.dart';
 import 'package:simple_memo_app/page/StartPage.dart';
 import 'package:simple_memo_app/provider/CopyMemoInfoProvider.dart';
 import 'package:simple_memo_app/provider/PremiumProvider.dart';
-import 'package:simple_memo_app/provider/SelectedImageCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
-import 'package:simple_memo_app/provider/SelectedSearchCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/bottomTabIndexProvider.dart';
 import 'package:simple_memo_app/provider/reload_provider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
@@ -27,13 +27,16 @@ import 'package:simple_memo_app/util/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/util/final.dart';
 
+final purchasesConfiguration =
+    PurchasesConfiguration(Platform.isIOS ? appleApiKey : googleApiKey);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await initializeDateFormatting();
   await EasyLocalization.ensureInitialized();
   await InitHive().initializeHive();
-  // await Purchases.configure(_configuration);
+  await Purchases.configure(purchasesConfiguration);
   // await MobileAds.instance.initialize();
   // await HomeWidget.setAppGroupId('group.todo-planner-widget');
 

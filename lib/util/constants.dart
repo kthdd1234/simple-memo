@@ -89,16 +89,16 @@ const iOSAppOpeningRealId = '';
 const iOSInterstitialRealId = '';
 
 /// appleApiKey
-const appleApiKey = '';
+const appleApiKey = 'appl_gAlgVzcZnoGojEZmThBXcZRRehv';
 
 /// googleApiKey
 const googleApiKey = '';
 
 /// offeringIdentifier
-const offeringIdentifier = '';
+const offeringIdentifier = 'premium';
 
 /// entitlementIdentifier
-const entitlementIdentifier = '';
+const entitlementIdentifier = 'premium';
 
 /// APP_STORE_LINK
 const APP_STORE_LINK = "";

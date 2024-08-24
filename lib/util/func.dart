@@ -192,6 +192,7 @@ String getAdId(String ad) {
 Future<bool> setPurchasePremium(Package package) async {
   try {
     CustomerInfo customerInfo = await Purchases.purchasePackage(package);
+
     return customerInfo.entitlements.all[entitlementIdentifier]?.isActive ==
         true;
   } on PlatformException catch (e) {
@@ -205,6 +206,7 @@ Future<bool> isPurchasePremium() async {
     CustomerInfo customerInfo = await Purchases.getCustomerInfo();
     bool isActive =
         customerInfo.entitlements.all[entitlementIdentifier]?.isActive == true;
+
     return isActive;
     // return true;
   } on PlatformException catch (e) {

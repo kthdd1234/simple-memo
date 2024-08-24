@@ -13,9 +13,12 @@ import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
+import 'package:simple_memo_app/page/PremiumPage.dart';
+import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
+import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/enum.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
@@ -32,12 +35,26 @@ class CategoryPage extends StatefulWidget {
 class _CategoryPageState extends State<CategoryPage> {
   bool isEdit = false;
 
-  onPressed() {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (context) => MemoCategoryBottomSheet(),
-    );
+  onAdd(bool isPremium) {
+    List<CategoryBox> categoryList = categoryRepository.categoryList;
+
+    if (isPremium == false && categoryList.length > 1) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertPopup(
+          desc: '프리미엄 구매 시\n노트를 제한없이 추가할 수 있어요.',
+          buttonText: '프리미엄 구매 페이지로 이동',
+          height: 195,
+          onTap: () => navigator(context: context, page: const PremiumPage()),
+        ),
+      );
+    } else {
+      showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (context) => MemoCategoryBottomSheet(),
+      );
+    }
   }
 
   getCount(String categoryId) {
@@ -74,27 +91,31 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isPremium = context.watch<PremiumProvider>().isPremium;
     bool isLight = context.watch<ThemeProvider>().isLight;
 
     return CommonBackground(
       child: CommonScaffold(
         padding: const EdgeInsets.only(left: 20, right: 20),
-        appBarInfo: AppBarInfoClass(title: '노트 관리', actions: [
-          InkWell(
-            onTap: onEdit,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: CommonText(
-                text: isEdit ? '편집 해제' : '편집',
-                color: isEdit
-                    ? red.s300
-                    : isLight
-                        ? grey.original
-                        : grey.s400,
+        appBarInfo: AppBarInfoClass(
+          title: '노트 관리',
+          actions: [
+            InkWell(
+              onTap: onEdit,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: CommonText(
+                  text: isEdit ? '편집 해제' : '편집',
+                  color: isEdit
+                      ? red.s300
+                      : isLight
+                          ? grey.original
+                          : grey.s400,
+                ),
               ),
-            ),
-          )
-        ]),
+            )
+          ],
+        ),
         body: MultiValueListenableBuilder(
           valueListenables: valueListenables,
           builder: (_, __, ___) {
@@ -122,14 +143,15 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(20),
-          child: FloatingActionButton(
+          child: FloatingActionButton.extended(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(100),
             ),
             elevation: 0,
             backgroundColor: Colors.white,
-            onPressed: onPressed,
-            child: const Icon(Icons.add_rounded, size: 25),
+            onPressed: () => onAdd(isPremium),
+            icon: const Icon(Icons.add_rounded, size: 25),
+            label: CommonText(text: '노트 추가', fontSize: defaultFontSize),
           ),
         ),
       ),
@@ -237,7 +259,6 @@ class _MemoCategoryItemState extends State<MemoCategoryItem> {
             child: CommonContainer(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: CommonText(

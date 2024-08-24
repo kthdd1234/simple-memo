@@ -90,8 +90,6 @@ class _MemoBodyState extends State<MemoBody> {
         (category) => category.id == categoryId,
       );
 
-      log('최크!');
-
       if (index != -1) {
         if (primaryVelocity == null) {
           return;

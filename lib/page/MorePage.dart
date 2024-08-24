@@ -10,6 +10,7 @@ import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/page/PremiumPage.dart';
+import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -88,6 +89,8 @@ class _MorePageState extends State<MorePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isPremium = context.watch<PremiumProvider>().isPremium;
+
     return CommonBackground(
       child: CommonScaffold(
         appBarInfo: AppBarInfoClass(title: '설정'),
@@ -101,7 +104,7 @@ class _MorePageState extends State<MorePage> {
               MoreItem(
                 svgName: 'premium-free',
                 title: '프리미엄',
-                value: '미구매',
+                value: isPremium ? '구매 완료' : '미구매',
                 onMore: onPremium,
               ),
               MoreItem(

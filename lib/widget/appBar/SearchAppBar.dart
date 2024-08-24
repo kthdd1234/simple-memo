@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonSvg.dart';
 import 'package:simple_memo_app/main.dart';
+import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/memo/MemoTextFormField.dart';
@@ -79,11 +81,16 @@ class BackBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLight = context.watch<ThemeProvider>().isLight;
+
     return InkWell(
       onTap: () => pop(context),
-      child: const Padding(
-        padding: EdgeInsets.only(right: 10, bottom: 5),
-        child: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black),
+      child: Padding(
+        padding: const EdgeInsets.only(right: 10, bottom: 5),
+        child: Icon(
+          Icons.arrow_back_ios_new_rounded,
+          color: isLight ? Colors.black : Colors.white,
+        ),
       ),
     );
   }
