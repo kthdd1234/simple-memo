@@ -280,12 +280,12 @@ final languageList = [
 Map<String, String> initCategoryName1 = {
   'ko': '📔노트 1',
   'en': '📔note 1',
-  'ja': '📔タイトル1'
+  'ja': '📔ノート1'
 };
 Map<String, String> initCategoryName2 = {
   'ko': '📕노트 2',
   'en': '📕note 2',
-  'ja': '📕タイトル2'
+  'ja': '📕ノート2'
 };
 
 final textAlignInfo = {

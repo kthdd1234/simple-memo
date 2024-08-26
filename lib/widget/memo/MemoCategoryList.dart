@@ -6,15 +6,19 @@ import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/util/func.dart';
 
 class MemoCategoryList extends StatelessWidget {
-  MemoCategoryList({super.key, required this.categoryId, required this.onTag});
+  MemoCategoryList({
+    super.key,
+    required this.categoryId,
+    required this.categoryList,
+    required this.onTag,
+  });
 
   String categoryId;
+  List<CategoryBox> categoryList;
   Function(String) onTag;
 
   @override
   Widget build(BuildContext context) {
-    List<CategoryBox> categoryList = getCategoryList();
-
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 10),
       child: SizedBox(

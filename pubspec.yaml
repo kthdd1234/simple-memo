@@ -92,7 +92,7 @@ flutter:
     - assets/translations/ko.json
     - assets/translations/en.json
     - assets/translations/ja.json
-    - assets/images/b-0.png
+    - assets/images/app-logo-text.png
     - assets/images/texture-1.png
     - assets/svgs/dir-down.svg
     - assets/svgs/dir-down-bold.svg

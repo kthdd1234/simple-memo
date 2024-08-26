@@ -1,9 +1,11 @@
 import 'dart:typed_data';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
+import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/page/ImageSlidePage.dart';
 import 'package:simple_memo_app/util/class.dart';
@@ -23,7 +25,7 @@ class ImagePage extends StatefulWidget {
 
 class _ImagePageState extends State<ImagePage> {
   bool isRecent = true;
-  String categoryId = '';
+  String categoryId = 'all';
 
   onImage(List<Uint8List> uint8ListList, int index) {
     navigator(
@@ -56,14 +58,22 @@ class _ImagePageState extends State<ImagePage> {
   }
 
   onTag(String selectedId) {
-    setState(() {
-      categoryId == selectedId ? categoryId = '' : categoryId = selectedId;
-    });
+    setState(() => categoryId = selectedId);
   }
 
   @override
   Widget build(BuildContext context) {
     List<ImageClass> imageClassList = [];
+    List<CategoryBox> categoryList = getCategoryList();
+
+    categoryList.insert(
+      0,
+      CategoryBox(
+        id: 'all',
+        name: '전체'.tr(),
+        createDateTime: DateTime.now(),
+      ),
+    );
 
     for (var i = 0; i < recordRepository.recordList.length; i++) {
       RecordBox? record = recordRepository.recordList[i];
@@ -81,7 +91,7 @@ class _ImagePageState extends State<ImagePage> {
               )
               .toList();
 
-          if (categoryId == '') {
+          if (categoryId == 'all') {
             imageClassList = [...imageClassList, ...imageClassList2];
           } else if (memoInfo.categoryId == categoryId) {
             imageClassList = [...imageClassList, ...imageClassList2];
@@ -107,7 +117,11 @@ class _ImagePageState extends State<ImagePage> {
                   ),
                   onRecent: onRecent,
                 ),
-                MemoCategoryList(categoryId: categoryId, onTag: onTag),
+                MemoCategoryList(
+                  categoryId: categoryId,
+                  categoryList: categoryList,
+                  onTag: onTag,
+                ),
                 CommonSpace(height: 10),
                 ImageView(imageClassList: imageClassList, onImage: onImage),
               ],

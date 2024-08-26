@@ -34,46 +34,20 @@ class SearchView extends StatelessWidget {
           MemoInfoClass memoInfo = memoInfoToClass(record.memoInfoList![j]);
           bool isSearchKeyword = memoInfo.memo?.contains(keyword) == true;
 
-          if (categoryId == '') {
-            if (keyword != '') {
-              if (isSearchKeyword) {
-                memoInfoList.add(MemoInfoClass(
-                  dateTime: record.createDateTime,
-                  categoryId: memoInfo.categoryId,
-                  textAlign: memoInfo.textAlign,
-                  imageList: memoInfo.imageList,
-                  memo: memoInfo.memo,
-                ));
-              }
-            } else {
-              memoInfoList.add(MemoInfoClass(
-                dateTime: record.createDateTime,
-                categoryId: memoInfo.categoryId,
-                textAlign: memoInfo.textAlign,
-                imageList: memoInfo.imageList,
-                memo: memoInfo.memo,
-              ));
-            }
-          } else if (memoInfo.categoryId == categoryId) {
-            if (keyword != '') {
-              if (isSearchKeyword) {
-                memoInfoList.add(MemoInfoClass(
-                  dateTime: record.createDateTime,
-                  categoryId: memoInfo.categoryId,
-                  textAlign: memoInfo.textAlign,
-                  imageList: memoInfo.imageList,
-                  memo: memoInfo.memo,
-                ));
-              }
-            } else {
-              memoInfoList.add(MemoInfoClass(
-                dateTime: record.createDateTime,
-                categoryId: memoInfo.categoryId,
-                textAlign: memoInfo.textAlign,
-                imageList: memoInfo.imageList,
-                memo: memoInfo.memo,
-              ));
-            }
+          MemoInfoClass targetMemoInfo = MemoInfoClass(
+            dateTime: record.createDateTime,
+            categoryId: memoInfo.categoryId,
+            textAlign: memoInfo.textAlign,
+            imageList: memoInfo.imageList,
+            memo: memoInfo.memo,
+          );
+
+          if (categoryId == 'all' || categoryId == memoInfo.categoryId) {
+            keyword == ''
+                ? memoInfoList.add(targetMemoInfo)
+                : isSearchKeyword
+                    ? memoInfoList.add(targetMemoInfo)
+                    : null;
           }
         }
       }

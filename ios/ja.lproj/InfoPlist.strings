@@ -1,0 +1,5 @@
+"CFBundleDisplayName" = "today note";
+"CFBundleName" = "today note";
+"NSCameraUsageDescription" = "メモ 写真を撮影するには、カメラのアクセス権が必要です。";
+"NSPhotoLibraryUsageDescription" = "メモ写真をインポートするにはギャラリーアクセス権が必要です。";
+"NSUserTrackingUsageDescription" = "個人に最適化された広告を提供するために広告活動情報を収集します。";

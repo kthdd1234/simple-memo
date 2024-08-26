@@ -20,6 +20,8 @@ import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/appBar/MemoAppBar.dart';
+import 'package:simple_memo_app/widget/bottomSheet/MemoPasteBottomSheet.dart';
+import 'package:simple_memo_app/widget/bottomSheet/MemoSettingBottomSheet.dart';
 import 'package:simple_memo_app/widget/memo/MemoCalendar.dart';
 import 'package:simple_memo_app/widget/memo/MemoCategoryList.dart';
 import 'package:simple_memo_app/widget/memo/MemoView.dart';
@@ -81,45 +83,69 @@ class _MemoBodyState extends State<MemoBody> {
     Map<String, dynamic>? copyMemoInfo =
         context.watch<CopyMemoInfoProvider>().copyMemoInfo;
 
-    MemoInfoClass? memoInfo = getMemoInfo(selectedDateTime, categoryId);
-
-    onHorizontalDrag(DragEndDetails dragEndDetails) {
-      List<CategoryBox> categoryList = getCategoryList();
-      double? primaryVelocity = dragEndDetails.primaryVelocity;
-      int index = categoryList.indexWhere(
-        (category) => category.id == categoryId,
-      );
-
-      if (index != -1) {
-        if (primaryVelocity == null) {
-          return;
-        } else if (primaryVelocity > 0) {
-          index -= 1;
-
-          if (index > -1) {
-            String beforeCategoryId = categoryList[index].id;
-
-            context
-                .read<SelectedMemoCategoryIdProvider>()
-                .setId(beforeCategoryId);
-          }
-        } else if (primaryVelocity < 0) {
-          index += 1;
-
-          if (index < categoryList.length) {
-            String afterCategoryId = categoryList[index].id;
-
-            context
-                .read<SelectedMemoCategoryIdProvider>()
-                .setId(afterCategoryId);
-          }
-        }
-      }
-    }
-
     return MultiValueListenableBuilder(
       valueListenables: valueListenables,
       builder: (context, values, child) {
+        MemoInfoClass? memoInfo = getMemoInfo(selectedDateTime, categoryId);
+
+        onHorizontalDrag(DragEndDetails dragEndDetails) {
+          List<CategoryBox> categoryList = getCategoryList();
+          double? primaryVelocity = dragEndDetails.primaryVelocity;
+          int index = categoryList.indexWhere(
+            (category) => category.id == categoryId,
+          );
+
+          if (index != -1) {
+            if (primaryVelocity == null) {
+              return;
+            } else if (primaryVelocity > 0) {
+              index -= 1;
+
+              if (index > -1) {
+                String beforeCategoryId = categoryList[index].id;
+
+                context
+                    .read<SelectedMemoCategoryIdProvider>()
+                    .setId(beforeCategoryId);
+              }
+            } else if (primaryVelocity < 0) {
+              index += 1;
+
+              if (index < categoryList.length) {
+                String afterCategoryId = categoryList[index].id;
+
+                context
+                    .read<SelectedMemoCategoryIdProvider>()
+                    .setId(afterCategoryId);
+              }
+            }
+          }
+        }
+
+        onLongPress() {
+          if (memoInfo != null) {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => MemoSettingBottomSheet(
+                memoInfo: memoInfo,
+                copyMemoInfo: copyMemoInfo,
+                selectedCategoryId: categoryId,
+                selectedDateTime: selectedDateTime,
+              ),
+            );
+          } else if (copyMemoInfo != null) {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) => MemoPasteBottomSheet(
+                copyMemoInfo: copyMemoInfo,
+                selectedCategoryId: categoryId,
+                selectedDateTime: selectedDateTime,
+              ),
+            );
+          }
+        }
+
         return Column(
           children: [
             MemoAppBar(
@@ -136,8 +162,9 @@ class _MemoBodyState extends State<MemoBody> {
                       builder: (context, constraint) {
                         return SingleChildScrollView(
                           child: ConstrainedBox(
-                            constraints:
-                                BoxConstraints(minHeight: constraint.maxHeight),
+                            constraints: BoxConstraints(
+                              minHeight: constraint.maxHeight,
+                            ),
                             child: IntrinsicHeight(
                               child: Column(
                                 children: [
@@ -151,10 +178,12 @@ class _MemoBodyState extends State<MemoBody> {
                                   ),
                                   MemoCategoryList(
                                     categoryId: categoryId,
+                                    categoryList: getCategoryList(),
                                     onTag: onTag,
                                   ),
                                   Expanded(
                                     child: GestureDetector(
+                                      onLongPress: onLongPress,
                                       onHorizontalDragEnd: onHorizontalDrag,
                                       child: MemoView(
                                         selectedDateTime: selectedDateTime,
@@ -184,9 +213,14 @@ class _MemoBodyState extends State<MemoBody> {
                           onCalendar: onCalendar,
                           onFormatChanged: onFormatChanged,
                         ),
-                        MemoCategoryList(categoryId: categoryId, onTag: onTag),
+                        MemoCategoryList(
+                          categoryId: categoryId,
+                          categoryList: getCategoryList(),
+                          onTag: onTag,
+                        ),
                         Expanded(
                           child: GestureDetector(
+                            onLongPress: onLongPress,
                             onHorizontalDragEnd: onHorizontalDrag,
                             child: InkWell(
                               onTap: () => onMemo(null),

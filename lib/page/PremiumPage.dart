@@ -103,10 +103,13 @@ class _PremiumPageState extends State<PremiumPage> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     CommonText(text: '프리미엄 혜택'),
-                    CommonText(
-                      text: '구매 내역 가져오기',
-                      color: grey.original,
-                      fontSize: 14,
+                    InkWell(
+                      onTap: onRestore,
+                      child: CommonText(
+                        text: '구매 내역 가져오기',
+                        color: grey.original,
+                        fontSize: 14,
+                      ),
                     ),
                   ],
                 ),
@@ -116,28 +119,31 @@ class _PremiumPageState extends State<PremiumPage> {
                     .map(
                       (premiumBenefit) => CommonContainer(
                         outerPadding: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: svgAsset(
-                                isLight: isLight,
-                                name: premiumBenefit.svgName,
-                                width: 32.5,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 20),
+                                child: svgAsset(
+                                  isLight: isLight,
+                                  name: premiumBenefit.svgName,
+                                  width: 32.5,
+                                ),
                               ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CommonText(text: premiumBenefit.title),
-                                CommonText(
-                                  text: premiumBenefit.subTitle,
-                                  color: grey.original,
-                                  fontSize: 14,
-                                )
-                              ],
-                            ),
-                          ],
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CommonText(text: premiumBenefit.title),
+                                  CommonText(
+                                    text: premiumBenefit.subTitle,
+                                    color: grey.original,
+                                    fontSize: 14,
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     )
@@ -153,8 +159,10 @@ class _PremiumPageState extends State<PremiumPage> {
                       svgDirection: SvgDirection.left,
                     )
                   : CommonButton(
-                      text:
-                          '구매하기 (${package?.storeProduct.priceString ?? '-'})',
+                      text: '구매하기',
+                      nameArgs: {
+                        'price': package?.storeProduct.priceString ?? '-'
+                      },
                       textColor: Colors.white,
                       buttonColor: themeColor,
                       verticalPadding: 10,

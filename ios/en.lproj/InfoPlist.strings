@@ -1,0 +1,5 @@
+"CFBundleDisplayName" = "Today Note";
+"CFBundleName" = "Today Note";
+"NSCameraUsageDescription" = "Camera access is required to take notes.";
+"NSPhotoLibraryUsageDescription" = "You need access to the Gallery to import note photos.";
+"NSUserTrackingUsageDescription" = "We collect advertising activity information to provide personalized advertising.";

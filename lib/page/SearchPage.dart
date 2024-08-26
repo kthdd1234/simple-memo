@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
+import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/util/final.dart';
+import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/appBar/SearchAppBar.dart';
 import 'package:simple_memo_app/widget/memo/MemoCategoryList.dart';
 import 'package:simple_memo_app/widget/search/SearchView.dart';
@@ -18,7 +21,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   TextEditingController keywordController = TextEditingController();
   bool isRecent = true;
-  String categoryId = '';
+  String categoryId = 'all';
 
   onEditingComplete() {
     FocusScope.of(context).unfocus();
@@ -29,13 +32,22 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   onTag(String selectedId) {
-    setState(() {
-      categoryId == selectedId ? categoryId = '' : categoryId = selectedId;
-    });
+    setState(() => categoryId = selectedId);
   }
 
   @override
   Widget build(BuildContext context) {
+    List<CategoryBox> categoryList = getCategoryList();
+
+    categoryList.insert(
+      0,
+      CategoryBox(
+        id: 'all',
+        name: '전체'.tr(),
+        createDateTime: DateTime.now(),
+      ),
+    );
+
     return CommonBackground(
       child: CommonScaffold(
         body: MultiValueListenableBuilder(
@@ -50,7 +62,11 @@ class _SearchPageState extends State<SearchPage> {
                   onEditingComplete: onEditingComplete,
                   onUpDown: onUpDown,
                 ),
-                MemoCategoryList(categoryId: categoryId, onTag: onTag),
+                MemoCategoryList(
+                  categoryId: categoryId,
+                  categoryList: categoryList,
+                  onTag: onTag,
+                ),
                 CommonSpace(height: 10),
                 SearchView(
                   isRecent: isRecent,

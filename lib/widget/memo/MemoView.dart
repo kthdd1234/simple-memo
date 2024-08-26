@@ -42,30 +42,6 @@ class _MemoViewState extends State<MemoView> {
     );
   }
 
-  onLongPress(MemoInfoClass? memoInfo) {
-    if (memoInfo != null) {
-      showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (context) => MemoSettingBottomSheet(
-          memoInfo: memoInfo,
-          copyMemoInfo: widget.copyMemoInfo,
-          selectedCategoryId: widget.categoryId,
-          selectedDateTime: widget.selectedDateTime,
-        ),
-      );
-    } else if (widget.copyMemoInfo != null) {
-      showModalBottomSheet(
-        context: context,
-        builder: (context) => MemoPasteBottomSheet(
-          copyMemoInfo: widget.copyMemoInfo,
-          selectedCategoryId: widget.categoryId,
-          selectedDateTime: widget.selectedDateTime,
-        ),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     MemoInfoClass memoInfo = widget.memoInfo;

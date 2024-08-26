@@ -45,7 +45,7 @@ class CommonText extends StatelessWidget {
         color: highlightColor,
       ),
       child: Text(
-        isNotTr == true ? text : text.tr(),
+        isNotTr == true ? text : text.tr(namedArgs: nameArgs),
         textAlign: textAlign ?? TextAlign.center,
         softWrap: softWrap ?? true,
         style: TextStyle(
