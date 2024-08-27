@@ -91,29 +91,11 @@ class _PremiumPageState extends State<PremiumPage> {
 
     return CommonBackground(
       child: CommonScaffold(
-        appBarInfo: AppBarInfoClass(title: '프리미엄'),
+        appBarInfo: AppBarInfoClass(title: '프리미엄 혜택'),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    CommonText(text: '프리미엄 혜택'),
-                    InkWell(
-                      onTap: onRestore,
-                      child: CommonText(
-                        text: '구매 내역 가져오기',
-                        color: grey.original,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               Column(
                 children: premiumBenefitsClassList
                     .map(
@@ -165,10 +147,19 @@ class _PremiumPageState extends State<PremiumPage> {
                       },
                       textColor: Colors.white,
                       buttonColor: themeColor,
-                      verticalPadding: 10,
-                      borderRadius: 100,
+                      verticalPadding: 15,
+                      borderRadius: 10,
                       onTap: onPurchase,
-                    )
+                    ),
+              CommonSpace(height: 10),
+              InkWell(
+                onTap: onRestore,
+                child: CommonText(
+                  text: '구매 항목 복원',
+                  decoration: TextDecoration.underline,
+                  decorationColor: isLight ? Colors.black : Colors.white,
+                ),
+              )
             ],
           ),
         ),

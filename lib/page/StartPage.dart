@@ -81,8 +81,8 @@ class _StartPageState extends State<StartPage> {
         child: Column(
           children: [
             const Spacer(),
-            Image.asset('assets/images/app-logo-text.png', height: 30),
-            CommonSpace(height: 20),
+            // Image.asset('assets/images/app-logo-text.png', height: 30),
+            // CommonSpace(height: 20),
             CommonText(text: '반가워요! 투데이 노트와 함께'),
             CommonText(text: '꾸준히 글쓰는 습관을 만들어봐요 :D'),
           ],
