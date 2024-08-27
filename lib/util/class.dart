@@ -190,3 +190,8 @@ class PremiumBenefitsClass {
 
   String svgName, title, subTitle;
 }
+
+class BackgroundClass {
+  BackgroundClass({required this.path, required this.name});
+  String path, name;
+}

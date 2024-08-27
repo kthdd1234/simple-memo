@@ -24,7 +24,7 @@ class SearchImages extends StatelessWidget {
 
     return uint8ListList.isNotEmpty
         ? Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 5),
             child: MemoImages(uint8ListList: uint8ListList, onImage: onSlide),
           )
         : const CommonNull();

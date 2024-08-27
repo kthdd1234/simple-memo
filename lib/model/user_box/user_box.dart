@@ -15,6 +15,7 @@ class UserBox extends HiveObject {
     this.alarmInfo,
     this.passwords,
     this.googleDriveInfo,
+    this.background,
   });
 
   @HiveField(0)
@@ -46,4 +47,7 @@ class UserBox extends HiveObject {
 
   @HiveField(9)
   String? passwords;
+
+  @HiveField(10)
+  String? background;
 }

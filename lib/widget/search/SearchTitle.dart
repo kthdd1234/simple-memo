@@ -68,7 +68,7 @@ class _SearchTitleState extends State<SearchTitle> {
         InkWell(
           onTap: onMore,
           child: Padding(
-            padding: const EdgeInsets.only(left: 10, bottom: 10),
+            padding: const EdgeInsets.only(left: 10),
             child: Icon(
               Icons.more_vert_rounded,
               size: 20,

@@ -1,9 +1,11 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -26,6 +28,9 @@ import 'package:simple_memo_app/repositories/user_repository.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/util/final.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 final purchasesConfiguration =
     PurchasesConfiguration(Platform.isIOS ? appleApiKey : googleApiKey);
@@ -37,6 +42,14 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await InitHive().initializeHive();
   await Purchases.configure(purchasesConfiguration);
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+  } catch (e) {
+    print("Failed to initialize Firebase: $e");
+  }
   // await MobileAds.instance.initialize();
   // await HomeWidget.setAppGroupId('group.todo-planner-widget');
 
@@ -87,9 +100,24 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         );
   }
 
+  appTrackingTransparency() async {
+    try {
+      TrackingStatus status =
+          await AppTrackingTransparency.trackingAuthorizationStatus;
+
+      if (status == TrackingStatus.notDetermined) {
+        await AppTrackingTransparency.requestTrackingAuthorization();
+      }
+    } on PlatformException {
+      log('error');
+    }
+  }
+
   @override
   void initState() {
     userBox = Hive.box('userBox');
+
+    appTrackingTransparency();
 
     WidgetsBinding.instance.addObserver(this);
     super.initState();

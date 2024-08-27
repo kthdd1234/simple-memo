@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1971688034",
+    "project_id": "today-note-project",
+    "storage_bucket": "today-note-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1971688034:android:186d13b2552877d6efb73b",
+        "android_client_info": {
+          "package_name": "com.kthdd.todayNote"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUjRWDqeScJlQb1lgmj8OXM-PJCE1AJQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

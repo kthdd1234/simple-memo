@@ -5,6 +5,7 @@ import 'package:simple_memo_app/body/MemoBody.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:simple_memo_app/model/category_box/category_box.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -19,6 +20,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  initializeDB() {
+    UserBox? user = userRepository.user;
+
+    if (mounted) {
+      user.background ??= '1';
+    }
+  }
+
   initializePremium() async {
     bool isPremium = await isPurchasePremium();
 
@@ -36,6 +45,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    initializeDB();
     initializePremium();
     initializeCategoryList();
 

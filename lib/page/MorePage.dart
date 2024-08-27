@@ -9,6 +9,7 @@ import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
+import 'package:simple_memo_app/etc/BackgroundPage.dart';
 import 'package:simple_memo_app/page/PremiumPage.dart';
 import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
@@ -56,6 +57,10 @@ class _MorePageState extends State<MorePage> {
       context: context,
       builder: (context) => const ScreenModeBottomSheet(),
     );
+  }
+
+  onBackground() {
+    navigator(context: context, page: const BackgroundPage());
   }
 
   onLanguage() {
@@ -113,6 +118,18 @@ class _MorePageState extends State<MorePage> {
                 value: themesInfo[user.theme],
                 onMore: onScreen,
               ),
+              // MoreItem(
+              //   svgName: 'premium-backdrop',
+              //   title: '배경',
+              //   value: '타입 1',
+              //   onMore: onBackground,
+              // ),
+              // MoreItem(
+              //   svgName: 'font',
+              //   title: '글꼴',
+              //   value: '오뮤 다예쁨체',
+              //   onMore: onFont,
+              // ),
               MoreItem(
                 svgName: 'language',
                 title: '언어',

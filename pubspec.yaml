@@ -64,6 +64,8 @@ dependencies:
   syncfusion_flutter_datagrid: ^26.2.5
   flutter_sound: ^9.8.1
   keyboard_actions: ^4.2.0
+  firebase_core: ^3.3.0
+  firebase_analytics: ^11.2.1
 
 dev_dependencies:
   flutter_test:
@@ -94,6 +96,9 @@ flutter:
     - assets/translations/ja.json
     - assets/images/app-logo-text.png
     - assets/images/texture-1.png
+    # - assets/images/texture-2.png
+    # - assets/images/texture-3.png
+    # - assets/images/texture-4.png
     - assets/svgs/dir-down.svg
     - assets/svgs/dir-down-bold.svg
     - assets/svgs/pencil.svg

@@ -330,14 +330,20 @@ final premiumBenefitsClassList = [
     title: '노트를 제한없이 추가할 수 있어요',
     subTitle: '다양한 노트를 제한없이 추가해보세요',
   ),
-  // PremiumBenefitsClass(
-  //   svgName: 'premium-backdrop',
-  //   title: '다양한 배경 테마들을 제공해드려요',
-  //   subTitle: '총 여섯 종의 다채로운 배경 테마를 이용해보세요',
-  // ),
   PremiumBenefitsClass(
     svgName: 'gallery',
     title: '사진을 최대 6장까지 추가 할 수 있어요',
     subTitle: '보다 많은 노트 사진을 추가해보세요!',
   ),
+];
+
+final backgroundClassList = [
+  [
+    BackgroundClass(path: '1', name: '타입 1'),
+    BackgroundClass(path: '2', name: '타입 2'),
+  ],
+  [
+    BackgroundClass(path: '3', name: '타입 3'),
+    BackgroundClass(path: '4', name: '타입 4'),
+  ],
 ];

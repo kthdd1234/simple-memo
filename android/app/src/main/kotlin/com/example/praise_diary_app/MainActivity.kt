@@ -1,4 +1,4 @@
-package com.example.simple_memo_app
+package com.kthdd.todayNote
 
 import io.flutter.embedding.android.FlutterActivity
 
