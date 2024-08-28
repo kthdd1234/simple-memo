@@ -103,6 +103,7 @@ class _MorePageState extends State<MorePage> {
           valueListenables: valueListenables,
           builder: (context, values, child) {
             UserBox user = userRepository.user;
+            String background = user.background ?? '1';
             String locale = context.locale.toString();
 
             List<MoreItem> moreItemList = [
@@ -118,18 +119,12 @@ class _MorePageState extends State<MorePage> {
                 value: themesInfo[user.theme],
                 onMore: onScreen,
               ),
-              // MoreItem(
-              //   svgName: 'premium-backdrop',
-              //   title: '배경',
-              //   value: '타입 1',
-              //   onMore: onBackground,
-              // ),
-              // MoreItem(
-              //   svgName: 'font',
-              //   title: '글꼴',
-              //   value: '오뮤 다예쁨체',
-              //   onMore: onFont,
-              // ),
+              MoreItem(
+                svgName: 'premium-backdrop',
+                title: '배경',
+                value: getBackgroundName(background),
+                onMore: onBackground,
+              ),
               MoreItem(
                 svgName: 'language',
                 title: '언어',
@@ -200,24 +195,6 @@ class MoreItem extends StatelessWidget {
             CommonSpace(width: 15),
             CommonText(text: title, fontSize: 17),
             const Spacer(),
-            // svgName == 'premium-free'
-            //     ? Container(
-            //         decoration: BoxDecoration(
-            //           image: const DecorationImage(
-            //               image: AssetImage("assets/images/b-0.png"),
-            //               fit: BoxFit.cover),
-            //           borderRadius: BorderRadius.circular(5),
-            //         ),
-            //         padding:
-            //             const EdgeInsets.symmetric(vertical: 5, horizontal: 7),
-            //         child: CommonText(
-            //           text: '업그레이드',
-            //           color: Colors.white,
-            //           fontSize: 13,
-            //           isBold: true,
-            //         ),
-            //       )
-            //     : const CommonNull(),
             value != null
                 ? Row(
                     children: [
@@ -229,7 +206,8 @@ class MoreItem extends StatelessWidget {
                       ),
                       svgName != 'version'
                           ? Padding(
-                              padding: const EdgeInsets.only(top: 2, left: 5),
+                              padding:
+                                  const EdgeInsets.only(bottom: 1, left: 5),
                               child: svgAsset(
                                 name: 'dir-right',
                                 width: 6,

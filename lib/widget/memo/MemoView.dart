@@ -2,13 +2,12 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/page/ImageSlidePage.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
-import 'package:simple_memo_app/widget/bottomSheet/MemoPasteBottomSheet.dart';
-import 'package:simple_memo_app/widget/bottomSheet/MemoSettingBottomSheet.dart';
 import 'package:simple_memo_app/widget/memo/MemoImages.dart';
 
 class MemoView extends StatefulWidget {
@@ -44,6 +43,7 @@ class _MemoViewState extends State<MemoView> {
 
   @override
   Widget build(BuildContext context) {
+    UserBox user = userRepository.user;
     MemoInfoClass memoInfo = widget.memoInfo;
     String? memo = memoInfo.memo;
     List<Uint8List> imageList = memoInfo.imageList ?? [];
@@ -71,7 +71,12 @@ class _MemoViewState extends State<MemoView> {
               CommonText(
                 text: memo ?? '',
                 isNotTr: true,
+                isUnderline: user.isNoteUnderline == true,
                 textAlign: textAlign,
+                decorationColor: grey.s400,
+                decoration: user.isNoteUnderline == true
+                    ? TextDecoration.underline
+                    : null,
                 fontSize: defaultFontSize + 1,
               ),
             ],

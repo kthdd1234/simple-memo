@@ -16,6 +16,7 @@ class UserBox extends HiveObject {
     this.passwords,
     this.googleDriveInfo,
     this.background,
+    this.isNoteUnderline,
   });
 
   @HiveField(0)
@@ -50,4 +51,7 @@ class UserBox extends HiveObject {
 
   @HiveField(10)
   String? background;
+
+  @HiveField(11)
+  bool? isNoteUnderline;
 }

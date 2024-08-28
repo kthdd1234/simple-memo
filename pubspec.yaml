@@ -96,9 +96,9 @@ flutter:
     - assets/translations/ja.json
     - assets/images/app-logo-text.png
     - assets/images/texture-1.png
-    # - assets/images/texture-2.png
-    # - assets/images/texture-3.png
-    # - assets/images/texture-4.png
+    - assets/images/texture-2.png
+    - assets/images/texture-3.png
+    - assets/images/texture-4.png
     - assets/svgs/dir-down.svg
     - assets/svgs/dir-down-bold.svg
     - assets/svgs/pencil.svg

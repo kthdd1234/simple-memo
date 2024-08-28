@@ -28,13 +28,14 @@ class UserBoxAdapter extends TypeAdapter<UserBox> {
       passwords: fields[9] as String?,
       googleDriveInfo: (fields[7] as Map?)?.cast<String, dynamic>(),
       background: fields[10] as String?,
+      isNoteUnderline: fields[11] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserBox obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -56,7 +57,9 @@ class UserBoxAdapter extends TypeAdapter<UserBox> {
       ..writeByte(9)
       ..write(obj.passwords)
       ..writeByte(10)
-      ..write(obj.background);
+      ..write(obj.background)
+      ..writeByte(11)
+      ..write(obj.isNoteUnderline);
   }
 
   @override

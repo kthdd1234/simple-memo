@@ -18,6 +18,7 @@ class CommonText extends StatelessWidget {
     this.overflow,
     this.softWrap,
     this.decoration,
+    this.isUnderline,
     this.decorationColor,
   });
 
@@ -29,7 +30,7 @@ class CommonText extends StatelessWidget {
   Map<String, String>? nameArgs;
   TextAlign? textAlign;
   TextOverflow? overflow;
-  bool? softWrap;
+  bool? softWrap, isUnderline;
   TextDecoration? decoration;
   Color? decorationColor;
 
@@ -37,6 +38,8 @@ class CommonText extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
     Color defaultColor = isLight ? Colors.black : darkTextColor;
+    Color fontColor =
+        isUnderline == true ? Colors.transparent : color ?? defaultColor;
 
     return Container(
       padding: EdgeInsets.all(highlightColor != null ? 3 : 0),
@@ -49,12 +52,18 @@ class CommonText extends StatelessWidget {
         textAlign: textAlign ?? TextAlign.center,
         softWrap: softWrap ?? true,
         style: TextStyle(
-          color: color ?? defaultColor,
+          color: fontColor,
+          height: isUnderline == true ? 1.9 : null,
           fontSize: fontSize ?? defaultFontSize,
           fontWeight: isBold == true ? FontWeight.bold : FontWeight.w400,
           overflow: overflow,
           decoration: decoration,
           decorationColor: decorationColor,
+          decorationStyle:
+              isUnderline == true ? TextDecorationStyle.dotted : null,
+          shadows: isUnderline == true
+              ? [Shadow(color: defaultColor, offset: const Offset(0, -9))]
+              : null,
         ),
       ),
     );

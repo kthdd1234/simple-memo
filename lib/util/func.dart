@@ -422,3 +422,11 @@ List<CategoryBox> getCategoryList() {
 
   return categoryList;
 }
+
+String getBackgroundName(String path) {
+  List<BackgroundClass> expandList =
+      backgroundClassList.expand((info) => info).toList();
+  int index = expandList.indexWhere((info) => info.path == path);
+
+  return expandList[index].name;
+}

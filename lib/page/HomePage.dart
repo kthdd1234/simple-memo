@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
 
     if (mounted) {
       user.background ??= '1';
+      user.isNoteUnderline ??= false;
     }
   }
 
