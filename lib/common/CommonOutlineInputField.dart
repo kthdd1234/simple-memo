@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -30,6 +31,9 @@ class CommonOutlineInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
 
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
+
     return Padding(
       padding: outerPadding ?? const EdgeInsets.all(0.0),
       child: SizedBox(
@@ -38,7 +42,7 @@ class CommonOutlineInputField extends StatelessWidget {
           style: TextStyle(
             color: isLight ? themeColor : darkTextColor,
             fontWeight: isLight ? FontWeight.normal : FontWeight.bold,
-            fontSize: 16,
+            fontSize: fontSize - 1,
           ),
           controller: controller,
           autofocus: autofocus ?? false,

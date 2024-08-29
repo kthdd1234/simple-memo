@@ -8,6 +8,7 @@ import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
+import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/util/func.dart';
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
     if (mounted) {
       user.background ??= '1';
       user.isNoteUnderline ??= false;
+      user.fontSize ??= defaultFontSize;
     }
   }
 

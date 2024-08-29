@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonSvg.dart';
 import 'package:simple_memo_app/main.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
+import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/memo/MemoTextFormField.dart';
@@ -40,6 +42,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
+
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
       child: Row(
@@ -51,7 +56,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
               controller: widget.controller,
               textAlign: TextAlign.left,
               hintText: '키워드 검색'.tr(),
-              fontSize: 18,
+              fontSize: fontSize + 1,
               isUnderline: true,
               contentPadding: const EdgeInsets.only(bottom: 5),
               textInputAction: TextInputAction.done,

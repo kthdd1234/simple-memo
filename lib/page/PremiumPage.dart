@@ -13,6 +13,7 @@ import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonSvgText.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
@@ -89,6 +90,9 @@ class _PremiumPageState extends State<PremiumPage> {
     bool isPremium = context.watch<PremiumProvider>().isPremium;
     bool isLight = context.watch<ThemeProvider>().isLight;
 
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
+
     return CommonBackground(
       child: CommonScaffold(
         appBarInfo: AppBarInfoClass(title: '프리미엄 혜택'),
@@ -120,7 +124,7 @@ class _PremiumPageState extends State<PremiumPage> {
                                   CommonText(
                                     text: premiumBenefit.subTitle,
                                     color: grey.original,
-                                    fontSize: 14,
+                                    fontSize: fontSize - 3,
                                   )
                                 ],
                               ),
@@ -136,8 +140,8 @@ class _PremiumPageState extends State<PremiumPage> {
                   ? CommonSvgText(
                       text: '구매가 완료되었어요 :D',
                       svgName: 'purchase-completed',
-                      fontSize: defaultFontSize,
-                      svgWidth: defaultFontSize - 2,
+                      fontSize: fontSize,
+                      svgWidth: fontSize - 2,
                       svgDirection: SvgDirection.left,
                     )
                   : CommonButton(

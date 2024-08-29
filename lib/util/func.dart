@@ -7,9 +7,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -151,6 +153,38 @@ fadeNavigator({required BuildContext context, required Widget page}) {
   Navigator.push(context, FadePageRoute(page: page));
 }
 
+NativeAd loadNativeAd({
+  required String adUnitId,
+  required Function() onAdLoaded,
+  required Function() onAdFailedToLoad,
+}) {
+  return NativeAd(
+    adUnitId: adUnitId,
+    listener: NativeAdListener(
+      onAdLoaded: (adLoaded) {
+        log('$adLoaded loaded~~~!!');
+        onAdLoaded();
+      },
+      onAdFailedToLoad: (ad, error) {
+        log('$NativeAd failed to load: $error');
+        onAdFailedToLoad();
+        ad.dispose();
+      },
+    ),
+    request: const AdRequest(),
+    nativeTemplateStyle: NativeTemplateStyle(
+      templateType: TemplateType.medium,
+      mainBackgroundColor: Colors.white,
+      cornerRadius: 5.0,
+      callToActionTextStyle: NativeTemplateTextStyle(
+        textColor: Colors.white,
+        backgroundColor: themeColor,
+        size: 16.0,
+      ),
+    ),
+  )..load();
+}
+
 // ad: banner, native, appOpening
 String getAdId(String ad) {
   final platform = Platform.isIOS ? 'ios' : 'android';
@@ -269,14 +303,17 @@ calendarHeaderStyle(bool isLight) {
 }
 
 calendarDaysOfWeekStyle(bool isLight) {
+  UserBox user = userRepository.user;
+  double fontSize = user.fontSize ?? defaultFontSize;
+
   return DaysOfWeekStyle(
     weekdayStyle: TextStyle(
-      fontSize: 15,
+      fontSize: fontSize - 2,
       color: isLight ? Colors.black : darkTextColor,
       fontWeight: isLight ? null : FontWeight.bold,
     ),
     weekendStyle: TextStyle(
-      fontSize: 15,
+      fontSize: fontSize - 2,
       color: red.s300,
       fontWeight: isLight ? null : FontWeight.bold,
     ),
@@ -429,4 +466,11 @@ String getBackgroundName(String path) {
   int index = expandList.indexWhere((info) => info.path == path);
 
   return expandList[index].name;
+}
+
+String getFontFamilyName(String fontFamily) {
+  int index =
+      fontFamilyList.indexWhere((info) => info['fontFamily'] == fontFamily);
+
+  return fontFamilyList[index]['name']!;
 }

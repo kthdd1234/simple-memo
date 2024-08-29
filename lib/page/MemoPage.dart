@@ -9,6 +9,7 @@ import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonTag.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/page/ImageSlidePage.dart';
 import 'package:simple_memo_app/page/PremiumPage.dart';
 import 'package:simple_memo_app/provider/PremiumProvider.dart';
@@ -150,6 +151,9 @@ class _MemoPageState extends State<MemoPage> {
     String selectedCategoryId =
         context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
 
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
+
     onCompleted() async {
       String? memo = textController.text != '' ? textController.text : null;
       int recordKey = dateTimeKey(selectedDateTime);
@@ -172,6 +176,8 @@ class _MemoPageState extends State<MemoPage> {
             memoInfoList: [...memoInfoList, newMemoInfo],
           ),
         );
+
+        Navigator.pop(context, 'showAd');
       } else {
         for (var i = 0; i < memoInfoList.length; i++) {
           if (memoInfoList[i]['categoryId'] == selectedCategoryId) {
@@ -184,9 +190,8 @@ class _MemoPageState extends State<MemoPage> {
         }
 
         await record?.save();
+        pop(context);
       }
-
-      pop(context);
     }
 
     return CommonBackground(
@@ -228,7 +233,7 @@ class _MemoPageState extends State<MemoPage> {
                         controller: textController,
                         textAlign: textAlign,
                         focusNode: focusNode,
-                        fontSize: defaultFontSize + 1,
+                        fontSize: fontSize + 1,
                       ),
                       CommonSpace(height: 70)
                     ],

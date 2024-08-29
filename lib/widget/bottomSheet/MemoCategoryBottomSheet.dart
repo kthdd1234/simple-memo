@@ -6,6 +6,7 @@ import 'package:simple_memo_app/common/CommonModalSheet.dart';
 import 'package:simple_memo_app/common/CommonOutlineInputField.dart';
 import 'package:simple_memo_app/main.dart';
 import 'package:simple_memo_app/model/category_box/category_box.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -62,7 +63,8 @@ class _MemoCategoryBottomSheetState extends State<MemoCategoryBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    bool isLight = context.watch<ThemeProvider>().isLight;
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -76,7 +78,7 @@ class _MemoCategoryBottomSheetState extends State<MemoCategoryBottomSheet> {
           child: MemoTextFormField(
             autofocus: true,
             controller: controller,
-            fontSize: defaultFontSize,
+            fontSize: fontSize,
             textAlign: TextAlign.left,
             hintText: '노트 이름을 입력해주세요.'.tr(),
             isUnderline: true,

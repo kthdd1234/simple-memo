@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_memo_app/util/final.dart';
 
 class CommonSwitch extends StatelessWidget {
   CommonSwitch({
@@ -21,7 +23,7 @@ class CommonSwitch extends StatelessWidget {
 
     return CupertinoSwitch(
       trackColor: isLight ? null : darkNotSelectedBgColor,
-      activeColor: activeColor,
+      activeColor: isLight ? activeColor : grey.s300,
       value: value,
       onChanged: onChanged,
     );

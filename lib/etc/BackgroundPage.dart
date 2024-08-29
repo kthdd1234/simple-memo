@@ -9,10 +9,14 @@ import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonSwitch.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
+import 'package:simple_memo_app/page/PremiumPage.dart';
+import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/provider/reload_provider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
+import 'package:simple_memo_app/util/func.dart';
+import 'package:simple_memo_app/widget/popup/AlertPopup.dart';
 
 class BackgroundPage extends StatefulWidget {
   const BackgroundPage({super.key});
@@ -35,33 +39,35 @@ class _BackgroundPageState extends State<BackgroundPage> {
       valueListenables: valueListenables,
       builder: (context, values, child) {
         bool? isNotUnderline = user.isNoteUnderline == true;
+        double fontSize = user.fontSize ?? defaultFontSize;
 
         return CommonBackground(
           child: CommonScaffold(
             appBarInfo: AppBarInfoClass(title: '배경'),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                children: [
-                  CommonContainer(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CommonText(text: '노트에 줄무늬 표시', fontSize: 15),
-                        SizedBox(
-                          height: 25,
-                          child: CommonSwitch(
-                            activeColor: themeColor,
-                            value: isNotUnderline,
-                            onChanged: onChanged,
-                          ),
-                        )
-                      ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CommonContainer(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CommonText(
+                              text: '노트에 줄무늬 표시', fontSize: fontSize - 2),
+                          SizedBox(
+                            height: 25,
+                            child: CommonSwitch(
+                              activeColor: themeColor,
+                              value: isNotUnderline,
+                              onChanged: onChanged,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  CommonSpace(height: 10),
-                  CommonContainer(
-                    child: SingleChildScrollView(
+                    CommonSpace(height: 10),
+                    CommonContainer(
                       child: Column(
                         children: backgroundClassList
                             .map(
@@ -82,9 +88,9 @@ class _BackgroundPageState extends State<BackgroundPage> {
                             )
                             .toList(),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -112,14 +118,29 @@ class _BackgroundItemState extends State<BackgroundItem> {
 
   @override
   Widget build(BuildContext context) {
-    String? background = user.background ?? '1';
+    bool isPremium = context.watch<PremiumProvider>().isPremium;
     bool isReload = context.watch<ReloadProvider>().isReload;
 
-    onBackground(String path) async {
-      user.background = path;
-      await user.save();
+    String? background = user.background ?? '1';
+    double fontSize = user.fontSize ?? defaultFontSize;
 
-      context.read<ReloadProvider>().setReload(!isReload);
+    onBackground(String path) async {
+      if (isPremium) {
+        user.background = path;
+        await user.save();
+
+        context.read<ReloadProvider>().setReload(!isReload);
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) => AlertPopup(
+            desc: '프리미엄 구매 시\n배경을 변경할 수 있어요',
+            buttonText: '프리미엄 구매 페이지로 이동',
+            height: 195,
+            onTap: () => navigator(context: context, page: const PremiumPage()),
+          ),
+        );
+      }
     }
 
     return Expanded(
@@ -144,7 +165,7 @@ class _BackgroundItemState extends State<BackgroundItem> {
               ],
             ),
             CommonSpace(height: 5),
-            CommonText(text: widget.name, fontSize: 13, color: themeColor)
+            CommonText(text: widget.name, fontSize: fontSize - 2)
           ],
         ),
       ),

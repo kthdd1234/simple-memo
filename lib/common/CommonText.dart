@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_memo_app/util/final.dart';
 
 class CommonText extends StatelessWidget {
   CommonText({
@@ -40,6 +41,7 @@ class CommonText extends StatelessWidget {
     Color defaultColor = isLight ? Colors.black : darkTextColor;
     Color fontColor =
         isUnderline == true ? Colors.transparent : color ?? defaultColor;
+    double fontSizeValue = userRepository.user.fontSize ?? defaultFontSize;
 
     return Container(
       padding: EdgeInsets.all(highlightColor != null ? 3 : 0),
@@ -54,7 +56,7 @@ class CommonText extends StatelessWidget {
         style: TextStyle(
           color: fontColor,
           height: isUnderline == true ? 1.9 : null,
-          fontSize: fontSize ?? defaultFontSize,
+          fontSize: fontSize ?? fontSizeValue,
           fontWeight: isBold == true ? FontWeight.bold : FontWeight.w400,
           overflow: overflow,
           decoration: decoration,

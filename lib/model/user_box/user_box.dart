@@ -17,6 +17,7 @@ class UserBox extends HiveObject {
     this.googleDriveInfo,
     this.background,
     this.isNoteUnderline,
+    this.fontSize,
   });
 
   @HiveField(0)
@@ -54,4 +55,7 @@ class UserBox extends HiveObject {
 
   @HiveField(11)
   bool? isNoteUnderline;
+
+  @HiveField(12)
+  double? fontSize;
 }

@@ -10,10 +10,12 @@ import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/etc/BackgroundPage.dart';
+import 'package:simple_memo_app/page/FontPage.dart';
 import 'package:simple_memo_app/page/PremiumPage.dart';
 import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
+import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/etc/MoreAppBar.dart';
@@ -71,10 +73,7 @@ class _MorePageState extends State<MorePage> {
   }
 
   onFont() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => const FontBottomSheet(),
-    );
+    navigator(context: context, page: const FontPage());
   }
 
   onPrivacy() async {
@@ -105,6 +104,7 @@ class _MorePageState extends State<MorePage> {
             UserBox user = userRepository.user;
             String background = user.background ?? '1';
             String locale = context.locale.toString();
+            String fontFamily = user.fontFamily;
 
             List<MoreItem> moreItemList = [
               MoreItem(
@@ -124,6 +124,12 @@ class _MorePageState extends State<MorePage> {
                 title: '배경',
                 value: getBackgroundName(background),
                 onMore: onBackground,
+              ),
+              MoreItem(
+                svgName: 'font',
+                title: '글꼴',
+                value: getFontFamilyName(fontFamily),
+                onMore: onFont,
               ),
               MoreItem(
                 svgName: 'language',
@@ -184,6 +190,8 @@ class MoreItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
 
     return InkWell(
       onTap: onMore,
@@ -193,14 +201,14 @@ class MoreItem extends StatelessWidget {
           children: [
             svgAsset(name: svgName, width: 18, isLight: isLight),
             CommonSpace(width: 15),
-            CommonText(text: title, fontSize: 17),
+            CommonText(text: title),
             const Spacer(),
             value != null
                 ? Row(
                     children: [
                       CommonText(
                         text: value!,
-                        fontSize: 16,
+                        fontSize: fontSize - 1,
                         color: isLight ? grey.original : grey.s400,
                         isNotTr: isNotTr,
                       ),

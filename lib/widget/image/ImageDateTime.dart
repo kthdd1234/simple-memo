@@ -2,6 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
+import 'package:simple_memo_app/util/constants.dart';
+import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 
 class ImageDateTime extends StatelessWidget {
@@ -12,6 +15,9 @@ class ImageDateTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
+
     return Positioned(
       bottom: 0,
       child: Padding(
@@ -26,7 +32,7 @@ class ImageDateTime extends StatelessWidget {
           ),
           borderRadius: 5,
           textColor: Colors.white,
-          fontSize: 14,
+          fontSize: fontSize - 3,
           onTap: onTap,
         ),
       ),

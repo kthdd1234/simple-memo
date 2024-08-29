@@ -4,6 +4,9 @@ import 'package:flutter/material.dart' hide CarouselController;
 // import 'package:carousel_slider/carousel_slider.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
+import 'package:simple_memo_app/util/constants.dart';
+import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 
 class ImageSlidePage extends StatefulWidget {
@@ -35,13 +38,16 @@ class _ImageSlidePageState extends State<ImageSlidePage> {
 
   @override
   Widget build(BuildContext context) {
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
+
     return CommonBackground(
       child: Scaffold(
           appBar: AppBar(
             title: CommonText(
               text: '${selectedIndex + 1}/${widget.uint8ListList.length}',
               color: Colors.white,
-              fontSize: 14,
+              fontSize: fontSize - 3,
               isBold: true,
               isNotTr: true,
             ),

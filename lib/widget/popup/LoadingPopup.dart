@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
+import 'package:simple_memo_app/util/constants.dart';
+import 'package:simple_memo_app/util/final.dart';
 
 class LoadingPopup extends StatelessWidget {
   LoadingPopup({
@@ -21,6 +24,9 @@ class LoadingPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -28,21 +34,21 @@ class LoadingPopup extends StatelessWidget {
             ? const CommonNull()
             : const Padding(
                 padding: EdgeInsets.only(bottom: 10),
-                child: CircularProgressIndicator(strokeWidth: 3),
+                child: CircularProgressIndicator(
+                    strokeWidth: 3, color: Colors.white),
               ),
         CommonText(
           text: text,
-          fontSize: 15,
-          isBold: true,
+          fontSize: fontSize - 2,
           color: color,
           nameArgs: nameArgs,
+          decoration: TextDecoration.none,
         ),
         CommonSpace(height: 3),
         subText != null
             ? CommonText(
                 text: subText!,
-                fontSize: 11,
-                isBold: true,
+                fontSize: fontSize - 5,
                 color: color,
                 nameArgs: nameArgs,
               )

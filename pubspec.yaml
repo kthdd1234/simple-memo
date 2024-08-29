@@ -66,6 +66,10 @@ dependencies:
   keyboard_actions: ^4.2.0
   firebase_core: ^3.3.0
   firebase_analytics: ^11.2.1
+  syncfusion_flutter_sliders: ^26.2.11
+  scrollview_observer: ^1.21.1
+  scrollable_positioned_list: ^0.3.8
+  google_mobile_ads: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -99,6 +103,8 @@ flutter:
     - assets/images/texture-2.png
     - assets/images/texture-3.png
     - assets/images/texture-4.png
+    - assets/images/texture-5.png
+    - assets/images/texture-6.png
     - assets/svgs/dir-down.svg
     - assets/svgs/dir-down-bold.svg
     - assets/svgs/pencil.svg
@@ -159,6 +165,36 @@ flutter:
     - family: Omyu
       fonts:
         - asset: assets/fonts/Omyu.ttf
+          weight: 400
+
+    - family: SingleDay
+      fonts:
+        - asset: assets/fonts/SingleDay.ttf
+          weight: 400
+
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans.ttf
+          weight: 400
+
+    - family: LeeSeoyun
+      fonts:
+        - asset: assets/fonts/LeeSeoyun.ttf
+          weight: 400
+
+    - family: Kyobo
+      fonts:
+        - asset: assets/fonts/Kyobo.ttf
+          weight: 400
+
+    - family: Hyemin
+      fonts:
+        - asset: assets/fonts/Hyemin.ttf
+          weight: 400
+
+    - family: DongDong
+      fonts:
+        - asset: assets/fonts/DongDong.ttf
           weight: 400
     #
     # For details regarding fonts from package dependencies,

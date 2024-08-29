@@ -77,10 +77,10 @@ const iOSAppOpeningTestId = 'ca-app-pub-3940256099942544/5575463023';
 const iOSInterstitialTestId = 'ca-app-pub-3940256099942544/4411468910';
 
 /// iOSBannerRealId
-const iOSBannerRealId = '';
+const iOSBannerRealId = 'ca-app-pub-6804308271128440/2119911898';
 
 // iOSNativeRealId
-const iOSNativeRealId = '';
+const iOSNativeRealId = 'ca-app-pub-6804308271128440/9960972960';
 
 // iOSAppOpeningRealId
 const iOSAppOpeningRealId = '';

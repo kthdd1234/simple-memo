@@ -49,6 +49,8 @@ class _MemoViewState extends State<MemoView> {
     List<Uint8List> imageList = memoInfo.imageList ?? [];
     TextAlign? textAlign = memoInfo.textAlign;
 
+    double fontSize = user.fontSize ?? defaultFontSize;
+
     return InkWell(
       onTap: () => widget.onMemo(memoInfo),
       child: Padding(
@@ -77,7 +79,7 @@ class _MemoViewState extends State<MemoView> {
                 decoration: user.isNoteUnderline == true
                     ? TextDecoration.underline
                     : null,
-                fontSize: defaultFontSize + 1,
+                fontSize: fontSize + 1,
               ),
             ],
           ),

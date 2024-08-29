@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:simple_memo_app/common/CommonContainer.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -37,6 +38,9 @@ class CommonCalendar extends StatefulWidget {
 
 class _CommonCalendarState extends State<CommonCalendar> {
   Widget? dowBuilder(bool isLight, DateTime dateTime) {
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
+
     String locale = context.locale.toString();
     Color color = dateTime.weekday == 6
         ? blue.original
@@ -49,7 +53,7 @@ class _CommonCalendarState extends State<CommonCalendar> {
     return CommonText(
       text: eFormatter(locale: locale, dateTime: dateTime),
       color: color,
-      fontSize: 15,
+      fontSize: fontSize - 2,
       isNotTr: true,
     );
   }
@@ -73,6 +77,9 @@ class _CommonCalendarState extends State<CommonCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
+
     String locale = context.locale.toString();
     bool isLight = context.watch<ThemeProvider>().isLight;
 
@@ -92,7 +99,7 @@ class _CommonCalendarState extends State<CommonCalendar> {
           ),
           todayTextStyle: TextStyle(
             color: isLight ? Colors.white : calendarSelectedDateTimeTextColor,
-            fontSize: 15,
+            fontSize: fontSize - 2,
           ),
         ),
         availableGestures: widget.shouldFillViewport

@@ -94,6 +94,9 @@ class _CategoryPageState extends State<CategoryPage> {
     bool isPremium = context.watch<PremiumProvider>().isPremium;
     bool isLight = context.watch<ThemeProvider>().isLight;
 
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
+
     return CommonBackground(
       child: CommonScaffold(
         padding: const EdgeInsets.only(left: 20, right: 20),
@@ -152,7 +155,7 @@ class _CategoryPageState extends State<CategoryPage> {
             backgroundColor: isLight ? Colors.white : darkContainerColor,
             onPressed: () => onAdd(isPremium),
             icon: const Icon(Icons.add_rounded, size: 25),
-            label: CommonText(text: '노트 추가', fontSize: defaultFontSize),
+            label: CommonText(text: '노트 추가', fontSize: fontSize),
           ),
         ),
       ),
@@ -243,6 +246,9 @@ class _MemoCategoryItemState extends State<MemoCategoryItem> {
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
 
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
+
     return Row(
       children: [
         widget.isEdit
@@ -272,7 +278,7 @@ class _MemoCategoryItemState extends State<MemoCategoryItem> {
                   CommonSpace(width: 30),
                   CommonSvgText(
                     text: '${widget.count}',
-                    fontSize: 16,
+                    fontSize: fontSize - 1,
                     textColor: isLight ? grey.original : Colors.white,
                     svgColor: isLight ? grey.original : Colors.white,
                     svgWidth: 6,

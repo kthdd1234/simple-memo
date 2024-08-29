@@ -7,8 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
-// import 'package:flutter_dotenv/flutter_dotenv.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
@@ -23,8 +22,6 @@ import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/repositories/init_hive.dart';
 import 'package:simple_memo_app/repositories/user_repository.dart';
-// import 'package:simple_memo_app/repositories/init_hive.dart';
-// import 'package:simple_memo_app/repositories/user_repository.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -42,6 +39,8 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await InitHive().initializeHive();
   await Purchases.configure(purchasesConfiguration);
+  await MobileAds.instance.initialize();
+
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -50,7 +49,6 @@ void main() async {
   } catch (e) {
     print("Failed to initialize Firebase: $e");
   }
-  // await MobileAds.instance.initialize();
   // await HomeWidget.setAppGroupId('group.todo-planner-widget');
 
   runApp(

@@ -5,6 +5,7 @@ import 'package:simple_memo_app/common/CommonContainer.dart';
 import 'package:simple_memo_app/common/CommonDivider.dart';
 import 'package:simple_memo_app/common/CommonModalSheet.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
+import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -16,6 +17,9 @@ class FontBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
+
+    UserBox user = userRepository.user;
+    double fontSize = user.fontSize ?? defaultFontSize;
 
     return CommonModalSheet(
       title: '글꼴 변경',
@@ -36,7 +40,7 @@ class FontBottomSheet extends StatelessWidget {
                             Text(
                               data['name']!,
                               style: TextStyle(
-                                fontSize: 17,
+                                fontSize: fontSize,
                                 fontFamily: data['fontFamily'],
                                 color: isLight ? Colors.black : darkTextColor,
                                 fontWeight: isLight

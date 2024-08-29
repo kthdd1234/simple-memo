@@ -246,28 +246,28 @@ List<Map<String, String>> fontFamilyList = [
     "name": "오뮤 다예쁨체",
   },
   {
-    "fontFamily": "IM_Hyemin",
+    "fontFamily": "DongDong",
+    "name": "카페24 동동",
+  },
+  {
+    "fontFamily": "Hyemin",
     "name": "IM 혜민",
   },
   {
-    "fontFamily": "KyoboHandwriting2019",
+    "fontFamily": "Kyobo",
     "name": "교보 손글씨",
+  },
+  {
+    "fontFamily": "LeeSeoyun",
+    "name": "이서윤체",
   },
   {
     "fontFamily": "SingleDay",
     "name": "싱글데이",
   },
   {
-    "fontFamily": "Cafe24Dongdong",
-    "name": "카페24 동동",
-  },
-  {
-    "fontFamily": "Cafe24Syongsyong",
-    "name": "카페24 숑숑",
-  },
-  {
-    "fontFamily": "Cafe24Ssukssuk",
-    "name": "카페24 쑥쑥",
+    "fontFamily": "OpenSans",
+    "name": "OpenSans",
   },
 ];
 
@@ -335,6 +335,11 @@ final premiumBenefitsClassList = [
     title: '사진을 최대 6장까지 추가 할 수 있어요',
     subTitle: '보다 많은 노트 사진을 추가해보세요!',
   ),
+  PremiumBenefitsClass(
+    svgName: 'premium-backdrop',
+    title: '다양한 배경 테마들을 제공해드려요',
+    subTitle: '총 6종의 배경 테마들을 이용해보세요!',
+  ),
 ];
 
 final backgroundClassList = [
@@ -345,5 +350,9 @@ final backgroundClassList = [
   [
     BackgroundClass(path: '3', name: '타입 3'),
     BackgroundClass(path: '4', name: '타입 4'),
+  ],
+  [
+    BackgroundClass(path: '5', name: '타입 5'),
+    BackgroundClass(path: '6', name: '타입 6'),
   ],
 ];
