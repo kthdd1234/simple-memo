@@ -12,19 +12,20 @@ class CommonBackground extends StatelessWidget {
     this.height,
     this.borderRadius,
     this.padding,
+    this.path,
   });
 
   bool? isRadius;
   double? height;
   BorderRadius? borderRadius;
   EdgeInsets? padding;
+  String? path;
   Widget child;
 
   @override
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
-    String background =
-        userRepository.isUser ? userRepository.user.background ?? '1' : '1';
+    String background = path ?? userRepository.user.background ?? '1';
 
     return Container(
       padding: padding,

@@ -92,7 +92,7 @@ const iOSInterstitialRealId = '';
 const appleApiKey = 'appl_gAlgVzcZnoGojEZmThBXcZRRehv';
 
 /// googleApiKey
-const googleApiKey = '';
+const googleApiKey = 'goog_wnvKyJUcTNFtkuMHMAIlVTyhUzi';
 
 /// offeringIdentifier
 const offeringIdentifier = 'premium';
@@ -101,10 +101,32 @@ const offeringIdentifier = 'premium';
 const entitlementIdentifier = 'premium';
 
 /// APP_STORE_LINK
-const APP_STORE_LINK = "";
+const APP_STORE_LINK =
+    "https://apps.apple.com/kr/app/%ED%88%AC%EB%8D%B0%EC%9D%B4-%EB%85%B8%ED%8A%B8/id6654905877";
 
 /// PLAY_STORE_LINK
-const PLAY_STORE_LINK = "";
+const PLAY_STORE_LINK =
+    "https://play.google.com/store/apps/details?id=com.kthdd.todayNote";
+
+/// appleId
+const appleId = '6654905877';
+
+/// androidId
+const androidId = 'com.kthdd.todayNote';
+
+/// iosUrl
+Uri iosUrl = Uri(
+  scheme: 'https',
+  host: 'apps.apple.com',
+  path: 'kr/app/%ED%88%AC%EB%8D%B0%EC%9D%B4-%EB%85%B8%ED%8A%B8/id6654905877',
+);
+
+/// androidUrl
+Uri androidUrl = Uri(
+  scheme: 'https',
+  host: 'play.google.com',
+  path: 'store/apps/details?id=com.kthdd.todayNote',
+);
 
 /// themeBgColor
 const darkBgColor = Color(0xff1C1C1E);

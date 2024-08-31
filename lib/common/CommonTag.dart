@@ -30,7 +30,7 @@ class CommonTag extends StatelessWidget {
     bool isLight = context.watch<ThemeProvider>().isLight;
     Color bgColor = isLight
         ? isSelection == true
-            ? themeColor
+            ? darkButtonColor
             : Colors.white
         : isSelection == true
             ? Colors.white

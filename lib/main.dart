@@ -21,7 +21,6 @@ import 'package:simple_memo_app/provider/reload_provider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
 import 'package:simple_memo_app/repositories/init_hive.dart';
-import 'package:simple_memo_app/repositories/user_repository.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/util/final.dart';
@@ -143,10 +142,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     context.watch<ReloadProvider>().isReload;
 
-    bool isUser = UserRepository().isUser;
     UserBox? user = userBox?.get('userProfile');
     String? fontFamily = user?.fontFamily ?? initFontFamily;
-    String initialRoute = isUser ? 'home-page' : 'start-page';
+    String initialRoute = userRepository.isUser ? 'home-page' : 'start-page';
 
     return MaterialApp(
       title: 'praise diary',

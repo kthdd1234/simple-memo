@@ -41,7 +41,9 @@ class CommonText extends StatelessWidget {
     Color defaultColor = isLight ? Colors.black : darkTextColor;
     Color fontColor =
         isUnderline == true ? Colors.transparent : color ?? defaultColor;
-    double fontSizeValue = userRepository.user.fontSize ?? defaultFontSize;
+    double fontSizeValue = userRepository.isUser
+        ? (fontSize ?? userRepository.user.fontSize ?? defaultFontSize)
+        : defaultFontSize;
 
     return Container(
       padding: EdgeInsets.all(highlightColor != null ? 3 : 0),

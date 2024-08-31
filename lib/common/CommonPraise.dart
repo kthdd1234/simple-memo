@@ -27,7 +27,9 @@ class CommonPraise extends StatelessWidget {
     bool isLight = context.watch<ThemeProvider>().isLight;
 
     return CommonBackground(
+      path: '1',
       child: CommonScaffold(
+        initFontSize: defaultFontSize,
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
         appBarInfo: AppBarInfoClass(title: titleText),
         body: Column(

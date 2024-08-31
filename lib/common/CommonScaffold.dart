@@ -10,16 +10,18 @@ import 'package:provider/provider.dart';
 import 'package:simple_memo_app/util/final.dart';
 
 class CommonScaffold extends StatelessWidget {
-  CommonScaffold(
-      {super.key,
-      required this.body,
-      this.appBarInfo,
-      this.bottomNavigationBar,
-      this.resizeToAvoidBottomInset,
-      this.backgroundColor,
-      this.padding,
-      this.floatingActionButton,
-      this.leading});
+  CommonScaffold({
+    super.key,
+    required this.body,
+    this.appBarInfo,
+    this.bottomNavigationBar,
+    this.resizeToAvoidBottomInset,
+    this.backgroundColor,
+    this.padding,
+    this.floatingActionButton,
+    this.leading,
+    this.initFontSize,
+  });
 
   Widget? bottomNavigationBar;
   Widget body;
@@ -29,13 +31,13 @@ class CommonScaffold extends StatelessWidget {
   EdgeInsets? padding;
   Widget? floatingActionButton;
   Widget? leading;
+  double? initFontSize;
 
   @override
   Widget build(BuildContext context) {
     bool isLight = context.watch<ThemeProvider>().isLight;
-
-    UserBox user = userRepository.user;
-    double fontSize = user.fontSize ?? defaultFontSize;
+    double fontSize =
+        initFontSize ?? userRepository.user.fontSize ?? defaultFontSize;
 
     return Scaffold(
       backgroundColor: backgroundColor ?? Colors.transparent,

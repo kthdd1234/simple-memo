@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:scrollview_observer/scrollview_observer.dart';
 import 'package:simple_memo_app/common/CommonBannerAd.dart';
-import 'package:simple_memo_app/common/CommonDivider.dart';
 import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/category_box/category_box.dart';
@@ -101,8 +99,9 @@ class _MemoBodyState extends State<MemoBody> {
 
       if (result == 'showAd' && isPremium == false) {
         showModalBottomSheet(
+          isScrollControlled: true,
           context: context,
-          builder: (context) => NativeAdBottomSheet(),
+          builder: (context) => NativeAdBottomSheet(isLight: isLight),
         );
       }
     }
@@ -253,7 +252,7 @@ class _MemoBodyState extends State<MemoBody> {
                 },
               ),
             ),
-            isPremium == true ? CommonBannerAd() : const CommonNull()
+            isPremium == false ? const CommonBannerAd() : const CommonNull()
           ],
         );
       },

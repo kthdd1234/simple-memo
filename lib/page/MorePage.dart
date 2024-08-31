@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +21,6 @@ import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
-import 'package:simple_memo_app/etc/MoreAppBar.dart';
-import 'package:simple_memo_app/widget/bottomSheet/FontBottomSheet.dart';
 import 'package:simple_memo_app/widget/bottomSheet/LanguageBottomSheet.dart';
 import 'package:simple_memo_app/widget/bottomSheet/ScreenModeBottomSheet.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -87,8 +88,24 @@ class _MorePageState extends State<MorePage> {
     await canLaunchUrl(url) ? await launchUrl(url) : throw 'launchUrl error';
   }
 
-  onVersion() {
-    //
+  onReview() {
+    InAppReview inAppReview = InAppReview.instance;
+
+    inAppReview.openStoreListing(
+      appStoreId: appleId,
+      microsoftStoreId: androidId,
+    );
+  }
+
+  onShare() {
+    Platform.isIOS
+        ? Share.share(APP_STORE_LINK, subject: '투데이 노트')
+        : Share.share(PLAY_STORE_LINK, subject: '투데이 노트');
+  }
+
+  onVersion() async {
+    Uri url = Platform.isIOS ? iosUrl : androidUrl;
+    await canLaunchUrl(url) ? await launchUrl(url) : print('err');
   }
 
   @override
@@ -137,6 +154,16 @@ class _MorePageState extends State<MorePage> {
                 value: localeInfo[locale],
                 isNotTr: true,
                 onMore: onLanguage,
+              ),
+              MoreItem(
+                svgName: 'review',
+                title: '앱 리뷰',
+                onMore: onReview,
+              ),
+              MoreItem(
+                svgName: 'share',
+                title: '앱 공유',
+                onMore: onShare,
               ),
               MoreItem(
                 svgName: 'privacy',

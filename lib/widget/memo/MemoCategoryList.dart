@@ -7,7 +7,6 @@ import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/util/constants.dart';
 import 'package:simple_memo_app/util/final.dart';
-import 'package:scrollview_observer/scrollview_observer.dart';
 
 class MemoCategoryList extends StatefulWidget {
   MemoCategoryList({

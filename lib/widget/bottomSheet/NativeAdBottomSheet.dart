@@ -13,7 +13,9 @@ import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 
 class NativeAdBottomSheet extends StatefulWidget {
-  NativeAdBottomSheet({super.key});
+  NativeAdBottomSheet({super.key, required this.isLight});
+
+  bool isLight;
 
   @override
   State<NativeAdBottomSheet> createState() => _NativeAdBottomSheetState();
@@ -27,6 +29,7 @@ class _NativeAdBottomSheetState extends State<NativeAdBottomSheet> {
   void initState() {
     if (isLoaded == false) {
       nativeAd = loadNativeAd(
+        isLight: widget.isLight,
         adUnitId: getAdId('native'),
         onAdLoaded: () {
           setState(() => isLoaded = true);
@@ -75,9 +78,10 @@ class _NativeAdBottomSheetState extends State<NativeAdBottomSheet> {
     return CommonModalSheet(
       title: '👏🏻일째 기록했어요!',
       nameArgs: {'length': '${recordList.length}'},
-      height: 445,
+      height: 460,
       isClose: true,
       child: CommonContainer(
+        color: Colors.transparent,
         innerPadding: const EdgeInsets.all(0),
         child: isLoaded == false
             ? Center(

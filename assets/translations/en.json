@@ -1,5 +1,5 @@
 {
-  "반가워요! 투데이 노트와 함께": "Hello! With Haru Note",
+  "반가워요! 투데이 노트와 함께": "Hello! With today note",
   "꾸준히 글쓰는 습관을 만들어봐요 :D": "Let's make a habit of writing consistently :D",
   "시작하기": "Start",
   "+ 글쓰기": "+ Writing",
@@ -80,5 +80,7 @@
   "프리미엄 구매 시\n배경을 변경할 수 있어요": "When you purchase premium\nyou can change the background.",
   "타입 5": "Type 5",
   "타입 6": "Type 6",
-  "👏🏻일째 기록했어요!": "👏🏻Recording for {length} days!"
+  "👏🏻일째 기록했어요!": "👏🏻Recording for {length} days!",
+  "앱 리뷰": "Review the app",
+  "앱 공유": "Share the app"
 }

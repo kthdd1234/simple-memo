@@ -154,6 +154,7 @@ fadeNavigator({required BuildContext context, required Widget page}) {
 }
 
 NativeAd loadNativeAd({
+  required bool isLight,
   required String adUnitId,
   required Function() onAdLoaded,
   required Function() onAdFailedToLoad,
@@ -174,9 +175,19 @@ NativeAd loadNativeAd({
     request: const AdRequest(),
     nativeTemplateStyle: NativeTemplateStyle(
       templateType: TemplateType.medium,
-      mainBackgroundColor: Colors.white,
+      mainBackgroundColor: isLight ? Colors.white : darkContainerColor,
       cornerRadius: 5.0,
+      tertiaryTextStyle: NativeTemplateTextStyle(
+        textColor: isLight ? Colors.black : Colors.white,
+      ),
+      primaryTextStyle: NativeTemplateTextStyle(
+        textColor: isLight ? Colors.black : Colors.white,
+      ),
+      secondaryTextStyle: NativeTemplateTextStyle(
+        textColor: isLight ? Colors.black : Colors.white,
+      ),
       callToActionTextStyle: NativeTemplateTextStyle(
+        style: NativeTemplateFontStyle.bold,
         textColor: Colors.white,
         backgroundColor: themeColor,
         size: 16.0,
