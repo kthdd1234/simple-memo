@@ -279,12 +279,13 @@ final languageList = [
 
 Map<String, String> initCategoryName1 = {
   'ko': '📔노트 1',
-  'en': '📔note 1',
+  'en': '📔notebook 1',
   'ja': '📔ノート1'
 };
+
 Map<String, String> initCategoryName2 = {
   'ko': '📕노트 2',
-  'en': '📕note 2',
+  'en': '📕notebook 2',
   'ja': '📕ノート2'
 };
 

@@ -101,7 +101,7 @@ class _CategoryPageState extends State<CategoryPage> {
       child: CommonScaffold(
         padding: const EdgeInsets.only(left: 20, right: 20),
         appBarInfo: AppBarInfoClass(
-          title: '노트 관리',
+          title: '노트',
           actions: [
             InkWell(
               onTap: onEdit,

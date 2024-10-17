@@ -16,7 +16,7 @@ class SearchItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonContainer(
-      outerPadding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
+      outerPadding: const EdgeInsets.only(bottom: 10),
       child: Column(
         crossAxisAlignment: crossAxisAlignmentInfo[memoInfo.textAlign]!,
         children: [

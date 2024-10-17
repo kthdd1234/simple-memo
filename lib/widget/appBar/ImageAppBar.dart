@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_memo_app/common/CommonDivider.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonSvg.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
@@ -17,28 +18,32 @@ class ImageAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    EdgeInsets padding = const EdgeInsets.fromLTRB(5, 10, 10, 10);
-
-    return Row(
+    return Column(
       children: [
-        const BackBtn(),
-        CommonSpace(width: 10),
-        CommonText(text: '사진 모아보기'),
-        const Spacer(),
-        Row(
-          children: [
-            CommonSvg(
-              name: 'slide-show',
-              onTap: onSlide,
-              padding: padding,
-            ),
-            CommonSvg(
-              name: isRecent ? 'up-down' : 'down-up',
-              onTap: onRecent,
-              padding: padding,
-            ),
-          ],
-        )
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: Row(
+            children: [
+              CommonText(text: '사진'),
+              const Spacer(),
+              Row(
+                children: [
+                  CommonSvg(
+                    name: 'slide-show',
+                    onTap: onSlide,
+                    padding: const EdgeInsets.only(left: 10),
+                  ),
+                  CommonSvg(
+                    name: isRecent ? 'up-down' : 'down-up',
+                    onTap: onRecent,
+                    padding: const EdgeInsets.only(left: 10),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+        CommonDivider(),
       ],
     );
   }

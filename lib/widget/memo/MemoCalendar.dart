@@ -117,7 +117,7 @@ class _MemoCalendarState extends State<MemoCalendar> {
                     onPageChanged: (_) {},
                   ),
                 ),
-                CommonDivider(horizontal: 10),
+                CommonDivider(),
               ],
             ),
           )

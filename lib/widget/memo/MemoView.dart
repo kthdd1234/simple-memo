@@ -53,24 +53,24 @@ class _MemoViewState extends State<MemoView> {
 
     return InkWell(
       onTap: () => widget.onMemo(memoInfo),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        child: Container(
-          alignment: alignmentInfo[textAlign],
-          child: Column(
-            crossAxisAlignment: crossAxisAlignmentInfo[textAlign]!,
-            children: [
-              imageList.isNotEmpty
-                  ? Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: MemoImages(
-                        uint8ListList: imageList,
-                        onImage: (Uint8List uint8List) =>
-                            onSlide(uint8List, imageList),
-                      ),
-                    )
-                  : const CommonNull(),
-              CommonText(
+      child: Container(
+        alignment: alignmentInfo[textAlign],
+        child: Column(
+          crossAxisAlignment: crossAxisAlignmentInfo[textAlign]!,
+          children: [
+            imageList.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: MemoImages(
+                      uint8ListList: imageList,
+                      onImage: (Uint8List uint8List) =>
+                          onSlide(uint8List, imageList),
+                    ),
+                  )
+                : const CommonNull(),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: CommonText(
                 text: memo ?? '',
                 isNotTr: true,
                 isUnderline: user.isNoteUnderline == true,
@@ -81,8 +81,8 @@ class _MemoViewState extends State<MemoView> {
                     : null,
                 fontSize: fontSize + 1,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

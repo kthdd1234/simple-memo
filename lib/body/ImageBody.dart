@@ -16,14 +16,14 @@ import 'package:simple_memo_app/widget/image/ImageView.dart';
 import 'package:simple_memo_app/widget/memo/MemoCategoryList.dart';
 import 'package:simple_memo_app/widget/popup/AlertPopup.dart';
 
-class ImagePage extends StatefulWidget {
-  const ImagePage({super.key});
+class ImageBody extends StatefulWidget {
+  const ImageBody({super.key});
 
   @override
-  State<ImagePage> createState() => _ImagePageState();
+  State<ImageBody> createState() => _ImageBodyState();
 }
 
-class _ImagePageState extends State<ImagePage> {
+class _ImageBodyState extends State<ImageBody> {
   bool isRecent = true;
   String categoryId = 'all';
 
@@ -103,32 +103,28 @@ class _ImagePageState extends State<ImagePage> {
     imageClassList =
         isRecent ? imageClassList.reversed.toList() : imageClassList;
 
-    return CommonBackground(
-      child: CommonScaffold(
-        body: MultiValueListenableBuilder(
-          valueListenables: valueListenables,
-          builder: (context, values, child) {
-            return Column(
-              children: [
-                ImageAppBar(
-                  isRecent: isRecent,
-                  onSlide: () => onSlide(
-                    imageClassList.map((image) => image.uint8List).toList(),
-                  ),
-                  onRecent: onRecent,
-                ),
-                MemoCategoryList(
-                  categoryId: categoryId,
-                  categoryList: categoryList,
-                  onTag: onTag,
-                ),
-                CommonSpace(height: 10),
-                ImageView(imageClassList: imageClassList, onImage: onImage),
-              ],
-            );
-          },
-        ),
-      ),
+    return MultiValueListenableBuilder(
+      valueListenables: valueListenables,
+      builder: (context, values, child) {
+        return Column(
+          children: [
+            ImageAppBar(
+              isRecent: isRecent,
+              onSlide: () => onSlide(
+                imageClassList.map((image) => image.uint8List).toList(),
+              ),
+              onRecent: onRecent,
+            ),
+            ImageView(imageClassList: imageClassList, onImage: onImage),
+            CommonSpace(height: 10),
+            MemoCategoryList(
+              categoryId: categoryId,
+              categoryList: categoryList,
+              onTag: onTag,
+            ),
+          ],
+        );
+      },
     );
   }
 }

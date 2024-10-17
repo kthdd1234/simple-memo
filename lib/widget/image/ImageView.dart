@@ -26,7 +26,7 @@ class ImageView extends StatelessWidget {
     return Expanded(
       child: imageClassList.isNotEmpty
           ? GridView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.only(top: 15),
               itemCount: imageClassList.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: 1,

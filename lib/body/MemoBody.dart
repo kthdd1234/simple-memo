@@ -1,21 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:simple_memo_app/common/CommonBannerAd.dart';
-import 'package:simple_memo_app/common/CommonNull.dart';
+import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
-import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
-import 'package:simple_memo_app/page/ImagePage.dart';
 import 'package:simple_memo_app/page/CategoryPage.dart';
-import 'package:simple_memo_app/page/MemoPage.dart';
-import 'package:simple_memo_app/page/MorePage.dart';
-import 'package:simple_memo_app/page/SearchPage.dart';
+import 'package:simple_memo_app/etc/MemoPage.dart';
 import 'package:simple_memo_app/provider/CopyMemoInfoProvider.dart';
-import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
@@ -26,7 +18,6 @@ import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/appBar/MemoAppBar.dart';
 import 'package:simple_memo_app/widget/bottomSheet/MemoPasteBottomSheet.dart';
 import 'package:simple_memo_app/widget/bottomSheet/MemoSettingBottomSheet.dart';
-import 'package:simple_memo_app/widget/bottomSheet/NativeAdBottomSheet.dart';
 import 'package:simple_memo_app/widget/memo/MemoCalendar.dart';
 import 'package:simple_memo_app/widget/memo/MemoCategoryList.dart';
 import 'package:simple_memo_app/widget/memo/MemoView.dart';
@@ -55,20 +46,8 @@ class _MemoBodyState extends State<MemoBody> {
     setState(() => isCalendar = !isCalendar);
   }
 
-  onSearch() {
-    navigator(context: context, page: const SearchPage());
-  }
-
-  onImages() {
-    navigator(context: context, page: const ImagePage());
-  }
-
   onCategory() {
     navigator(context: context, page: const CategoryPage());
-  }
-
-  onMore() {
-    navigator(context: context, page: const MorePage());
   }
 
   onTag(String selectedId) {
@@ -84,26 +63,15 @@ class _MemoBodyState extends State<MemoBody> {
         context.watch<SelectedMemoCategoryIdProvider>().selectedMemoCategoryId;
     Map<String, dynamic>? copyMemoInfo =
         context.watch<CopyMemoInfoProvider>().copyMemoInfo;
-    bool isPremium = context.watch<PremiumProvider>().isPremium;
 
     UserBox user = userRepository.user;
     double fontSize = user.fontSize ?? defaultFontSize;
 
     onMemo(MemoInfoClass? memoInfo) async {
-      String result = await Navigator.push(
+      await Navigator.push(
         context,
         FadePageRoute(page: MemoPage(initMemoInfo: memoInfo)),
       );
-
-      if (!context.mounted) return;
-
-      if (result == 'showAd' && isPremium == false) {
-        showModalBottomSheet(
-          isScrollControlled: true,
-          context: context,
-          builder: (context) => NativeAdBottomSheet(isLight: isLight),
-        );
-      }
     }
 
     return MultiValueListenableBuilder(
@@ -112,47 +80,20 @@ class _MemoBodyState extends State<MemoBody> {
         MemoInfoClass? memoInfo = getMemoInfo(selectedDateTime, categoryId);
 
         onHorizontalDrag(DragEndDetails dragEndDetails) {
-          List<CategoryBox> categoryList = getCategoryList();
           double? primaryVelocity = dragEndDetails.primaryVelocity;
-          int index = categoryList.indexWhere(
-            (category) => category.id == categoryId,
-          );
 
-          if (index != -1) {
-            if (primaryVelocity == null) {
-              return;
-            } else if (primaryVelocity > 0) {
-              index -= 1;
-
-              if (index > -1) {
-                String beforeCategoryId = categoryList[index].id;
-
-                controller?.scrollTo(
-                  index: index,
-                  duration: const Duration(milliseconds: 500),
-                );
-
-                context
-                    .read<SelectedMemoCategoryIdProvider>()
-                    .setId(beforeCategoryId);
-              }
-            } else if (primaryVelocity < 0) {
-              index += 1;
-
-              if (index < categoryList.length) {
-                String afterCategoryId = categoryList[index].id;
-
-                controller?.scrollTo(
-                  index: index,
-                  duration: const Duration(milliseconds: 500),
-                );
-
-                context
-                    .read<SelectedMemoCategoryIdProvider>()
-                    .setId(afterCategoryId);
-              }
-            }
+          if (primaryVelocity == null) {
+            return;
+          } else if (primaryVelocity > 0) {
+            selectedDateTime =
+                selectedDateTime.subtract(const Duration(days: 1));
+          } else if (primaryVelocity < 0) {
+            selectedDateTime = selectedDateTime.add(const Duration(days: 1));
           }
+
+          context
+              .read<SelectedDateTimeProvider>()
+              .changeSelectedDateTime(dateTime: selectedDateTime);
         }
 
         onLongPress() {
@@ -184,10 +125,7 @@ class _MemoBodyState extends State<MemoBody> {
             MemoAppBar(
               isCalendar: isCalendar,
               onCalendar: onCalendar,
-              onImages: onImages,
               onCategory: onCategory,
-              onSearch: onSearch,
-              onMore: onMore,
             ),
             Expanded(
               child: LayoutBuilder(
@@ -208,12 +146,6 @@ class _MemoBodyState extends State<MemoBody> {
                               onCalendar: onCalendar,
                               onFormatChanged: onFormatChanged,
                             ),
-                            MemoCategoryList(
-                              controller: controller,
-                              categoryId: categoryId,
-                              categoryList: getCategoryList(),
-                              onTag: onTag,
-                            ),
                             Expanded(
                               child: GestureDetector(
                                 onLongPress: onLongPress,
@@ -231,14 +163,25 @@ class _MemoBodyState extends State<MemoBody> {
                                         child: SizedBox(
                                           width:
                                               MediaQuery.of(context).size.width,
-                                          child: Center(
-                                            child: CommonText(
-                                              text: '+ 글쓰기',
-                                              color: isLight
-                                                  ? grey.original
-                                                  : grey.s400,
-                                              fontSize: fontSize + 1,
-                                            ),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.touch_app_rounded,
+                                                color: isLight
+                                                    ? grey.original
+                                                    : grey.s400,
+                                              ),
+                                              CommonSpace(height: 5),
+                                              CommonText(
+                                                text: '화면을 터치해서\n글을 써보세요',
+                                                color: isLight
+                                                    ? grey.original
+                                                    : grey.s400,
+                                                fontSize: fontSize,
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
@@ -252,7 +195,12 @@ class _MemoBodyState extends State<MemoBody> {
                 },
               ),
             ),
-            isPremium == false ? const CommonBannerAd() : const CommonNull()
+            MemoCategoryList(
+              controller: controller,
+              categoryId: categoryId,
+              categoryList: getCategoryList(),
+              onTag: onTag,
+            ),
           ],
         );
       },

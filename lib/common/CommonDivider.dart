@@ -18,7 +18,7 @@ class CommonDivider extends StatelessWidget {
         vertical: vertical ?? 0,
       ),
       child: Divider(
-        color: color ?? (isLight ? grey.s400 : Colors.white30),
+        color: color ?? (isLight ? grey.s400 : grey.s300),
         height: 0,
         thickness: 0.5,
       ),
