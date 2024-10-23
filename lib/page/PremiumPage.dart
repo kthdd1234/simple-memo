@@ -135,7 +135,16 @@ class _PremiumPageState extends State<PremiumPage> {
                     )
                     .toList(),
               ),
-              CommonSpace(height: 5),
+              Spacer(),
+              InkWell(
+                onTap: onRestore,
+                child: CommonText(
+                  text: '구매 항목 복원',
+                  decoration: TextDecoration.underline,
+                  decorationColor: isLight ? Colors.black : Colors.white,
+                ),
+              ),
+              CommonSpace(height: 10),
               isPremium
                   ? CommonSvgText(
                       text: '구매가 완료되었어요 :D',
@@ -156,14 +165,6 @@ class _PremiumPageState extends State<PremiumPage> {
                       onTap: onPurchase,
                     ),
               CommonSpace(height: 10),
-              InkWell(
-                onTap: onRestore,
-                child: CommonText(
-                  text: '구매 항목 복원',
-                  decoration: TextDecoration.underline,
-                  decorationColor: isLight ? Colors.black : Colors.white,
-                ),
-              )
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
@@ -45,12 +46,17 @@ class _CommonBannerAdState extends State<CommonBannerAd> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: SizedBox(
         height: 50,
         child: _isLoaded
             ? AdWidget(ad: _bannerAd!)
-            : Center(child: CommonText(text: 'ads', isNotTr: true)),
+            : Center(
+                child: CommonText(
+                text: 'ads',
+                isNotTr: true,
+                color: Colors.grey,
+              )),
       ),
     );
   }

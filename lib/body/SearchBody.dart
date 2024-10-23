@@ -1,7 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_memo_app/common/CommonBannerAd.dart';
+import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/model/category_box/category_box.dart';
+import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
 import 'package:simple_memo_app/widget/appBar/SearchAppBar.dart';
@@ -51,6 +55,7 @@ class _SearchBodyState extends State<SearchBody> {
   @override
   Widget build(BuildContext context) {
     List<CategoryBox> categoryList = getCategoryList();
+    bool isPremium = context.watch<PremiumProvider>().isPremium;
 
     categoryList.insert(
       0,
@@ -81,6 +86,7 @@ class _SearchBodyState extends State<SearchBody> {
               keyword: keywordController.text,
               categoryId: categoryId,
             ),
+            !isPremium ? const CommonBannerAd() : const CommonNull(),
             MemoCategoryList(
               categoryId: categoryId,
               categoryList: categoryList,

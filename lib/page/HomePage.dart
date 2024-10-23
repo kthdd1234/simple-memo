@@ -30,15 +30,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late AppLifecycleReactor _appLifecycleReactor;
+  // late AppLifecycleReactor _appLifecycleReactor;
 
-  initialzeAppOpening() {
-    AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
-    _appLifecycleReactor = AppLifecycleReactor(
-      appOpenAdManager: appOpenAdManager,
-    );
-    _appLifecycleReactor.listenToAppStateChanges();
-  }
+  // initialzeAppOpening() {
+  //   AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
+  //   _appLifecycleReactor = AppLifecycleReactor(
+  //     appOpenAdManager: appOpenAdManager,
+  //   );
+  //   _appLifecycleReactor.listenToAppStateChanges();
+  // }
 
   initializeDB() {
     UserBox? user = userRepository.user;
@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    initialzeAppOpening();
+    // initialzeAppOpening();
     initializeDB();
     initializePremium();
     initializeCategoryList();
@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
               ? isLight
                   ? Colors.black
                   : Colors.white
-              : grey.s400,
+              : Colors.grey,
         ),
       );
     }

@@ -2,12 +2,15 @@ import 'dart:typed_data';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_memo_app/common/CommonBackground.dart';
+import 'package:simple_memo_app/common/CommonBannerAd.dart';
 import 'package:simple_memo_app/common/CommonScaffold.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/model/category_box/category_box.dart';
 import 'package:simple_memo_app/model/record_box/record_box.dart';
 import 'package:simple_memo_app/page/ImageSlidePage.dart';
+import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/util/class.dart';
 import 'package:simple_memo_app/util/final.dart';
 import 'package:simple_memo_app/util/func.dart';
@@ -65,6 +68,7 @@ class _ImageBodyState extends State<ImageBody> {
   Widget build(BuildContext context) {
     List<ImageClass> imageClassList = [];
     List<CategoryBox> categoryList = getCategoryList();
+    bool isPremium = context.watch<PremiumProvider>().isPremium;
 
     categoryList.insert(
       0,
@@ -116,7 +120,7 @@ class _ImageBodyState extends State<ImageBody> {
               onRecent: onRecent,
             ),
             ImageView(imageClassList: imageClassList, onImage: onImage),
-            CommonSpace(height: 10),
+            !isPremium ? const CommonBannerAd() : CommonSpace(height: 10),
             MemoCategoryList(
               categoryId: categoryId,
               categoryList: categoryList,

@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:simple_memo_app/common/CommonBannerAd.dart';
+import 'package:simple_memo_app/common/CommonNull.dart';
 import 'package:simple_memo_app/common/CommonSpace.dart';
 import 'package:simple_memo_app/common/CommonText.dart';
 import 'package:simple_memo_app/model/user_box/user_box.dart';
 import 'package:simple_memo_app/page/CategoryPage.dart';
 import 'package:simple_memo_app/etc/MemoPage.dart';
 import 'package:simple_memo_app/provider/CopyMemoInfoProvider.dart';
+import 'package:simple_memo_app/provider/PremiumProvider.dart';
 import 'package:simple_memo_app/provider/SelectedMemoCategoryIdProvider.dart';
 import 'package:simple_memo_app/provider/selectedDateTimeProvider.dart';
 import 'package:simple_memo_app/provider/themeProvider.dart';
@@ -56,6 +59,7 @@ class _MemoBodyState extends State<MemoBody> {
 
   @override
   Widget build(BuildContext context) {
+    bool isPremium = context.watch<PremiumProvider>().isPremium;
     bool isLight = context.watch<ThemeProvider>().isLight;
     DateTime selectedDateTime =
         context.watch<SelectedDateTimeProvider>().seletedDateTime;
@@ -195,6 +199,7 @@ class _MemoBodyState extends State<MemoBody> {
                 },
               ),
             ),
+            !isPremium ? const CommonBannerAd() : const CommonNull(),
             MemoCategoryList(
               controller: controller,
               categoryId: categoryId,
